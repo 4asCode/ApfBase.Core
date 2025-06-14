@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F9A2C9A4-E07F-48F5-8130-4D3901B4A161}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ApfBuilder</RootNamespace>
+    <AssemblyName>ApfBuilder</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>..\packages\morelinq.4.4.0\lib\netstandard2.0\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Z.EntityFramework.Extensions, Version=9.103.8.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Z.EntityFramework.Extensions.9.103.8\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context\APFContextExtensions.cs" />
+    <Compile Include="Criteria\CriterionExtension.cs" />
+    <Compile Include="Criteria\CriterionType.cs" />
+    <Compile Include="Criteria\IBaseCaseCriterion.cs" />
+    <Compile Include="Criteria\IEmergencyResponceCriterion.cs" />
+    <Compile Include="Criteria\ICurrentCriterion.cs" />
+    <Compile Include="Criteria\IFrequencyAlternateCriterion.cs" />
+    <Compile Include="Criteria\IFrequencyCriterion.cs" />
+    <Compile Include="Criteria\ISecondaryCriterion.cs" />
+    <Compile Include="PowerFlow\Factory\PowerFlowEmergencyFactory.cs" />
+    <Compile Include="PowerFlow\Factory\PowerFlowForcedStateFactory.cs" />
+    <Compile Include="PowerFlow\Factory\PowerFlowSafeFactory.cs" />
+    <Compile Include="PowerFlow\IComposer.cs" />
+    <Compile Include="PowerFlow\PowerFlowBase.cs" />
+    <Compile Include="PowerFlow\Composer.cs" />
+    <Compile Include="Services\EmergencyResponseHandler.cs" />
+    <Compile Include="PowerFlow\Factory\IPowerFlowCollectionFactory.cs" />
+    <Compile Include="PowerFlow\Factory\IPowerFlowFactory.cs" />
+    <Compile Include="PowerFlow\Factory\PowerFlowCollectionFactory.cs" />
+    <Compile Include="PowerFlow\Factory\PowerFlowStandardFactory.cs" />
+    <Compile Include="PowerFlow\PowerFlowForcedState.cs" />
+    <Compile Include="PowerFlow\IPowerFlow.cs" />
+    <Compile Include="Criteria\CriterionAttribute.cs" />
+    <Compile Include="PowerFlow\PowerFlowEmergency.cs" />
+    <Compile Include="PowerFlow\PowerFlowStandard.cs" />
+    <Compile Include="PowerFlow\PowerFlowSafe.cs" />
+    <Compile Include="Context\APFContext.cs" />
+    <Compile Include="Context\IAPFContext.cs" />
+    <Compile Include="Criteria\CriterionFactory.cs" />
+    <Compile Include="Criteria\ICriterionFactory.cs" />
+    <Compile Include="Services\CriterionSelector .cs" />
+    <Compile Include="Criteria\ICriterion.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Builder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataBaseModels\DataBaseModels.csproj">
+      <Project>{9f34b7d8-5b1b-405b-ad8b-4643cf78baea}</Project>
+      <Name>DataBaseModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.csproj">
+      <Project>{b328ad2f-7acd-463e-94fd-a00fef5eb8de}</Project>
+      <Name>Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

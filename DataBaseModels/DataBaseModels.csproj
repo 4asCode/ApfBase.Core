@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9F34B7D8-5B1B-405B-AD8B-4643CF78BAEA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataBaseModels</RootNamespace>
+    <AssemblyName>DataBaseModels</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>..\packages\morelinq.4.4.0\lib\netstandard2.0\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Z.EntityFramework.Extensions, Version=9.103.8.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Z.EntityFramework.Extensions.9.103.8\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApfBaseEntities\AggregatedEquipment.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\Annex.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\AOPO.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\AOSN.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\APF.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\APNU.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\ARPM.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\EntityAttribute.cs" />
+    <Compile Include="ApfBaseEntities\Entities\AggregatedEquipment.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Annex.cs" />
+    <Compile Include="ApfBaseEntities\Entities\AOPO.cs" />
+    <Compile Include="ApfBaseEntities\Entities\AOSN.cs" />
+    <Compile Include="ApfBaseEntities\Entities\APF.cs" />
+    <Compile Include="ApfBaseEntities\Entities\ApfBaseContext.cs" />
+    <Compile Include="ApfBaseEntities\Entities\APNU.cs" />
+    <Compile Include="ApfBaseEntities\Entities\ARPM.cs" />
+    <Compile Include="ApfBaseEntities\Entities\BoundingElements.cs" />
+    <Compile Include="ApfBaseEntities\Entities\BranchGroup.cs" />
+    <Compile Include="ApfBaseEntities\Entities\BranchGroupScheme.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Conditions.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Disturbances.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Equipment.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EquipmentVsInfluencingEquipment.cs" />
+    <Compile Include="ApfBaseEntities\Entities\InfluencingEquipment.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Management.cs" />
+    <Compile Include="ApfBaseEntities\Entities\PostFaultConditions.cs" />
+    <Compile Include="ApfBaseEntities\Entities\PreFaultConditions.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Seasons.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Setting.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Temperature.cs" />
+    <Compile Include="ApfBaseEntities\EntityExtensions.cs" />
+    <Compile Include="ApfBaseEntities\BoundingElements.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\BranchGroup.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\BranchGroupScheme.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\Conditions.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\Disturbances.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\DataBaseConnection.cs" />
+    <Compile Include="ApfBaseEntities\Equipment.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\EquipmentVsInfluencingEquipment.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\EntityPropertyProxy.cs" />
+    <Compile Include="ApfBaseEntities\EntityProvider.cs" />
+    <Compile Include="ApfBaseEntities\IEmergencyResponse.cs" />
+    <Compile Include="ApfBaseEntities\IEntity.cs" />
+    <Compile Include="ApfBaseEntities\IAPFContextParticipant.cs" />
+    <Compile Include="ApfBaseEntities\InfluencingEquipment.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\IUidProvider.cs" />
+    <Compile Include="ApfBaseEntities\Management.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\PostFaultConditions.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\PreFaultConditions.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\Seasons.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\ApfBaseModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApfBaseModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\ApfBaseModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\ApfBaseModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApfBaseModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\Setting.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\Temperature.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="ApfBaseEntities\ApfBaseModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ApfBaseModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ApfBaseEntities\ApfBaseModel.edmx.diagram">
+      <DependentUpon>ApfBaseModel.edmx</DependentUpon>
+    </None>
+    <None Include="App.Config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApfBaseEntities\ApfBaseModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ApfBaseModel.edmx</DependentUpon>
+      <LastGenOutput>ApfBaseModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ApfBaseEntities\ApfBaseModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ApfBaseModel.edmx</DependentUpon>
+      <LastGenOutput>ApfBaseModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Serialize\Serialize.csproj">
+      <Project>{2393a73c-e1fa-4940-91d5-049d78d4d6e2}</Project>
+      <Name>Serialize</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
