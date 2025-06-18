@@ -22,7 +22,7 @@ namespace RoslynScripting
 
         public void LoadAssembly()
         {
-            var read = new Reader().Read(_settingPath);
+            var read = Reader.Read(_settingPath);
 
             var assembly = new JsonSerializer().
                 Deserialize<AssemblyInfo>(read);

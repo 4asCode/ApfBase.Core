@@ -7,9 +7,9 @@ using System.IO;
 
 namespace Stream
 {
-    public class Reader
+    public static class Reader
     {
-        public List<(string FullPath, string Name)> GetFileName(
+        public static List<(string FullPath, string Name)> GetFileName(
             string directory, string pattern = "*")
         {
             var files = new List<(string FullPath, string Name)>();
@@ -31,7 +31,7 @@ namespace Stream
             return files;
         }
 
-        public string Read(string path)
+        public static string Read(string path)
         {
             try
             {

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Stream
 {
-    public class Writer
+    public static class Writer
     {
-        public void Write(string path, string text)
+        public static void Write(string path, string text)
         {
             try
             {
