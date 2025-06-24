@@ -76,7 +76,10 @@ namespace ApfBuilder.PowerFlow
                 }
             }
 
-            var isNeedPrefix = Criteria.Skip(1).Any();
+            var prefixsCriteria = Criteria.Where(
+                x => !(x is IFrequencyAlternateCriterion)
+                );
+            var isNeedPrefix = prefixsCriteria.Skip(1).Any();
 
             Value = GetValuePrefix(
                 Value.TrimEnd(' ', ';', '\n'), isNeedPrefix
