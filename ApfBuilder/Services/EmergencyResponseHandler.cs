@@ -96,7 +96,7 @@ namespace ApfBuilder.Services
                     if (coefficient != 1)
                         return $"{coefficient}*Δ{value}";
                     else
-                        return value;
+                        return $"Δ{value}";
                 case double _:
                     double? roundValue = (coefficient * (
                         value as double?)
