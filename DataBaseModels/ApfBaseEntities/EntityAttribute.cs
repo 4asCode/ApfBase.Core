@@ -11,6 +11,17 @@ namespace DataBaseModels.ApfBaseEntities
     {
         public class ReferenceDataEntity : Attribute { }
 
+        [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+        public class ProxyForAttribute : Attribute
+        {
+            public string TargetPropertyName { get; }
+
+            public ProxyForAttribute(string targetPropertyName)
+            {
+                TargetPropertyName = targetPropertyName;
+            }
+        }
+
         public IEnumerable<IEntity> GetAssemblyInstance<TEntity>()
         {
             var assembly = Assembly.GetExecutingAssembly();

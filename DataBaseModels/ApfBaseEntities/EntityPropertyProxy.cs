@@ -7,6 +7,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 
 namespace DataBaseModels.ApfBaseEntities
 {
@@ -41,6 +42,8 @@ namespace DataBaseModels.ApfBaseEntities
         public void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        [ProxyFor(nameof(ReplacementOfConditionId))]
+        [ProxyFor(nameof(ReplacementOf))]
         public string ReplacementOfProxy
         {
             get => ReplacementOf?.Name;
@@ -87,6 +90,7 @@ namespace DataBaseModels.ApfBaseEntities
                 this, new PropertyChangedEventArgs(propertyName)
                 );
 
+        [ProxyFor(nameof(LimitPowerFlow))]
         public double? LimitPowerFlowProxy
         {
             get => LimitPowerFlow;
@@ -102,6 +106,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(TemperatureId))]
+        [ProxyFor(nameof(Temperature))]
         public string TemperatureProxy
         {
             get => Temperature?.Value;
@@ -123,6 +129,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(SeasonId))]
+        [ProxyFor(nameof(Seasons))]
         public string SeasonProxy
         {
             get => Seasons?.Value;
@@ -144,6 +152,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(BoundingElementsId))]
+        [ProxyFor(nameof(BoundingElements))]
         public string BoundingElementsProxy
         {
             get => BoundingElements?.Name;
@@ -165,6 +175,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(InfluencingEquipmentId))]
+        [ProxyFor(nameof(InfluencingEquipment))]
         public string InfluencingEquipmentProxy
         {
             get => InfluencingEquipment?.Name;
@@ -196,6 +208,8 @@ namespace DataBaseModels.ApfBaseEntities
                 this, new PropertyChangedEventArgs(propertyName)
                 );
 
+        [ProxyFor(nameof(BoundingElementsId))]
+        [ProxyFor(nameof(BoundingElements))]
         public string BoundingElementsProxy
         {
             get => BoundingElements?.Name;
@@ -217,6 +231,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(DisturbancesId))]
+        [ProxyFor(nameof(Disturbances))]
         public string DisturbancesProxy
         {
             get => Disturbances?.Name;
@@ -238,6 +254,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(AopoId))]
+        [ProxyFor(nameof(AOPO))]
         public string AOPOProxy
         {
             get => AOPO?.Name;
@@ -259,6 +277,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(ApnuId))]
+        [ProxyFor(nameof(APNU))]
         public string APNUProxy
         {
             get => APNU?.Name;
@@ -280,6 +300,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(ArpmId))]
+        [ProxyFor(nameof(ARPM))]
         public string ARPMProxy
         {
             get => ARPM?.Name;
@@ -301,6 +323,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(AosnId))]
+        [ProxyFor(nameof(AOSN))]
         public string AOSNProxy
         {
             get => AOSN?.Name;
@@ -322,6 +346,8 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
+        [ProxyFor(nameof(ConditionsId))]
+        [ProxyFor(nameof(Conditions))]
         public string ConditionsProxy
         {
             get => Conditions?.Name;
@@ -346,9 +372,11 @@ namespace DataBaseModels.ApfBaseEntities
 
     public partial class APF
     {
+        [ProxyFor(nameof(Temperature))]
         public string TemperatureProxy => 
             PreFaultConditions?.Temperature?.Value;
 
+        [ProxyFor(nameof(InfluencingEquipment))]
         public string InfluencingEquipmentProxy =>
             PreFaultConditions?.InfluencingEquipment?.Name;
     }
