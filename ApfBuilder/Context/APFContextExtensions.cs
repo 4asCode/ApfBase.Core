@@ -78,7 +78,7 @@ namespace ApfBuilder.Context
                     CREATE TABLE #TempPreFaultApf 
                     (
                         BranchGroupSchemeUid UNIQUEIDENTIFIER,
-                        PreFaultConditionsId INT PRIMARY KEY,
+                        PreFaultConditionsId INT,
                         BoundingElementsId INT NULL,
                         InfluencingEquipmentId INT NULL,
                         SeasonId INT NULL,
@@ -108,7 +108,8 @@ namespace ApfBuilder.Context
                         PowerFlowSafeValueHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowSafeDescriptionHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowEmergencyValueHandWritten NVARCHAR(MAX) NULL,
-                        PowerFlowEmergencyDescriptionHandWritten NVARCHAR(MAX) NULL
+                        PowerFlowEmergencyDescriptionHandWritten NVARCHAR(MAX) NULL,
+                        PRIMARY KEY(BranchGroupSchemeUid, PreFaultConditionsId)
                     );";
 
                 using (var createCmd = new SqlCommand(
@@ -210,9 +211,10 @@ namespace ApfBuilder.Context
                 string mergePreFaultSql = @"
                     MERGE INTO PreFaultConditions AS Target
                     USING #TempPreFaultApf AS Source
-                    ON Target.Id = Source.PreFaultConditionsId
+                    ON Target.BranchGroupSchemeUid = 
+                        Source.BranchGroupSchemeUid AND 
+                        Target.Id = Source.PreFaultConditionsId
                     WHEN MATCHED THEN UPDATE SET
-                        BranchGroupSchemeUid = Source.BranchGroupSchemeUid,
                         BoundingElementsId = Source.BoundingElementsId,
                         InfluencingEquipmentId = Source.InfluencingEquipmentId,
                         SeasonId = Source.SeasonId,
@@ -229,11 +231,11 @@ namespace ApfBuilder.Context
                 string mergeApfSql = @"
                     MERGE INTO APF AS Target
                     USING #TempPreFaultApf AS Source
-                    ON Target.PreFaultConditionsId = 
-                        Source.PreFaultConditionsId
+                    ON Target.BranchGroupSchemeUid = 
+                        Source.BranchGroupSchemeUid AND 
+                        Target.PreFaultConditionsId = 
+                            Source.PreFaultConditionsId
                     WHEN MATCHED THEN UPDATE SET
-                        BranchGroupSchemeUid = 
-                            Source.BranchGroupSchemeUid,
                         PowerFlowStandardValue = 
                             Source.PowerFlowStandardValue,
                         PowerFlowStandardDescription = 
