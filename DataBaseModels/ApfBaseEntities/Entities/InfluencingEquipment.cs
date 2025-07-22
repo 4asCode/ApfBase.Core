@@ -7,6 +7,7 @@ using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 
 namespace DataBaseModels.ApfBaseEntities
 {
+    [ReferenceDataEntity]
     public partial class InfluencingEquipment : IEntity, IComparable<InfluencingEquipment>
     {
         public override string ToString()

@@ -9,7 +9,7 @@ namespace DataBaseModels.ApfBaseEntities
 {
     public class EntityAttribute
     {
-        public class ReferenceDataEntity : Attribute { }
+        public class ReferenceDataEntityAttribute : Attribute { }
 
         [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
         public class ProxyForAttribute : Attribute
