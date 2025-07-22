@@ -96,6 +96,7 @@
     <Compile Include="ApfBaseEntities\ARPM.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApfBaseEntities\Entities\FrequencyPowerFlow.cs" />
     <Compile Include="ApfBaseEntities\EntityAttribute.cs" />
     <Compile Include="ApfBaseEntities\Entities\AggregatedEquipment.cs" />
     <Compile Include="ApfBaseEntities\Entities\Annex.cs" />
@@ -117,7 +118,6 @@
     <Compile Include="ApfBaseEntities\Entities\PostFaultConditions.cs" />
     <Compile Include="ApfBaseEntities\Entities\PreFaultConditions.cs" />
     <Compile Include="ApfBaseEntities\Entities\Seasons.cs" />
-    <Compile Include="ApfBaseEntities\Entities\Setting.cs" />
     <Compile Include="ApfBaseEntities\Entities\Temperature.cs" />
     <Compile Include="ApfBaseEntities\EntityExtensions.cs" />
     <Compile Include="ApfBaseEntities\BoundingElements.cs">
