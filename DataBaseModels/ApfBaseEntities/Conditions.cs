@@ -17,22 +17,27 @@ namespace DataBaseModels.ApfBaseEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Conditions()
         {
+            this.FrequencyPowerFlow = new HashSet<FrequencyPowerFlow>();
             this.PostFaultConditions = new HashSet<PostFaultConditions>();
-            this.Conditions1 = new HashSet<Conditions>();
+            this.PreFaultConditions = new HashSet<PreFaultConditions>();
+            this.PreFaultConditions1 = new HashSet<PreFaultConditions>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> ReplacementOfConditionId { get; set; }
+        public Nullable<System.Guid> BranchGroupUid { get; set; }
         public string Name { get; set; }
         public string FormalName { get; set; }
         public Nullable<double> MinValue { get; set; }
         public Nullable<double> MaxValue { get; set; }
-        public string Comment { get; set; }
     
+        public virtual BranchGroup BranchGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FrequencyPowerFlow> FrequencyPowerFlow { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostFaultConditions> PostFaultConditions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Conditions> Conditions1 { get; set; }
-        public virtual Conditions Conditions2 { get; set; }
+        public virtual ICollection<PreFaultConditions> PreFaultConditions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PreFaultConditions> PreFaultConditions1 { get; set; }
     }
 }

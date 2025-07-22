@@ -410,36 +410,36 @@ namespace ApfBuilder.Criteria
 
             private Frequency(PostFaultConditions postF) : base()
             {
-                MinValue = postF?.Disturbances?
-                    .PowerFlowBehindBranchMin.Round();
+                //MinValue = postF?.FrequencyPowerFlow?
+                //    .MinValue;
 
-                MaxValue = postF?.Disturbances?
-                    .PowerFlowBehindBranchMax.Round();
+                //MaxValue = postF?.FrequencyPowerFlow?
+                //    .MaxValue;
 
-                Name = postF?.Disturbances?.PowerConsumptionDescription;
+                //Name = postF?.FrequencyPowerFlow?.PowerConsumptionDescription;
 
-                Value = MaxValue;
+                //Value = postF?.FrequencyPowerFlow?.PowerConsumptionFactor;
 
-                FullValue = 
-                (
-                    $"{postF?.Disturbances?.PowerConsumptionFactor}" +
-                    $"*{Name} - ΔPнк", 
-                    $"{postF?.Disturbances?.PowerConsumptionFactor * 100}" +
-                    $"% {Name} - ΔPнк"
-                );
+                //FullValue = 
+                //(
+                //    $"{postF?.Disturbances?.PowerConsumptionFactor}" +
+                //    $"*{Name} - ΔPнк", 
+                //    $"{postF?.Disturbances?.PowerConsumptionFactor * 100}" +
+                //    $"% {Name} - ΔPнк"
+                //);
 
-                Condition = postF.Conditions;
-                Disturbance = postF.Disturbances;
-                EmergencyResponse = EmergencyResponseHandler.
-                    ProcessHandler(this.Type, postF.APNU);
+                //Condition = postF.Conditions;
+                //Disturbance = postF.Disturbances;
+                //EmergencyResponse = EmergencyResponseHandler.
+                //    ProcessHandler(this.Type, postF.APNU);
 
-                MinValueER = MinValue;
-                MaxValueER = MaxValue;
-                foreach (var e in EmergencyResponse)
-                {
-                    MinValueER += e.MinValue;
-                    MaxValueER += e.MaxValue;
-                }
+                //MinValueER = MinValue;
+                //MaxValueER = MaxValue;
+                //foreach (var e in EmergencyResponse)
+                //{
+                //    MinValueER += e.MinValue;
+                //    MaxValueER += e.MaxValue;
+                //}
             }
         }
         #endregion Frequency
@@ -472,22 +472,22 @@ namespace ApfBuilder.Criteria
 
             private FrequencyAlternate(PostFaultConditions postF) : base()
             {
-                StaticCriterion = Static.Create(postF) 
-                    as IEmergencyResponceCriterion;
-                LimitPowerFlow = postF?.PreFaultConditions?.LimitPowerFlow;
-                IrOscExpressions = postF.PreFaultConditions?.IrOscExpressions;
-                LimitPowerFlowByEmergency = StaticCriterion?.Value != null && 
-                    IrOscExpressions != null 
-                    ? StaticCriterion.Value + IrOscExpressions 
-                    : null;
+                //StaticCriterion = Static.Create(postF) 
+                //    as IEmergencyResponceCriterion;
+                //LimitPowerFlow = postF?.PreFaultConditions?.LimitPowerFlow;
+                //IrOscExpressions = postF.PreFaultConditions?.IrOscExpressions;
+                //LimitPowerFlowByEmergency = StaticCriterion?.Value != null && 
+                //    IrOscExpressions != null 
+                //    ? StaticCriterion.Value + IrOscExpressions 
+                //    : null;
 
-                Value = double.MaxValue;
-                Name = postF.Disturbances?.PowerConsumptionDescription;
+                //Value = double.MaxValue;
+                //Name = postF.Disturbances?.PowerConsumptionDescription;
 
-                Condition = postF.Conditions;
-                Disturbance = postF.Disturbances;
-                EmergencyResponse = EmergencyResponseHandler.
-                    ProcessHandler(this.Type, postF.APNU);
+                //Condition = postF.Conditions;
+                //Disturbance = postF.Disturbances;
+                //EmergencyResponse = EmergencyResponseHandler.
+                //    ProcessHandler(this.Type, postF.APNU);
             }
         }
         #endregion FrequencyAlternate

@@ -92,30 +92,30 @@ namespace ApfBuilder.PowerFlow
             var alternateCriteria = Criteria
                 .OfType<IFrequencyAlternateCriterion>();
 
-            Value += "\n";
-            Description += "\n";
-            foreach (var alternateCriterion in alternateCriteria)
-            {
-                Value +=
-                    $"МАКС\n" +
-                    $"({alternateCriterion.StaticCriterion.Value}" +
-                    (alternateCriterion.Condition?.ReplacementOf?.FormalName != null
-                    ? $"{alternateCriterion.Condition.ReplacementOf.FormalName}"
-                    : "") + ";\n" +
-                    $"{alternateCriterion.Disturbance?.PowerConsumptionFactor}" +
-                    $"*({alternateCriterion.Name})" +
-                    $"- ΔPнк)";
-                Description +=
-                    $"\n" +
-                    $"{alternateCriterion.StaticCriterion?.Name}" +
-                    (alternateCriterion.Disturbance?.Number != null 
-                    ? $", ПАР {alternateCriterion.Disturbance.Number}" : "") + ";\n" +
-                    $"{alternateCriterion.Disturbance?.PowerConsumptionFactor * 100}" +
-                    $"% Pпотр ПАР {alternateCriterion.Disturbance?.Number}";
+            //Value += "\n";
+            //Description += "\n";
+            //foreach (var alternateCriterion in alternateCriteria)
+            //{
+            //    Value +=
+            //        $"МАКС\n" +
+            //        $"({alternateCriterion.StaticCriterion.Value}" +
+            //        (alternateCriterion.Condition?.ReplacementOf?.FormalName != null
+            //        ? $"{alternateCriterion.Condition.ReplacementOf.FormalName}"
+            //        : "") + ";\n" +
+            //        $"{alternateCriterion.Disturbance?.PowerConsumptionFactor}" +
+            //        $"*({alternateCriterion.Name})" +
+            //        $"- ΔPнк)";
+            //    Description +=
+            //        $"\n" +
+            //        $"{alternateCriterion.StaticCriterion?.Name}" +
+            //        (alternateCriterion.Disturbance?.Number != null 
+            //        ? $", ПАР {alternateCriterion.Disturbance.Number}" : "") + ";\n" +
+            //        $"{alternateCriterion.Disturbance?.PowerConsumptionFactor * 100}" +
+            //        $"% Pпотр ПАР {alternateCriterion.Disturbance?.Number}";
 
-                Value = TerminateLine(Value);
-                Description = TerminateLine(Description);
-            }
+            //    Value = TerminateLine(Value);
+            //    Description = TerminateLine(Description);
+            //}
         }
     }
 }

@@ -23,14 +23,17 @@ namespace DataBaseModels.ApfBaseEntities
         public System.Guid BranchGroupSchemeUid { get; set; }
         public int Id { get; set; }
         public Nullable<int> BoundingElementsId { get; set; }
-        public Nullable<int> InfluencingEquipmentId { get; set; }
+        public Nullable<System.Guid> InfluencingEquipmentUid { get; set; }
         public Nullable<int> SeasonId { get; set; }
         public Nullable<int> TemperatureId { get; set; }
+        public Nullable<int> StaticConditionsId { get; set; }
+        public Nullable<int> CurrentConditionsId { get; set; }
         public Nullable<bool> UsingRow { get; set; }
         public Nullable<double> LimitPowerFlow { get; set; }
         public Nullable<double> TprPowerFlow { get; set; }
         public Nullable<double> EprPowerFlow { get; set; }
         public Nullable<double> CurrentPowerFlow { get; set; }
+        public Nullable<double> CurrentAOPO { get; set; }
         public Nullable<double> VoltagePowerFlow { get; set; }
         public Nullable<int> IrOscExpressions { get; set; }
         public string Comment { get; set; }
@@ -38,6 +41,8 @@ namespace DataBaseModels.ApfBaseEntities
         public virtual APF APF { get; set; }
         public virtual BoundingElements BoundingElements { get; set; }
         public virtual BranchGroupScheme BranchGroupScheme { get; set; }
+        public virtual Conditions Conditions { get; set; }
+        public virtual Conditions Conditions1 { get; set; }
         public virtual InfluencingEquipment InfluencingEquipment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostFaultConditions> PostFaultConditions { get; set; }

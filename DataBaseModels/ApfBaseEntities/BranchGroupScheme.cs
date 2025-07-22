@@ -18,15 +18,17 @@ namespace DataBaseModels.ApfBaseEntities
         public BranchGroupScheme()
         {
             this.PreFaultConditions = new HashSet<PreFaultConditions>();
+            this.BranchGroup = new HashSet<BranchGroup>();
         }
     
         public System.Guid Uid { get; set; }
         public Nullable<System.Guid> BranchGroupUid { get; set; }
-        public Nullable<int> Number { get; set; }
+        public Nullable<double> Number { get; set; }
         public string Name { get; set; }
     
-        public virtual BranchGroup BranchGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PreFaultConditions> PreFaultConditions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BranchGroup> BranchGroup { get; set; }
     }
 }

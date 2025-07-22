@@ -175,7 +175,7 @@ namespace ApfBuilder.Context
 
                     dataTable.Rows.Add(
                         item.BranchGroupSchemeUid, item.Id, 
-                        item.BoundingElementsId, item.InfluencingEquipmentId,
+                        item.BoundingElementsId, item.InfluencingEquipmentUid,
                         item.SeasonId, item.TemperatureId, 
                         item.UsingRow, item.LimitPowerFlow,
                         item.TprPowerFlow, item.EprPowerFlow, 

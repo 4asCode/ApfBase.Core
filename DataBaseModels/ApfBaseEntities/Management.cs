@@ -15,8 +15,12 @@ namespace DataBaseModels.ApfBaseEntities
     public partial class Management
     {
         public int Id { get; set; }
+        public Nullable<int> TaskId { get; set; }
+        public Nullable<bool> Using { get; set; }
         public string Name { get; set; }
         public string Position { get; set; }
         public Nullable<int> Priority { get; set; }
+    
+        public virtual ManagementTasks ManagementTasks { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace DataBaseModels.ApfBaseEntities
     public partial class EquipmentVsInfluencingEquipment
     {
         public int EquipmentId { get; set; }
-        public int InfluencingEquipmentId { get; set; }
+        public System.Guid InfluencingEquipmentUid { get; set; }
         public string Equipments { get; set; }
     
         public virtual Equipment Equipment { get; set; }

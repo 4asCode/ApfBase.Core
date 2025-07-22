@@ -116,8 +116,6 @@ namespace ApfBuilder.Context
                         .Select(pf => pf.Disturbances))
                     .Include(p => p.PostFaultConditions
                         .Select(pf => pf.Conditions))
-                    .Include(p => p.PostFaultConditions
-                        .Select(pf => pf.Conditions.Conditions2))
                     .AsNoTracking()
                     .ToList();
 

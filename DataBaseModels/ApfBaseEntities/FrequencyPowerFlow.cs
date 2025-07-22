@@ -12,19 +12,23 @@ namespace DataBaseModels.ApfBaseEntities
     using System;
     using System.Collections.Generic;
     
-    public partial class Temperature
+    public partial class FrequencyPowerFlow
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Temperature()
+        public FrequencyPowerFlow()
         {
-            this.PreFaultConditions = new HashSet<PreFaultConditions>();
+            this.PostFaultConditions = new HashSet<PostFaultConditions>();
         }
     
         public int Id { get; set; }
-        public string Value { get; set; }
-        public Nullable<int> Priority { get; set; }
+        public Nullable<int> ConditionId { get; set; }
+        public Nullable<double> PowerConsumptionFactor { get; set; }
+        public string PowerConsumptionDescription { get; set; }
+        public Nullable<double> MinValue { get; set; }
+        public Nullable<double> MaxValue { get; set; }
     
+        public virtual Conditions Conditions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PreFaultConditions> PreFaultConditions { get; set; }
+        public virtual ICollection<PostFaultConditions> PostFaultConditions { get; set; }
     }
 }

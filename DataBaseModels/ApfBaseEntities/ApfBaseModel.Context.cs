@@ -39,12 +39,13 @@ namespace DataBaseModels.ApfBaseEntities
         public virtual DbSet<Disturbances> Disturbances { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
         public virtual DbSet<EquipmentVsInfluencingEquipment> EquipmentVsInfluencingEquipment { get; set; }
+        public virtual DbSet<FrequencyPowerFlow> FrequencyPowerFlow { get; set; }
         public virtual DbSet<InfluencingEquipment> InfluencingEquipment { get; set; }
         public virtual DbSet<Management> Management { get; set; }
+        public virtual DbSet<ManagementTasks> ManagementTasks { get; set; }
         public virtual DbSet<PostFaultConditions> PostFaultConditions { get; set; }
         public virtual DbSet<PreFaultConditions> PreFaultConditions { get; set; }
         public virtual DbSet<Seasons> Seasons { get; set; }
-        public virtual DbSet<Setting> Setting { get; set; }
         public virtual DbSet<Temperature> Temperature { get; set; }
     }
 }

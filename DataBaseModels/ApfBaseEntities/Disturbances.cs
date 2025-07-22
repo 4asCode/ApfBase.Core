@@ -21,14 +21,12 @@ namespace DataBaseModels.ApfBaseEntities
         }
     
         public int Id { get; set; }
+        public Nullable<System.Guid> BranchGroupUid { get; set; }
         public Nullable<int> Number { get; set; }
         public string Name { get; set; }
         public string FormalName { get; set; }
-        public Nullable<double> PowerConsumptionFactor { get; set; }
-        public string PowerConsumptionDescription { get; set; }
-        public Nullable<double> PowerFlowBehindBranchMin { get; set; }
-        public Nullable<double> PowerFlowBehindBranchMax { get; set; }
     
+        public virtual BranchGroup BranchGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostFaultConditions> PostFaultConditions { get; set; }
     }

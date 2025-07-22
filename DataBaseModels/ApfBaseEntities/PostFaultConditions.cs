@@ -24,6 +24,7 @@ namespace DataBaseModels.ApfBaseEntities
         public Nullable<int> ArpmId { get; set; }
         public Nullable<int> AosnId { get; set; }
         public Nullable<int> ConditionsId { get; set; }
+        public Nullable<int> FrequencyPowerFlowId { get; set; }
         public Nullable<bool> UsingRow { get; set; }
         public Nullable<double> EprPowerFlow { get; set; }
         public Nullable<double> DynamicPowerFlow { get; set; }
@@ -39,6 +40,7 @@ namespace DataBaseModels.ApfBaseEntities
         public virtual BoundingElements BoundingElements { get; set; }
         public virtual Conditions Conditions { get; set; }
         public virtual Disturbances Disturbances { get; set; }
+        public virtual FrequencyPowerFlow FrequencyPowerFlow { get; set; }
         public virtual PreFaultConditions PreFaultConditions { get; set; }
     }
 }

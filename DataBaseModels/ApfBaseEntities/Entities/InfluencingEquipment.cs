@@ -14,15 +14,8 @@ namespace DataBaseModels.ApfBaseEntities
             return Name?.ToString();
         }
 
-        public int CompareTo(InfluencingEquipment infEquipment)
-        {
-            if (this.Id < infEquipment.Id)
-                return -1;
-            else if (this.Id > infEquipment.Id)
-                return 1;
-            else
-                return 0;
-        }
+        public int CompareTo(InfluencingEquipment infEquipment) 
+            => string.Compare(Name, infEquipment.Name);
 
         public override bool Equals(object other)
         {
@@ -35,12 +28,12 @@ namespace DataBaseModels.ApfBaseEntities
                 return false;
             }
 
-            return Equals((other as InfluencingEquipment).Id, Id);
+            return Equals((other as InfluencingEquipment).Uid, Uid);
         }
 
         public override int GetHashCode()
         {
-            return new { Id }.GetHashCode();
+            return new { Uid }.GetHashCode();
         }
 
         public void Remove()
@@ -50,7 +43,7 @@ namespace DataBaseModels.ApfBaseEntities
             {
                 var dbSet = context.Set<InfluencingEquipment>();
 
-                var removeEntity = dbSet.Find(Id);
+                var removeEntity = dbSet.Find(Uid);
 
                 if (removeEntity != null)
                 {

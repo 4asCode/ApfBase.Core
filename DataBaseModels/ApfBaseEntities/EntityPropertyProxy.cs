@@ -24,7 +24,6 @@ namespace DataBaseModels.ApfBaseEntities
         ARPMProxy,
         AOSNProxy,
         ConditionsProxy,
-        ReplacementOfProxy,
         LimitPowerFlowProxy
     }
 
@@ -33,51 +32,6 @@ namespace DataBaseModels.ApfBaseEntities
         event PropertyChangedEventHandler PropertyChanged;
 
         void OnPropertyChanged(string propertyName);
-    }
-
-    public partial class Conditions : IPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        [ProxyFor(nameof(ReplacementOfConditionId))]
-        [ProxyFor(nameof(ReplacementOf))]
-        public string ReplacementOfProxy
-        {
-            get => ReplacementOf?.Name;
-            set
-            {
-                using (var context = new ApfBaseContext(
-                    DataBaseConnection.ConnectionString))
-                {
-                    var temp = context.Conditions.FirstOrDefault(
-                        t => t.Name == value);
-
-                    Conditions2 = temp;
-
-                    var usedIds = context.Conditions
-                        .Where(c => c.ReplacementOfConditionId != null && 
-                            c.Id != this.Id)
-                        .Select(c => c.ReplacementOfConditionId)
-                        .ToList();
-
-                    var selected = context.Conditions
-                        .FirstOrDefault(c => c.Name == value && 
-                        !usedIds.Contains(c.Id)
-                        );
-
-                    ReplacementOfConditionId = selected?.Id;
-                    OnPropertyChanged(nameof(ReplacementOf));
-                    OnPropertyChanged(nameof(ReplacementOfConditionId));
-                    OnPropertyChanged(nameof(ReplacementOfProxy));
-                }
-            }
-        }
-
-        [Browsable(false)]
-        public Conditions ReplacementOf => this.Conditions2;
     }
 
     public partial class PreFaultConditions : IPropertyChanged
@@ -175,7 +129,7 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
-        [ProxyFor(nameof(InfluencingEquipmentId))]
+        [ProxyFor(nameof(InfluencingEquipmentUid))]
         [ProxyFor(nameof(InfluencingEquipment))]
         public string InfluencingEquipmentProxy
         {
@@ -189,10 +143,10 @@ namespace DataBaseModels.ApfBaseEntities
                         t => t.Name == value);
 
                     InfluencingEquipment = temp;
-                    InfluencingEquipmentId = temp?.Id;
+                    InfluencingEquipmentUid = temp?.Uid;
 
                     OnPropertyChanged(nameof(InfluencingEquipment));
-                    OnPropertyChanged(nameof(InfluencingEquipmentId));
+                    OnPropertyChanged(nameof(InfluencingEquipmentUid));
                     OnPropertyChanged(nameof(InfluencingEquipmentProxy));
                 }
             }

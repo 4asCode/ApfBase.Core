@@ -17,6 +17,14 @@ namespace DataBaseModels.ApfBaseEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BranchGroup()
         {
+            this.AOPO = new HashSet<AOPO>();
+            this.AOSN = new HashSet<AOSN>();
+            this.APNU = new HashSet<APNU>();
+            this.ARPM = new HashSet<ARPM>();
+            this.BoundingElements = new HashSet<BoundingElements>();
+            this.Conditions = new HashSet<Conditions>();
+            this.Disturbances = new HashSet<Disturbances>();
+            this.Annex = new HashSet<Annex>();
             this.BranchGroupScheme = new HashSet<BranchGroupScheme>();
         }
     
@@ -24,12 +32,25 @@ namespace DataBaseModels.ApfBaseEntities
         public Nullable<int> AnnexId { get; set; }
         public Nullable<int> Number { get; set; }
         public string Name { get; set; }
-        public string CorrectionFactorName { get; set; }
-        public Nullable<double> CorrectionFactorMinValue { get; set; }
-        public Nullable<double> CorrectionFactorMaxValue { get; set; }
+        public Nullable<int> RoundValue { get; set; }
         public string Note { get; set; }
     
-        public virtual Annex Annex { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AOPO> AOPO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AOSN> AOSN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<APNU> APNU { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ARPM> ARPM { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BoundingElements> BoundingElements { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Conditions> Conditions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Disturbances> Disturbances { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Annex> Annex { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BranchGroupScheme> BranchGroupScheme { get; set; }
     }

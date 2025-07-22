@@ -17,12 +17,24 @@ namespace DataBaseModels.ApfBaseEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Seasons()
         {
+            this.AOPO = new HashSet<AOPO>();
+            this.AOSN = new HashSet<AOSN>();
+            this.APNU = new HashSet<APNU>();
+            this.ARPM = new HashSet<ARPM>();
             this.PreFaultConditions = new HashSet<PreFaultConditions>();
         }
     
         public int Id { get; set; }
         public string Value { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AOPO> AOPO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AOSN> AOSN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<APNU> APNU { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ARPM> ARPM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PreFaultConditions> PreFaultConditions { get; set; }
     }

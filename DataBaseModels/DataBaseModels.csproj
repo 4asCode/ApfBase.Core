@@ -144,6 +144,9 @@
     </Compile>
     <Compile Include="ApfBaseEntities\EntityPropertyProxy.cs" />
     <Compile Include="ApfBaseEntities\EntityProvider.cs" />
+    <Compile Include="ApfBaseEntities\FrequencyPowerFlow.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApfBaseEntities\IEmergencyResponse.cs" />
     <Compile Include="ApfBaseEntities\IEntity.cs" />
     <Compile Include="ApfBaseEntities\IAPFContextParticipant.cs" />
@@ -152,6 +155,9 @@
     </Compile>
     <Compile Include="ApfBaseEntities\IUidProvider.cs" />
     <Compile Include="ApfBaseEntities\Management.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\ManagementTasks.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ApfBaseEntities\PostFaultConditions.cs">
@@ -177,9 +183,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ApfBaseModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="ApfBaseEntities\Setting.cs">
-      <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ApfBaseEntities\Temperature.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>

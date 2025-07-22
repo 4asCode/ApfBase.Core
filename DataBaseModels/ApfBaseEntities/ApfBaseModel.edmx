@@ -10,7 +10,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="400" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Annex">
           <Key>
@@ -18,15 +18,25 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="4000" />
-          <Property Name="FormalName" Type="nvarchar" MaxLength="4000" />
-          <Property Name="TableName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="FormalName" Type="nvarchar" MaxLength="500" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="100" />
           <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="AnnexVsBranchGroup">
+          <Key>
+            <PropertyRef Name="AnnexId" />
+            <PropertyRef Name="BranchGroupUid" />
+          </Key>
+          <Property Name="AnnexId" Type="int" Nullable="false" />
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="AOPO">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" />
+          <Property Name="SeasonId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="PowerFlowSetting" Type="float" />
@@ -37,6 +47,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" />
+          <Property Name="SeasonId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="PowerFlowSetting" Type="float" />
@@ -66,12 +78,16 @@
           <Property Name="PowerFlowSafeDescriptionHandWritten" Type="nvarchar" MaxLength="1000" />
           <Property Name="PowerFlowEmergencyValueHandWritten" Type="nvarchar" MaxLength="1000" />
           <Property Name="PowerFlowEmergencyDescriptionHandWritten" Type="nvarchar" MaxLength="1000" />
+          <Property Name="PowerFlowForcedStateValueHandWritten" Type="nvarchar" MaxLength="1000" />
+          <Property Name="PowerFlowForcedStateDescriptionHandWritten" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="APNU">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" />
+          <Property Name="SeasonId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="PowerFlowSetting" Type="float" />
@@ -84,6 +100,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" />
+          <Property Name="SeasonId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="PowerFlowSetting" Type="float" />
@@ -94,9 +112,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" />
           <Property Name="Number" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="4000" />
-          <Property Name="FormalName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="FormalName" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="BranchGroup">
           <Key>
@@ -105,11 +124,9 @@
           <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AnnexId" Type="int" />
           <Property Name="Number" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="500" />
-          <Property Name="CorrectionFactorName" Type="nvarchar" MaxLength="500" />
-          <Property Name="CorrectionFactorMinValue" Type="float" />
-          <Property Name="CorrectionFactorMaxValue" Type="float" />
-          <Property Name="Note" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="RoundValue" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BranchGroupScheme">
           <Key>
@@ -117,33 +134,37 @@
           </Key>
           <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="BranchGroupUid" Type="uniqueidentifier" />
-          <Property Name="Number" Type="int" />
+          <Property Name="Number" Type="float" />
           <Property Name="Name" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="BranchGroupVsBranchGroupScheme">
+          <Key>
+            <PropertyRef Name="BranchGroupUid" />
+            <PropertyRef Name="BranchGroupSchemeUid" />
+          </Key>
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BranchGroupSchemeUid" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Conditions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ReplacementOfConditionId" Type="int" />
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="MinValue" Type="float" />
           <Property Name="MaxValue" Type="float" />
-          <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <EntityType Name="Disturbances">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchGroupUid" Type="uniqueidentifier" />
           <Property Name="Number" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="4000" />
-          <Property Name="FormalName" Type="nvarchar" MaxLength="4000" />
-          <Property Name="PowerConsumptionFactor" Type="float" />
-          <Property Name="PowerConsumptionDescription" Type="nvarchar" MaxLength="100" />
-          <Property Name="PowerFlowBehindBranchMin" Type="float" />
-          <Property Name="PowerFlowBehindBranchMax" Type="float" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="FormalName" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Equipment">
           <Key>
@@ -151,22 +172,33 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AggregatedEquipmentId" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="EquipmentVsInfluencingEquipment">
           <Key>
             <PropertyRef Name="EquipmentId" />
-            <PropertyRef Name="InfluencingEquipmentId" />
+            <PropertyRef Name="InfluencingEquipmentUid" />
           </Key>
           <Property Name="EquipmentId" Type="int" Nullable="false" />
-          <Property Name="InfluencingEquipmentId" Type="int" Nullable="false" />
+          <Property Name="InfluencingEquipmentUid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Equipments" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="InfluencingEquipment">
+        <EntityType Name="FrequencyPowerFlow">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConditionId" Type="int" />
+          <Property Name="PowerConsumptionFactor" Type="float" />
+          <Property Name="PowerConsumptionDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="MinValue" Type="float" />
+          <Property Name="MaxValue" Type="float" />
+        </EntityType>
+        <EntityType Name="InfluencingEquipment">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <EntityType Name="Management">
@@ -174,9 +206,18 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="4000" />
-          <Property Name="Position" Type="nvarchar" MaxLength="4000" />
+          <Property Name="TaskId" Type="int" />
+          <Property Name="Using" Type="bit" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Position" Type="nvarchar" MaxLength="100" />
           <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityType Name="ManagementTasks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="PostFaultConditions">
           <Key>
@@ -194,6 +235,7 @@
           <Property Name="ArpmId" Type="int" />
           <Property Name="AosnId" Type="int" />
           <Property Name="ConditionsId" Type="int" />
+          <Property Name="FrequencyPowerFlowId" Type="int" />
           <Property Name="UsingRow" Type="bit" />
           <Property Name="EprPowerFlow" Type="float" />
           <Property Name="DynamicPowerFlow" Type="float" />
@@ -210,14 +252,17 @@
           <Property Name="BranchGroupSchemeUid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="BoundingElementsId" Type="int" />
-          <Property Name="InfluencingEquipmentId" Type="int" />
+          <Property Name="InfluencingEquipmentUid" Type="uniqueidentifier" />
           <Property Name="SeasonId" Type="int" />
           <Property Name="TemperatureId" Type="int" />
+          <Property Name="StaticConditionsId" Type="int" />
+          <Property Name="CurrentConditionsId" Type="int" />
           <Property Name="UsingRow" Type="bit" />
           <Property Name="LimitPowerFlow" Type="float" />
           <Property Name="TprPowerFlow" Type="float" />
           <Property Name="EprPowerFlow" Type="float" />
           <Property Name="CurrentPowerFlow" Type="float" />
+          <Property Name="CurrentAOPO" Type="float" />
           <Property Name="VoltagePowerFlow" Type="float" />
           <Property Name="IrOscExpressions" Type="int" />
           <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
@@ -227,14 +272,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Value" Type="nvarchar" MaxLength="500" />
-        </EntityType>
-        <EntityType Name="Setting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="RoundValue" Type="int" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Temperature">
           <Key>
@@ -242,8 +280,213 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="100" />
+          <Property Name="Priority" Type="int" />
         </EntityType>
-        <Association Name="AggregatedEquipment_fk">
+        <Association Name="AnnexVsBranchGroup_Annex_fk">
+          <End Role="Annex" Type="Self.Annex" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AnnexVsBranchGroup" Type="Self.AnnexVsBranchGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Annex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnnexVsBranchGroup">
+              <PropertyRef Name="AnnexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AnnexVsBranchGroup_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AnnexVsBranchGroup" Type="Self.AnnexVsBranchGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="AnnexVsBranchGroup">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AOPO_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="0..1" />
+          <End Role="AOPO" Type="Self.AOPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="AOPO">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AOPO_Seasons_fk">
+          <End Role="Seasons" Type="Self.Seasons" Multiplicity="0..1" />
+          <End Role="AOPO" Type="Self.AOPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AOPO">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AOSN_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="0..1" />
+          <End Role="AOSN" Type="Self.AOSN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="AOSN">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AOSN_Seasons_fk">
+          <End Role="Seasons" Type="Self.Seasons" Multiplicity="0..1" />
+          <End Role="AOSN" Type="Self.AOSN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AOSN">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="APF_PreFaultConditions_fk">
+          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="APF" Type="Self.APF" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PreFaultConditions">
+              <PropertyRef Name="BranchGroupSchemeUid" />
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APF">
+              <PropertyRef Name="BranchGroupSchemeUid" />
+              <PropertyRef Name="PreFaultConditionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="APNU_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="0..1" />
+          <End Role="APNU" Type="Self.APNU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="APNU">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="APNU_Seasons_fk">
+          <End Role="Seasons" Type="Self.Seasons" Multiplicity="0..1" />
+          <End Role="APNU" Type="Self.APNU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APNU">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ARPM_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="0..1" />
+          <End Role="ARPM" Type="Self.ARPM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="ARPM">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ARPM_Seasons_fk">
+          <End Role="Seasons" Type="Self.Seasons" Multiplicity="0..1" />
+          <End Role="ARPM" Type="Self.ARPM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ARPM">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BoundingElements_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="0..1" />
+          <End Role="BoundingElements" Type="Self.BoundingElements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="BoundingElements">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchGroupVsBranchGroupScheme_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BranchGroupVsBranchGroupScheme" Type="Self.BranchGroupVsBranchGroupScheme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="BranchGroupVsBranchGroupScheme">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchGroupVsBranchGroupScheme_BranchGroupScheme_fk">
+          <End Role="BranchGroupScheme" Type="Self.BranchGroupScheme" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BranchGroupVsBranchGroupScheme" Type="Self.BranchGroupVsBranchGroupScheme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroupScheme">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="BranchGroupVsBranchGroupScheme">
+              <PropertyRef Name="BranchGroupSchemeUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Conditions_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="0..1" />
+          <End Role="Conditions" Type="Self.Conditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Conditions">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Disturbances_BranchGroup_fk">
+          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="0..1" />
+          <End Role="Disturbances" Type="Self.Disturbances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Disturbances">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Equipment_AggregatedEquipment_fk">
           <End Role="AggregatedEquipment" Type="Self.AggregatedEquipment" Multiplicity="0..1" />
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -252,140 +495,6 @@
             </Principal>
             <Dependent Role="Equipment">
               <PropertyRef Name="AggregatedEquipmentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AnnexBrGr_fk">
-          <End Role="Annex" Type="Self.Annex" Multiplicity="0..1" />
-          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Annex">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BranchGroup">
-              <PropertyRef Name="AnnexId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AOPOPostFaultConditions_fk">
-          <End Role="AOPO" Type="Self.AOPO" Multiplicity="0..1" />
-          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AOPO">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PostFaultConditions">
-              <PropertyRef Name="AopoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AOSNPostFaultConditions_fk">
-          <End Role="AOSN" Type="Self.AOSN" Multiplicity="0..1" />
-          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AOSN">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PostFaultConditions">
-              <PropertyRef Name="AosnId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="APNUPostFaultConditions_fk">
-          <End Role="APNU" Type="Self.APNU" Multiplicity="0..1" />
-          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="APNU">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PostFaultConditions">
-              <PropertyRef Name="ApnuId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ARPMPostFaultConditions_fk">
-          <End Role="ARPM" Type="Self.ARPM" Multiplicity="0..1" />
-          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARPM">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PostFaultConditions">
-              <PropertyRef Name="ArpmId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="BoundingElementsPostFaultConditions_fk">
-          <End Role="BoundingElements" Type="Self.BoundingElements" Multiplicity="0..1" />
-          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BoundingElements">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PostFaultConditions">
-              <PropertyRef Name="BoundingElementsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="BoundingElementsPreFaultConditions_fk">
-          <End Role="BoundingElements" Type="Self.BoundingElements" Multiplicity="0..1" />
-          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BoundingElements">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PreFaultConditions">
-              <PropertyRef Name="BoundingElementsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="BranchGroupBrGrSch_fk">
-          <End Role="BranchGroup" Type="Self.BranchGroup" Multiplicity="0..1" />
-          <End Role="BranchGroupScheme" Type="Self.BranchGroupScheme" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BranchGroup">
-              <PropertyRef Name="Uid" />
-            </Principal>
-            <Dependent Role="BranchGroupScheme">
-              <PropertyRef Name="BranchGroupUid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="BranchGroupSchemePreFaultConditions_fk">
-          <End Role="BranchGroupScheme" Type="Self.BranchGroupScheme" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BranchGroupScheme">
-              <PropertyRef Name="Uid" />
-            </Principal>
-            <Dependent Role="PreFaultConditions">
-              <PropertyRef Name="BranchGroupSchemeUid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ConditionsPostFaultConditions_fk">
-          <End Role="Conditions" Type="Self.Conditions" Multiplicity="0..1" />
-          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conditions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PostFaultConditions">
-              <PropertyRef Name="ConditionsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="DisturbancesPostFaultConditions_fk">
-          <End Role="Disturbances" Type="Self.Disturbances" Multiplicity="0..1" />
-          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Disturbances">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PostFaultConditions">
-              <PropertyRef Name="DisturbancesId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -403,61 +512,143 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Conditions_Replacement">
-          <End Role="Conditions" Type="Self.Conditions" Multiplicity="0..1" />
-          <End Role="Conditions1" Type="Self.Conditions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conditions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Conditions1">
-              <PropertyRef Name="ReplacementOfConditionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="InfluencingEquipment_fk">
+        <Association Name="EquipmentVsInfluencingEquipment_InfluencingEquipment_fk">
           <End Role="InfluencingEquipment" Type="Self.InfluencingEquipment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="EquipmentVsInfluencingEquipment" Type="Self.EquipmentVsInfluencingEquipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InfluencingEquipment">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="Uid" />
             </Principal>
             <Dependent Role="EquipmentVsInfluencingEquipment">
-              <PropertyRef Name="InfluencingEquipmentId" />
+              <PropertyRef Name="InfluencingEquipmentUid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="InfluencingEquipmentPreFaultConditions_fk">
-          <End Role="InfluencingEquipment" Type="Self.InfluencingEquipment" Multiplicity="0..1" />
-          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
+        <Association Name="FrequencyPowerFlow_Conditions_fk">
+          <End Role="Conditions" Type="Self.Conditions" Multiplicity="0..1" />
+          <End Role="FrequencyPowerFlow" Type="Self.FrequencyPowerFlow" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="InfluencingEquipment">
+            <Principal Role="Conditions">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="PreFaultConditions">
-              <PropertyRef Name="InfluencingEquipmentId" />
+            <Dependent Role="FrequencyPowerFlow">
+              <PropertyRef Name="ConditionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="PreFaultConditionsAPF_fk">
-          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="1">
+        <Association Name="Management_ManagementTasks_fk">
+          <End Role="ManagementTasks" Type="Self.ManagementTasks" Multiplicity="0..1" />
+          <End Role="Management" Type="Self.Management" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagementTasks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Management">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_AOPO_fk">
+          <End Role="AOPO" Type="Self.AOPO" Multiplicity="0..1" />
+          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AOPO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="AopoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_AOSN_fk">
+          <End Role="AOSN" Type="Self.AOSN" Multiplicity="0..1" />
+          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AOSN">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="AosnId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_APNU_fk">
+          <End Role="APNU" Type="Self.APNU" Multiplicity="0..1" />
+          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APNU">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="ApnuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_ARPM_fk">
+          <End Role="ARPM" Type="Self.ARPM" Multiplicity="0..1" />
+          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARPM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="ArpmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_BoundingElements_fk">
+          <End Role="BoundingElements" Type="Self.BoundingElements" Multiplicity="0..1" />
+          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BoundingElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="BoundingElementsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_Conditions_fk">
+          <End Role="Conditions" Type="Self.Conditions" Multiplicity="0..1" />
+          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="ConditionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_Disturbances_fk">
+          <End Role="Disturbances" Type="Self.Disturbances" Multiplicity="0..1" />
+          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disturbances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="DisturbancesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_FrequencyPowerFlow_fk">
+          <End Role="FrequencyPowerFlow" Type="Self.FrequencyPowerFlow" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="APF" Type="Self.APF" Multiplicity="0..1" />
+          <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PreFaultConditions">
-              <PropertyRef Name="BranchGroupSchemeUid" />
+            <Principal Role="FrequencyPowerFlow">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="APF">
-              <PropertyRef Name="BranchGroupSchemeUid" />
-              <PropertyRef Name="PreFaultConditionsId" />
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="FrequencyPowerFlowId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="PreFaultConditionsPostFaultConditions_fk">
+        <Association Name="PostFaultConditions_PreFaultConditions_fk">
           <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -473,7 +664,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SeasonPreFaultConditions_fk">
+        <Association Name="PreFaultConditions_BoundingElements_fk">
+          <End Role="BoundingElements" Type="Self.BoundingElements" Multiplicity="0..1" />
+          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BoundingElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreFaultConditions">
+              <PropertyRef Name="BoundingElementsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PreFaultConditions_BranchGroupScheme_fk">
+          <End Role="BranchGroupScheme" Type="Self.BranchGroupScheme" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroupScheme">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="PreFaultConditions">
+              <PropertyRef Name="BranchGroupSchemeUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PreFaultConditions_CurrentConditions_fk">
+          <End Role="Conditions" Type="Self.Conditions" Multiplicity="0..1" />
+          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreFaultConditions">
+              <PropertyRef Name="CurrentConditionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PreFaultConditions_InfluencingEquipment_fk">
+          <End Role="InfluencingEquipment" Type="Self.InfluencingEquipment" Multiplicity="0..1" />
+          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfluencingEquipment">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="PreFaultConditions">
+              <PropertyRef Name="InfluencingEquipmentUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PreFaultConditions_Seasons_fk">
           <End Role="Seasons" Type="Self.Seasons" Multiplicity="0..1" />
           <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -485,7 +726,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="TemperaturePreFaultConditions_fk">
+        <Association Name="PreFaultConditions_StaticConditions_fk">
+          <End Role="Conditions" Type="Self.Conditions" Multiplicity="0..1" />
+          <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreFaultConditions">
+              <PropertyRef Name="StaticConditionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PreFaultConditions_Temperature_fk">
           <End Role="Temperature" Type="Self.Temperature" Multiplicity="0..1" />
           <End Role="PreFaultConditions" Type="Self.PreFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -500,6 +753,7 @@
         <EntityContainer Name="Хранилище ApfBaseModelContainer">
           <EntitySet Name="AggregatedEquipment" EntityType="Self.AggregatedEquipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Annex" EntityType="Self.Annex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnnexVsBranchGroup" EntityType="Self.AnnexVsBranchGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AOPO" EntityType="Self.AOPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AOSN" EntityType="Self.AOSN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APF" EntityType="Self.APF" Schema="dbo" store:Type="Tables" />
@@ -508,94 +762,164 @@
           <EntitySet Name="BoundingElements" EntityType="Self.BoundingElements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BranchGroup" EntityType="Self.BranchGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BranchGroupScheme" EntityType="Self.BranchGroupScheme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BranchGroupVsBranchGroupScheme" EntityType="Self.BranchGroupVsBranchGroupScheme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Conditions" EntityType="Self.Conditions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Disturbances" EntityType="Self.Disturbances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EquipmentVsInfluencingEquipment" EntityType="Self.EquipmentVsInfluencingEquipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrequencyPowerFlow" EntityType="Self.FrequencyPowerFlow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InfluencingEquipment" EntityType="Self.InfluencingEquipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Management" EntityType="Self.Management" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagementTasks" EntityType="Self.ManagementTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PostFaultConditions" EntityType="Self.PostFaultConditions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PreFaultConditions" EntityType="Self.PreFaultConditions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seasons" EntityType="Self.Seasons" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Setting" EntityType="Self.Setting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Temperature" EntityType="Self.Temperature" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="AggregatedEquipment_fk" Association="Self.AggregatedEquipment_fk">
+          <AssociationSet Name="AnnexVsBranchGroup_Annex_fk" Association="Self.AnnexVsBranchGroup_Annex_fk">
+            <End Role="Annex" EntitySet="Annex" />
+            <End Role="AnnexVsBranchGroup" EntitySet="AnnexVsBranchGroup" />
+          </AssociationSet>
+          <AssociationSet Name="AnnexVsBranchGroup_BranchGroup_fk" Association="Self.AnnexVsBranchGroup_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="AnnexVsBranchGroup" EntitySet="AnnexVsBranchGroup" />
+          </AssociationSet>
+          <AssociationSet Name="AOPO_BranchGroup_fk" Association="Self.AOPO_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="AOPO" EntitySet="AOPO" />
+          </AssociationSet>
+          <AssociationSet Name="AOPO_Seasons_fk" Association="Self.AOPO_Seasons_fk">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="AOPO" EntitySet="AOPO" />
+          </AssociationSet>
+          <AssociationSet Name="AOSN_BranchGroup_fk" Association="Self.AOSN_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="AOSN" EntitySet="AOSN" />
+          </AssociationSet>
+          <AssociationSet Name="AOSN_Seasons_fk" Association="Self.AOSN_Seasons_fk">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="AOSN" EntitySet="AOSN" />
+          </AssociationSet>
+          <AssociationSet Name="APF_PreFaultConditions_fk" Association="Self.APF_PreFaultConditions_fk">
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+            <End Role="APF" EntitySet="APF" />
+          </AssociationSet>
+          <AssociationSet Name="APNU_BranchGroup_fk" Association="Self.APNU_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="APNU" EntitySet="APNU" />
+          </AssociationSet>
+          <AssociationSet Name="APNU_Seasons_fk" Association="Self.APNU_Seasons_fk">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="APNU" EntitySet="APNU" />
+          </AssociationSet>
+          <AssociationSet Name="ARPM_BranchGroup_fk" Association="Self.ARPM_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="ARPM" EntitySet="ARPM" />
+          </AssociationSet>
+          <AssociationSet Name="ARPM_Seasons_fk" Association="Self.ARPM_Seasons_fk">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="ARPM" EntitySet="ARPM" />
+          </AssociationSet>
+          <AssociationSet Name="BoundingElements_BranchGroup_fk" Association="Self.BoundingElements_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="BoundingElements" EntitySet="BoundingElements" />
+          </AssociationSet>
+          <AssociationSet Name="BranchGroupVsBranchGroupScheme_BranchGroup_fk" Association="Self.BranchGroupVsBranchGroupScheme_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="BranchGroupVsBranchGroupScheme" EntitySet="BranchGroupVsBranchGroupScheme" />
+          </AssociationSet>
+          <AssociationSet Name="BranchGroupVsBranchGroupScheme_BranchGroupScheme_fk" Association="Self.BranchGroupVsBranchGroupScheme_BranchGroupScheme_fk">
+            <End Role="BranchGroupScheme" EntitySet="BranchGroupScheme" />
+            <End Role="BranchGroupVsBranchGroupScheme" EntitySet="BranchGroupVsBranchGroupScheme" />
+          </AssociationSet>
+          <AssociationSet Name="Conditions_BranchGroup_fk" Association="Self.Conditions_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="Conditions" EntitySet="Conditions" />
+          </AssociationSet>
+          <AssociationSet Name="Disturbances_BranchGroup_fk" Association="Self.Disturbances_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="Disturbances" EntitySet="Disturbances" />
+          </AssociationSet>
+          <AssociationSet Name="Equipment_AggregatedEquipment_fk" Association="Self.Equipment_AggregatedEquipment_fk">
             <End Role="AggregatedEquipment" EntitySet="AggregatedEquipment" />
             <End Role="Equipment" EntitySet="Equipment" />
-          </AssociationSet>
-          <AssociationSet Name="AnnexBrGr_fk" Association="Self.AnnexBrGr_fk">
-            <End Role="Annex" EntitySet="Annex" />
-            <End Role="BranchGroup" EntitySet="BranchGroup" />
-          </AssociationSet>
-          <AssociationSet Name="AOPOPostFaultConditions_fk" Association="Self.AOPOPostFaultConditions_fk">
-            <End Role="AOPO" EntitySet="AOPO" />
-            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="AOSNPostFaultConditions_fk" Association="Self.AOSNPostFaultConditions_fk">
-            <End Role="AOSN" EntitySet="AOSN" />
-            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="APNUPostFaultConditions_fk" Association="Self.APNUPostFaultConditions_fk">
-            <End Role="APNU" EntitySet="APNU" />
-            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="ARPMPostFaultConditions_fk" Association="Self.ARPMPostFaultConditions_fk">
-            <End Role="ARPM" EntitySet="ARPM" />
-            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="BoundingElementsPostFaultConditions_fk" Association="Self.BoundingElementsPostFaultConditions_fk">
-            <End Role="BoundingElements" EntitySet="BoundingElements" />
-            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="BoundingElementsPreFaultConditions_fk" Association="Self.BoundingElementsPreFaultConditions_fk">
-            <End Role="BoundingElements" EntitySet="BoundingElements" />
-            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="BranchGroupBrGrSch_fk" Association="Self.BranchGroupBrGrSch_fk">
-            <End Role="BranchGroup" EntitySet="BranchGroup" />
-            <End Role="BranchGroupScheme" EntitySet="BranchGroupScheme" />
-          </AssociationSet>
-          <AssociationSet Name="BranchGroupSchemePreFaultConditions_fk" Association="Self.BranchGroupSchemePreFaultConditions_fk">
-            <End Role="BranchGroupScheme" EntitySet="BranchGroupScheme" />
-            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="ConditionsPostFaultConditions_fk" Association="Self.ConditionsPostFaultConditions_fk">
-            <End Role="Conditions" EntitySet="Conditions" />
-            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="DisturbancesPostFaultConditions_fk" Association="Self.DisturbancesPostFaultConditions_fk">
-            <End Role="Disturbances" EntitySet="Disturbances" />
-            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
           <AssociationSet Name="Equipment_fk" Association="Self.Equipment_fk">
             <End Role="Equipment" EntitySet="Equipment" />
             <End Role="EquipmentVsInfluencingEquipment" EntitySet="EquipmentVsInfluencingEquipment" />
           </AssociationSet>
-          <AssociationSet Name="FK_Conditions_Replacement" Association="Self.FK_Conditions_Replacement">
-            <End Role="Conditions" EntitySet="Conditions" />
-            <End Role="Conditions1" EntitySet="Conditions" />
-          </AssociationSet>
-          <AssociationSet Name="InfluencingEquipment_fk" Association="Self.InfluencingEquipment_fk">
+          <AssociationSet Name="EquipmentVsInfluencingEquipment_InfluencingEquipment_fk" Association="Self.EquipmentVsInfluencingEquipment_InfluencingEquipment_fk">
             <End Role="InfluencingEquipment" EntitySet="InfluencingEquipment" />
             <End Role="EquipmentVsInfluencingEquipment" EntitySet="EquipmentVsInfluencingEquipment" />
           </AssociationSet>
-          <AssociationSet Name="InfluencingEquipmentPreFaultConditions_fk" Association="Self.InfluencingEquipmentPreFaultConditions_fk">
-            <End Role="InfluencingEquipment" EntitySet="InfluencingEquipment" />
-            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          <AssociationSet Name="FrequencyPowerFlow_Conditions_fk" Association="Self.FrequencyPowerFlow_Conditions_fk">
+            <End Role="Conditions" EntitySet="Conditions" />
+            <End Role="FrequencyPowerFlow" EntitySet="FrequencyPowerFlow" />
           </AssociationSet>
-          <AssociationSet Name="PreFaultConditionsAPF_fk" Association="Self.PreFaultConditionsAPF_fk">
-            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
-            <End Role="APF" EntitySet="APF" />
+          <AssociationSet Name="Management_ManagementTasks_fk" Association="Self.Management_ManagementTasks_fk">
+            <End Role="ManagementTasks" EntitySet="ManagementTasks" />
+            <End Role="Management" EntitySet="Management" />
           </AssociationSet>
-          <AssociationSet Name="PreFaultConditionsPostFaultConditions_fk" Association="Self.PreFaultConditionsPostFaultConditions_fk">
+          <AssociationSet Name="PostFaultConditions_AOPO_fk" Association="Self.PostFaultConditions_AOPO_fk">
+            <End Role="AOPO" EntitySet="AOPO" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_AOSN_fk" Association="Self.PostFaultConditions_AOSN_fk">
+            <End Role="AOSN" EntitySet="AOSN" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_APNU_fk" Association="Self.PostFaultConditions_APNU_fk">
+            <End Role="APNU" EntitySet="APNU" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_ARPM_fk" Association="Self.PostFaultConditions_ARPM_fk">
+            <End Role="ARPM" EntitySet="ARPM" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_BoundingElements_fk" Association="Self.PostFaultConditions_BoundingElements_fk">
+            <End Role="BoundingElements" EntitySet="BoundingElements" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_Conditions_fk" Association="Self.PostFaultConditions_Conditions_fk">
+            <End Role="Conditions" EntitySet="Conditions" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_Disturbances_fk" Association="Self.PostFaultConditions_Disturbances_fk">
+            <End Role="Disturbances" EntitySet="Disturbances" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_FrequencyPowerFlow_fk" Association="Self.PostFaultConditions_FrequencyPowerFlow_fk">
+            <End Role="FrequencyPowerFlow" EntitySet="FrequencyPowerFlow" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_PreFaultConditions_fk" Association="Self.PostFaultConditions_PreFaultConditions_fk">
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="SeasonPreFaultConditions_fk" Association="Self.SeasonPreFaultConditions_fk">
+          <AssociationSet Name="PreFaultConditions_BoundingElements_fk" Association="Self.PreFaultConditions_BoundingElements_fk">
+            <End Role="BoundingElements" EntitySet="BoundingElements" />
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PreFaultConditions_BranchGroupScheme_fk" Association="Self.PreFaultConditions_BranchGroupScheme_fk">
+            <End Role="BranchGroupScheme" EntitySet="BranchGroupScheme" />
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PreFaultConditions_CurrentConditions_fk" Association="Self.PreFaultConditions_CurrentConditions_fk">
+            <End Role="Conditions" EntitySet="Conditions" />
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PreFaultConditions_InfluencingEquipment_fk" Association="Self.PreFaultConditions_InfluencingEquipment_fk">
+            <End Role="InfluencingEquipment" EntitySet="InfluencingEquipment" />
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PreFaultConditions_Seasons_fk" Association="Self.PreFaultConditions_Seasons_fk">
             <End Role="Seasons" EntitySet="Seasons" />
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="TemperaturePreFaultConditions_fk" Association="Self.TemperaturePreFaultConditions_fk">
+          <AssociationSet Name="PreFaultConditions_StaticConditions_fk" Association="Self.PreFaultConditions_StaticConditions_fk">
+            <End Role="Conditions" EntitySet="Conditions" />
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PreFaultConditions_Temperature_fk" Association="Self.PreFaultConditions_Temperature_fk">
             <End Role="Temperature" EntitySet="Temperature" />
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
           </AssociationSet>
@@ -619,66 +943,111 @@
           <EntitySet Name="Disturbances" EntityType="ApfBaseModel.Disturbances" />
           <EntitySet Name="Equipment" EntityType="ApfBaseModel.Equipment" />
           <EntitySet Name="EquipmentVsInfluencingEquipment" EntityType="ApfBaseModel.EquipmentVsInfluencingEquipment" />
+          <EntitySet Name="FrequencyPowerFlow" EntityType="ApfBaseModel.FrequencyPowerFlow" />
           <EntitySet Name="InfluencingEquipment" EntityType="ApfBaseModel.InfluencingEquipment" />
           <EntitySet Name="Management" EntityType="ApfBaseModel.Management" />
+          <EntitySet Name="ManagementTasks" EntityType="ApfBaseModel.ManagementTasks" />
           <EntitySet Name="PostFaultConditions" EntityType="ApfBaseModel.PostFaultConditions" />
           <EntitySet Name="PreFaultConditions" EntityType="ApfBaseModel.PreFaultConditions" />
           <EntitySet Name="Seasons" EntityType="ApfBaseModel.Seasons" />
-          <EntitySet Name="Setting" EntityType="ApfBaseModel.Setting" />
           <EntitySet Name="Temperature" EntityType="ApfBaseModel.Temperature" />
-          <AssociationSet Name="AggregatedEquipment_fk" Association="ApfBaseModel.AggregatedEquipment_fk">
+          <AssociationSet Name="Equipment_AggregatedEquipment_fk" Association="ApfBaseModel.Equipment_AggregatedEquipment_fk">
             <End Role="AggregatedEquipment" EntitySet="AggregatedEquipment" />
             <End Role="Equipment" EntitySet="Equipment" />
           </AssociationSet>
-          <AssociationSet Name="AnnexBrGr_fk" Association="ApfBaseModel.AnnexBrGr_fk">
-            <End Role="Annex" EntitySet="Annex" />
+          <AssociationSet Name="AOPO_BranchGroup_fk" Association="ApfBaseModel.AOPO_BranchGroup_fk">
             <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="AOPO" EntitySet="AOPO" />
           </AssociationSet>
-          <AssociationSet Name="AOPOPostFaultConditions_fk" Association="ApfBaseModel.AOPOPostFaultConditions_fk">
+          <AssociationSet Name="AOPO_Seasons_fk" Association="ApfBaseModel.AOPO_Seasons_fk">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="AOPO" EntitySet="AOPO" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_AOPO_fk" Association="ApfBaseModel.PostFaultConditions_AOPO_fk">
             <End Role="AOPO" EntitySet="AOPO" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="AOSNPostFaultConditions_fk" Association="ApfBaseModel.AOSNPostFaultConditions_fk">
+          <AssociationSet Name="AOSN_BranchGroup_fk" Association="ApfBaseModel.AOSN_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="AOSN" EntitySet="AOSN" />
+          </AssociationSet>
+          <AssociationSet Name="AOSN_Seasons_fk" Association="ApfBaseModel.AOSN_Seasons_fk">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="AOSN" EntitySet="AOSN" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_AOSN_fk" Association="ApfBaseModel.PostFaultConditions_AOSN_fk">
             <End Role="AOSN" EntitySet="AOSN" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="PreFaultConditionsAPF_fk" Association="ApfBaseModel.PreFaultConditionsAPF_fk">
+          <AssociationSet Name="APF_PreFaultConditions_fk" Association="ApfBaseModel.APF_PreFaultConditions_fk">
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
             <End Role="APF" EntitySet="APF" />
           </AssociationSet>
-          <AssociationSet Name="APNUPostFaultConditions_fk" Association="ApfBaseModel.APNUPostFaultConditions_fk">
+          <AssociationSet Name="APNU_BranchGroup_fk" Association="ApfBaseModel.APNU_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="APNU" EntitySet="APNU" />
+          </AssociationSet>
+          <AssociationSet Name="APNU_Seasons_fk" Association="ApfBaseModel.APNU_Seasons_fk">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="APNU" EntitySet="APNU" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_APNU_fk" Association="ApfBaseModel.PostFaultConditions_APNU_fk">
             <End Role="APNU" EntitySet="APNU" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="ARPMPostFaultConditions_fk" Association="ApfBaseModel.ARPMPostFaultConditions_fk">
+          <AssociationSet Name="ARPM_BranchGroup_fk" Association="ApfBaseModel.ARPM_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="ARPM" EntitySet="ARPM" />
+          </AssociationSet>
+          <AssociationSet Name="ARPM_Seasons_fk" Association="ApfBaseModel.ARPM_Seasons_fk">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="ARPM" EntitySet="ARPM" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_ARPM_fk" Association="ApfBaseModel.PostFaultConditions_ARPM_fk">
             <End Role="ARPM" EntitySet="ARPM" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="BoundingElementsPostFaultConditions_fk" Association="ApfBaseModel.BoundingElementsPostFaultConditions_fk">
-            <End Role="BoundingElements" EntitySet="BoundingElements" />
-            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="BoundingElementsPreFaultConditions_fk" Association="ApfBaseModel.BoundingElementsPreFaultConditions_fk">
-            <End Role="BoundingElements" EntitySet="BoundingElements" />
-            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="BranchGroupBrGrSch_fk" Association="ApfBaseModel.BranchGroupBrGrSch_fk">
+          <AssociationSet Name="BoundingElements_BranchGroup_fk" Association="ApfBaseModel.BoundingElements_BranchGroup_fk">
             <End Role="BranchGroup" EntitySet="BranchGroup" />
-            <End Role="BranchGroupScheme" EntitySet="BranchGroupScheme" />
+            <End Role="BoundingElements" EntitySet="BoundingElements" />
           </AssociationSet>
-          <AssociationSet Name="BranchGroupSchemePreFaultConditions_fk" Association="ApfBaseModel.BranchGroupSchemePreFaultConditions_fk">
+          <AssociationSet Name="PostFaultConditions_BoundingElements_fk" Association="ApfBaseModel.PostFaultConditions_BoundingElements_fk">
+            <End Role="BoundingElements" EntitySet="BoundingElements" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PreFaultConditions_BoundingElements_fk" Association="ApfBaseModel.PreFaultConditions_BoundingElements_fk">
+            <End Role="BoundingElements" EntitySet="BoundingElements" />
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="Conditions_BranchGroup_fk" Association="ApfBaseModel.Conditions_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="Conditions" EntitySet="Conditions" />
+          </AssociationSet>
+          <AssociationSet Name="Disturbances_BranchGroup_fk" Association="ApfBaseModel.Disturbances_BranchGroup_fk">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="Disturbances" EntitySet="Disturbances" />
+          </AssociationSet>
+          <AssociationSet Name="PreFaultConditions_BranchGroupScheme_fk" Association="ApfBaseModel.PreFaultConditions_BranchGroupScheme_fk">
             <End Role="BranchGroupScheme" EntitySet="BranchGroupScheme" />
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="ConditionsPostFaultConditions_fk" Association="ApfBaseModel.ConditionsPostFaultConditions_fk">
+          <AssociationSet Name="FrequencyPowerFlow_Conditions_fk" Association="ApfBaseModel.FrequencyPowerFlow_Conditions_fk">
+            <End Role="Conditions" EntitySet="Conditions" />
+            <End Role="FrequencyPowerFlow" EntitySet="FrequencyPowerFlow" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_Conditions_fk" Association="ApfBaseModel.PostFaultConditions_Conditions_fk">
             <End Role="Conditions" EntitySet="Conditions" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Conditions_Replacement" Association="ApfBaseModel.FK_Conditions_Replacement">
+          <AssociationSet Name="PreFaultConditions_CurrentConditions_fk" Association="ApfBaseModel.PreFaultConditions_CurrentConditions_fk">
             <End Role="Conditions" EntitySet="Conditions" />
-            <End Role="Conditions1" EntitySet="Conditions" />
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="DisturbancesPostFaultConditions_fk" Association="ApfBaseModel.DisturbancesPostFaultConditions_fk">
+          <AssociationSet Name="PreFaultConditions_StaticConditions_fk" Association="ApfBaseModel.PreFaultConditions_StaticConditions_fk">
+            <End Role="Conditions" EntitySet="Conditions" />
+            <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_Disturbances_fk" Association="ApfBaseModel.PostFaultConditions_Disturbances_fk">
             <End Role="Disturbances" EntitySet="Disturbances" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
@@ -686,25 +1055,41 @@
             <End Role="Equipment" EntitySet="Equipment" />
             <End Role="EquipmentVsInfluencingEquipment" EntitySet="EquipmentVsInfluencingEquipment" />
           </AssociationSet>
-          <AssociationSet Name="InfluencingEquipment_fk" Association="ApfBaseModel.InfluencingEquipment_fk">
+          <AssociationSet Name="EquipmentVsInfluencingEquipment_InfluencingEquipment_fk" Association="ApfBaseModel.EquipmentVsInfluencingEquipment_InfluencingEquipment_fk">
             <End Role="InfluencingEquipment" EntitySet="InfluencingEquipment" />
             <End Role="EquipmentVsInfluencingEquipment" EntitySet="EquipmentVsInfluencingEquipment" />
           </AssociationSet>
-          <AssociationSet Name="InfluencingEquipmentPreFaultConditions_fk" Association="ApfBaseModel.InfluencingEquipmentPreFaultConditions_fk">
+          <AssociationSet Name="PostFaultConditions_FrequencyPowerFlow_fk" Association="ApfBaseModel.PostFaultConditions_FrequencyPowerFlow_fk">
+            <End Role="FrequencyPowerFlow" EntitySet="FrequencyPowerFlow" />
+            <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="PreFaultConditions_InfluencingEquipment_fk" Association="ApfBaseModel.PreFaultConditions_InfluencingEquipment_fk">
             <End Role="InfluencingEquipment" EntitySet="InfluencingEquipment" />
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="PreFaultConditionsPostFaultConditions_fk" Association="ApfBaseModel.PreFaultConditionsPostFaultConditions_fk">
+          <AssociationSet Name="Management_ManagementTasks_fk" Association="ApfBaseModel.Management_ManagementTasks_fk">
+            <End Role="ManagementTasks" EntitySet="ManagementTasks" />
+            <End Role="Management" EntitySet="Management" />
+          </AssociationSet>
+          <AssociationSet Name="PostFaultConditions_PreFaultConditions_fk" Association="ApfBaseModel.PostFaultConditions_PreFaultConditions_fk">
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="SeasonPreFaultConditions_fk" Association="ApfBaseModel.SeasonPreFaultConditions_fk">
+          <AssociationSet Name="PreFaultConditions_Seasons_fk" Association="ApfBaseModel.PreFaultConditions_Seasons_fk">
             <End Role="Seasons" EntitySet="Seasons" />
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="TemperaturePreFaultConditions_fk" Association="ApfBaseModel.TemperaturePreFaultConditions_fk">
+          <AssociationSet Name="PreFaultConditions_Temperature_fk" Association="ApfBaseModel.PreFaultConditions_Temperature_fk">
             <End Role="Temperature" EntitySet="Temperature" />
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
+          </AssociationSet>
+          <AssociationSet Name="AnnexVsBranchGroup" Association="ApfBaseModel.AnnexVsBranchGroup">
+            <End Role="Annex" EntitySet="Annex" />
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+          </AssociationSet>
+          <AssociationSet Name="BranchGroupVsBranchGroupScheme" Association="ApfBaseModel.BranchGroupVsBranchGroupScheme">
+            <End Role="BranchGroup" EntitySet="BranchGroup" />
+            <End Role="BranchGroupScheme" EntitySet="BranchGroupScheme" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AggregatedEquipment">
@@ -712,8 +1097,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Equipment" Relationship="ApfBaseModel.AggregatedEquipment_fk" FromRole="AggregatedEquipment" ToRole="Equipment" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Equipment" Relationship="ApfBaseModel.Equipment_AggregatedEquipment_fk" FromRole="AggregatedEquipment" ToRole="Equipment" />
         </EntityType>
         <EntityType Name="Annex">
           <Key>
@@ -721,32 +1106,40 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="FormalName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="TableName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FormalName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TableName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.AnnexBrGr_fk" FromRole="Annex" ToRole="BranchGroup" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.AnnexVsBranchGroup" FromRole="Annex" ToRole="BranchGroup" />
         </EntityType>
         <EntityType Name="AOPO">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchGroupUid" Type="Guid" />
+          <Property Name="SeasonId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowSetting" Type="Double" />
           <Property Name="Coefficient" Type="Double" />
-          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.AOPOPostFaultConditions_fk" FromRole="AOPO" ToRole="PostFaultConditions" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.AOPO_BranchGroup_fk" FromRole="AOPO" ToRole="BranchGroup" />
+          <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.AOPO_Seasons_fk" FromRole="AOPO" ToRole="Seasons" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_AOPO_fk" FromRole="AOPO" ToRole="PostFaultConditions" />
         </EntityType>
         <EntityType Name="AOSN">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchGroupUid" Type="Guid" />
+          <Property Name="SeasonId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowSetting" Type="Double" />
           <Property Name="Coefficient" Type="Double" />
-          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.AOSNPostFaultConditions_fk" FromRole="AOSN" ToRole="PostFaultConditions" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.AOSN_BranchGroup_fk" FromRole="AOSN" ToRole="BranchGroup" />
+          <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.AOSN_Seasons_fk" FromRole="AOSN" ToRole="Seasons" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_AOSN_fk" FromRole="AOSN" ToRole="PostFaultConditions" />
         </EntityType>
         <EntityType Name="APF">
           <Key>
@@ -772,42 +1165,54 @@
           <Property Name="PowerFlowSafeDescriptionHandWritten" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowEmergencyValueHandWritten" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowEmergencyDescriptionHandWritten" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditionsAPF_fk" FromRole="APF" ToRole="PreFaultConditions" />
+          <Property Name="PowerFlowForcedStateValueHandWritten" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="PowerFlowForcedStateDescriptionHandWritten" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.APF_PreFaultConditions_fk" FromRole="APF" ToRole="PreFaultConditions" />
         </EntityType>
         <EntityType Name="APNU">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchGroupUid" Type="Guid" />
+          <Property Name="SeasonId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowSetting" Type="Double" />
           <Property Name="StaticsCoefficient" Type="Double" />
           <Property Name="DynamicsCoefficient" Type="Double" />
           <Property Name="CurrentCoefficient" Type="Double" />
-          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.APNUPostFaultConditions_fk" FromRole="APNU" ToRole="PostFaultConditions" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.APNU_BranchGroup_fk" FromRole="APNU" ToRole="BranchGroup" />
+          <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.APNU_Seasons_fk" FromRole="APNU" ToRole="Seasons" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_APNU_fk" FromRole="APNU" ToRole="PostFaultConditions" />
         </EntityType>
         <EntityType Name="ARPM">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchGroupUid" Type="Guid" />
+          <Property Name="SeasonId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowSetting" Type="Double" />
           <Property Name="Coefficient" Type="Double" />
-          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.ARPMPostFaultConditions_fk" FromRole="ARPM" ToRole="PostFaultConditions" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.ARPM_BranchGroup_fk" FromRole="ARPM" ToRole="BranchGroup" />
+          <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.ARPM_Seasons_fk" FromRole="ARPM" ToRole="Seasons" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_ARPM_fk" FromRole="ARPM" ToRole="PostFaultConditions" />
         </EntityType>
         <EntityType Name="BoundingElements">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchGroupUid" Type="Guid" />
           <Property Name="Number" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="FormalName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.BoundingElementsPostFaultConditions_fk" FromRole="BoundingElements" ToRole="PostFaultConditions" />
-          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.BoundingElementsPreFaultConditions_fk" FromRole="BoundingElements" ToRole="PreFaultConditions" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FormalName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.BoundingElements_BranchGroup_fk" FromRole="BoundingElements" ToRole="BranchGroup" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_BoundingElements_fk" FromRole="BoundingElements" ToRole="PostFaultConditions" />
+          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_BoundingElements_fk" FromRole="BoundingElements" ToRole="PreFaultConditions" />
         </EntityType>
         <EntityType Name="BranchGroup">
           <Key>
@@ -816,13 +1221,18 @@
           <Property Name="Uid" Type="Guid" Nullable="false" />
           <Property Name="AnnexId" Type="Int32" />
           <Property Name="Number" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CorrectionFactorName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CorrectionFactorMinValue" Type="Double" />
-          <Property Name="CorrectionFactorMaxValue" Type="Double" />
-          <Property Name="Note" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Annex" Relationship="ApfBaseModel.AnnexBrGr_fk" FromRole="BranchGroup" ToRole="Annex" />
-          <NavigationProperty Name="BranchGroupScheme" Relationship="ApfBaseModel.BranchGroupBrGrSch_fk" FromRole="BranchGroup" ToRole="BranchGroupScheme" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RoundValue" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AOPO" Relationship="ApfBaseModel.AOPO_BranchGroup_fk" FromRole="BranchGroup" ToRole="AOPO" />
+          <NavigationProperty Name="AOSN" Relationship="ApfBaseModel.AOSN_BranchGroup_fk" FromRole="BranchGroup" ToRole="AOSN" />
+          <NavigationProperty Name="APNU" Relationship="ApfBaseModel.APNU_BranchGroup_fk" FromRole="BranchGroup" ToRole="APNU" />
+          <NavigationProperty Name="ARPM" Relationship="ApfBaseModel.ARPM_BranchGroup_fk" FromRole="BranchGroup" ToRole="ARPM" />
+          <NavigationProperty Name="BoundingElements" Relationship="ApfBaseModel.BoundingElements_BranchGroup_fk" FromRole="BranchGroup" ToRole="BoundingElements" />
+          <NavigationProperty Name="Conditions" Relationship="ApfBaseModel.Conditions_BranchGroup_fk" FromRole="BranchGroup" ToRole="Conditions" />
+          <NavigationProperty Name="Disturbances" Relationship="ApfBaseModel.Disturbances_BranchGroup_fk" FromRole="BranchGroup" ToRole="Disturbances" />
+          <NavigationProperty Name="Annex" Relationship="ApfBaseModel.AnnexVsBranchGroup" FromRole="BranchGroup" ToRole="Annex" />
+          <NavigationProperty Name="BranchGroupScheme" Relationship="ApfBaseModel.BranchGroupVsBranchGroupScheme" FromRole="BranchGroup" ToRole="BranchGroupScheme" />
         </EntityType>
         <EntityType Name="BranchGroupScheme">
           <Key>
@@ -830,39 +1240,38 @@
           </Key>
           <Property Name="Uid" Type="Guid" Nullable="false" />
           <Property Name="BranchGroupUid" Type="Guid" />
-          <Property Name="Number" Type="Int32" />
+          <Property Name="Number" Type="Double" />
           <Property Name="Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.BranchGroupBrGrSch_fk" FromRole="BranchGroupScheme" ToRole="BranchGroup" />
-          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.BranchGroupSchemePreFaultConditions_fk" FromRole="BranchGroupScheme" ToRole="PreFaultConditions" />
+          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_BranchGroupScheme_fk" FromRole="BranchGroupScheme" ToRole="PreFaultConditions" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.BranchGroupVsBranchGroupScheme" FromRole="BranchGroupScheme" ToRole="BranchGroup" />
         </EntityType>
         <EntityType Name="Conditions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReplacementOfConditionId" Type="Int32" />
+          <Property Name="BranchGroupUid" Type="Guid" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MinValue" Type="Double" />
           <Property Name="MaxValue" Type="Double" />
-          <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.ConditionsPostFaultConditions_fk" FromRole="Conditions" ToRole="PostFaultConditions" />
-          <NavigationProperty Name="Conditions1" Relationship="ApfBaseModel.FK_Conditions_Replacement" FromRole="Conditions" ToRole="Conditions1" />
-          <NavigationProperty Name="Conditions2" Relationship="ApfBaseModel.FK_Conditions_Replacement" FromRole="Conditions1" ToRole="Conditions" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.Conditions_BranchGroup_fk" FromRole="Conditions" ToRole="BranchGroup" />
+          <NavigationProperty Name="FrequencyPowerFlow" Relationship="ApfBaseModel.FrequencyPowerFlow_Conditions_fk" FromRole="Conditions" ToRole="FrequencyPowerFlow" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_Conditions_fk" FromRole="Conditions" ToRole="PostFaultConditions" />
+          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_CurrentConditions_fk" FromRole="Conditions" ToRole="PreFaultConditions" />
+          <NavigationProperty Name="PreFaultConditions1" Relationship="ApfBaseModel.PreFaultConditions_StaticConditions_fk" FromRole="Conditions" ToRole="PreFaultConditions" />
         </EntityType>
         <EntityType Name="Disturbances">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchGroupUid" Type="Guid" />
           <Property Name="Number" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="FormalName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="PowerConsumptionFactor" Type="Double" />
-          <Property Name="PowerConsumptionDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PowerFlowBehindBranchMin" Type="Double" />
-          <Property Name="PowerFlowBehindBranchMax" Type="Double" />
-          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.DisturbancesPostFaultConditions_fk" FromRole="Disturbances" ToRole="PostFaultConditions" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FormalName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.Disturbances_BranchGroup_fk" FromRole="Disturbances" ToRole="BranchGroup" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_Disturbances_fk" FromRole="Disturbances" ToRole="PostFaultConditions" />
         </EntityType>
         <EntityType Name="Equipment">
           <Key>
@@ -870,38 +1279,62 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AggregatedEquipmentId" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AggregatedEquipment" Relationship="ApfBaseModel.AggregatedEquipment_fk" FromRole="Equipment" ToRole="AggregatedEquipment" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AggregatedEquipment" Relationship="ApfBaseModel.Equipment_AggregatedEquipment_fk" FromRole="Equipment" ToRole="AggregatedEquipment" />
           <NavigationProperty Name="EquipmentVsInfluencingEquipment" Relationship="ApfBaseModel.Equipment_fk" FromRole="Equipment" ToRole="EquipmentVsInfluencingEquipment" />
         </EntityType>
         <EntityType Name="EquipmentVsInfluencingEquipment">
           <Key>
             <PropertyRef Name="EquipmentId" />
-            <PropertyRef Name="InfluencingEquipmentId" />
+            <PropertyRef Name="InfluencingEquipmentUid" />
           </Key>
           <Property Name="EquipmentId" Type="Int32" Nullable="false" />
-          <Property Name="InfluencingEquipmentId" Type="Int32" Nullable="false" />
+          <Property Name="InfluencingEquipmentUid" Type="Guid" Nullable="false" />
           <Property Name="Equipments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Equipment" Relationship="ApfBaseModel.Equipment_fk" FromRole="EquipmentVsInfluencingEquipment" ToRole="Equipment" />
-          <NavigationProperty Name="InfluencingEquipment" Relationship="ApfBaseModel.InfluencingEquipment_fk" FromRole="EquipmentVsInfluencingEquipment" ToRole="InfluencingEquipment" />
+          <NavigationProperty Name="InfluencingEquipment" Relationship="ApfBaseModel.EquipmentVsInfluencingEquipment_InfluencingEquipment_fk" FromRole="EquipmentVsInfluencingEquipment" ToRole="InfluencingEquipment" />
         </EntityType>
-        <EntityType Name="InfluencingEquipment">
+        <EntityType Name="FrequencyPowerFlow">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConditionId" Type="Int32" />
+          <Property Name="PowerConsumptionFactor" Type="Double" />
+          <Property Name="PowerConsumptionDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MinValue" Type="Double" />
+          <Property Name="MaxValue" Type="Double" />
+          <NavigationProperty Name="Conditions" Relationship="ApfBaseModel.FrequencyPowerFlow_Conditions_fk" FromRole="FrequencyPowerFlow" ToRole="Conditions" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_FrequencyPowerFlow_fk" FromRole="FrequencyPowerFlow" ToRole="PostFaultConditions" />
+        </EntityType>
+        <EntityType Name="InfluencingEquipment">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EquipmentVsInfluencingEquipment" Relationship="ApfBaseModel.InfluencingEquipment_fk" FromRole="InfluencingEquipment" ToRole="EquipmentVsInfluencingEquipment" />
-          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.InfluencingEquipmentPreFaultConditions_fk" FromRole="InfluencingEquipment" ToRole="PreFaultConditions" />
+          <NavigationProperty Name="EquipmentVsInfluencingEquipment" Relationship="ApfBaseModel.EquipmentVsInfluencingEquipment_InfluencingEquipment_fk" FromRole="InfluencingEquipment" ToRole="EquipmentVsInfluencingEquipment" />
+          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_InfluencingEquipment_fk" FromRole="InfluencingEquipment" ToRole="PreFaultConditions" />
         </EntityType>
         <EntityType Name="Management">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Position" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="TaskId" Type="Int32" />
+          <Property Name="Using" Type="Boolean" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Priority" Type="Int32" />
+          <NavigationProperty Name="ManagementTasks" Relationship="ApfBaseModel.Management_ManagementTasks_fk" FromRole="Management" ToRole="ManagementTasks" />
+        </EntityType>
+        <EntityType Name="ManagementTasks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Management" Relationship="ApfBaseModel.Management_ManagementTasks_fk" FromRole="ManagementTasks" ToRole="Management" />
         </EntityType>
         <EntityType Name="PostFaultConditions">
           <Key>
@@ -919,6 +1352,7 @@
           <Property Name="ArpmId" Type="Int32" />
           <Property Name="AosnId" Type="Int32" />
           <Property Name="ConditionsId" Type="Int32" />
+          <Property Name="FrequencyPowerFlowId" Type="Int32" />
           <Property Name="UsingRow" Type="Boolean" />
           <Property Name="EprPowerFlow" Type="Double" />
           <Property Name="DynamicPowerFlow" Type="Double" />
@@ -926,14 +1360,15 @@
           <Property Name="CurrentAOPO" Type="Double" />
           <Property Name="VoltagePowerFlow" Type="Double" />
           <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AOPO" Relationship="ApfBaseModel.AOPOPostFaultConditions_fk" FromRole="PostFaultConditions" ToRole="AOPO" />
-          <NavigationProperty Name="AOSN" Relationship="ApfBaseModel.AOSNPostFaultConditions_fk" FromRole="PostFaultConditions" ToRole="AOSN" />
-          <NavigationProperty Name="APNU" Relationship="ApfBaseModel.APNUPostFaultConditions_fk" FromRole="PostFaultConditions" ToRole="APNU" />
-          <NavigationProperty Name="ARPM" Relationship="ApfBaseModel.ARPMPostFaultConditions_fk" FromRole="PostFaultConditions" ToRole="ARPM" />
-          <NavigationProperty Name="BoundingElements" Relationship="ApfBaseModel.BoundingElementsPostFaultConditions_fk" FromRole="PostFaultConditions" ToRole="BoundingElements" />
-          <NavigationProperty Name="Conditions" Relationship="ApfBaseModel.ConditionsPostFaultConditions_fk" FromRole="PostFaultConditions" ToRole="Conditions" />
-          <NavigationProperty Name="Disturbances" Relationship="ApfBaseModel.DisturbancesPostFaultConditions_fk" FromRole="PostFaultConditions" ToRole="Disturbances" />
-          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditionsPostFaultConditions_fk" FromRole="PostFaultConditions" ToRole="PreFaultConditions" />
+          <NavigationProperty Name="AOPO" Relationship="ApfBaseModel.PostFaultConditions_AOPO_fk" FromRole="PostFaultConditions" ToRole="AOPO" />
+          <NavigationProperty Name="AOSN" Relationship="ApfBaseModel.PostFaultConditions_AOSN_fk" FromRole="PostFaultConditions" ToRole="AOSN" />
+          <NavigationProperty Name="APNU" Relationship="ApfBaseModel.PostFaultConditions_APNU_fk" FromRole="PostFaultConditions" ToRole="APNU" />
+          <NavigationProperty Name="ARPM" Relationship="ApfBaseModel.PostFaultConditions_ARPM_fk" FromRole="PostFaultConditions" ToRole="ARPM" />
+          <NavigationProperty Name="BoundingElements" Relationship="ApfBaseModel.PostFaultConditions_BoundingElements_fk" FromRole="PostFaultConditions" ToRole="BoundingElements" />
+          <NavigationProperty Name="Conditions" Relationship="ApfBaseModel.PostFaultConditions_Conditions_fk" FromRole="PostFaultConditions" ToRole="Conditions" />
+          <NavigationProperty Name="Disturbances" Relationship="ApfBaseModel.PostFaultConditions_Disturbances_fk" FromRole="PostFaultConditions" ToRole="Disturbances" />
+          <NavigationProperty Name="FrequencyPowerFlow" Relationship="ApfBaseModel.PostFaultConditions_FrequencyPowerFlow_fk" FromRole="PostFaultConditions" ToRole="FrequencyPowerFlow" />
+          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_PreFaultConditions_fk" FromRole="PostFaultConditions" ToRole="PreFaultConditions" />
         </EntityType>
         <EntityType Name="PreFaultConditions">
           <Key>
@@ -943,39 +1378,41 @@
           <Property Name="BranchGroupSchemeUid" Type="Guid" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="BoundingElementsId" Type="Int32" />
-          <Property Name="InfluencingEquipmentId" Type="Int32" />
+          <Property Name="InfluencingEquipmentUid" Type="Guid" />
           <Property Name="SeasonId" Type="Int32" />
           <Property Name="TemperatureId" Type="Int32" />
+          <Property Name="StaticConditionsId" Type="Int32" />
+          <Property Name="CurrentConditionsId" Type="Int32" />
           <Property Name="UsingRow" Type="Boolean" />
           <Property Name="LimitPowerFlow" Type="Double" />
           <Property Name="TprPowerFlow" Type="Double" />
           <Property Name="EprPowerFlow" Type="Double" />
           <Property Name="CurrentPowerFlow" Type="Double" />
+          <Property Name="CurrentAOPO" Type="Double" />
           <Property Name="VoltagePowerFlow" Type="Double" />
           <Property Name="IrOscExpressions" Type="Int32" />
           <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="APF" Relationship="ApfBaseModel.PreFaultConditionsAPF_fk" FromRole="PreFaultConditions" ToRole="APF" />
-          <NavigationProperty Name="BoundingElements" Relationship="ApfBaseModel.BoundingElementsPreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="BoundingElements" />
-          <NavigationProperty Name="BranchGroupScheme" Relationship="ApfBaseModel.BranchGroupSchemePreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="BranchGroupScheme" />
-          <NavigationProperty Name="InfluencingEquipment" Relationship="ApfBaseModel.InfluencingEquipmentPreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="InfluencingEquipment" />
-          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PreFaultConditionsPostFaultConditions_fk" FromRole="PreFaultConditions" ToRole="PostFaultConditions" />
-          <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.SeasonPreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="Seasons" />
-          <NavigationProperty Name="Temperature" Relationship="ApfBaseModel.TemperaturePreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="Temperature" />
+          <NavigationProperty Name="APF" Relationship="ApfBaseModel.APF_PreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="APF" />
+          <NavigationProperty Name="BoundingElements" Relationship="ApfBaseModel.PreFaultConditions_BoundingElements_fk" FromRole="PreFaultConditions" ToRole="BoundingElements" />
+          <NavigationProperty Name="BranchGroupScheme" Relationship="ApfBaseModel.PreFaultConditions_BranchGroupScheme_fk" FromRole="PreFaultConditions" ToRole="BranchGroupScheme" />
+          <NavigationProperty Name="Conditions" Relationship="ApfBaseModel.PreFaultConditions_CurrentConditions_fk" FromRole="PreFaultConditions" ToRole="Conditions" />
+          <NavigationProperty Name="Conditions1" Relationship="ApfBaseModel.PreFaultConditions_StaticConditions_fk" FromRole="PreFaultConditions" ToRole="Conditions" />
+          <NavigationProperty Name="InfluencingEquipment" Relationship="ApfBaseModel.PreFaultConditions_InfluencingEquipment_fk" FromRole="PreFaultConditions" ToRole="InfluencingEquipment" />
+          <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_PreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="PostFaultConditions" />
+          <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.PreFaultConditions_Seasons_fk" FromRole="PreFaultConditions" ToRole="Seasons" />
+          <NavigationProperty Name="Temperature" Relationship="ApfBaseModel.PreFaultConditions_Temperature_fk" FromRole="PreFaultConditions" ToRole="Temperature" />
         </EntityType>
         <EntityType Name="Seasons">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.SeasonPreFaultConditions_fk" FromRole="Seasons" ToRole="PreFaultConditions" />
-        </EntityType>
-        <EntityType Name="Setting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="RoundValue" Type="Int32" />
+          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AOPO" Relationship="ApfBaseModel.AOPO_Seasons_fk" FromRole="Seasons" ToRole="AOPO" />
+          <NavigationProperty Name="AOSN" Relationship="ApfBaseModel.AOSN_Seasons_fk" FromRole="Seasons" ToRole="AOSN" />
+          <NavigationProperty Name="APNU" Relationship="ApfBaseModel.APNU_Seasons_fk" FromRole="Seasons" ToRole="APNU" />
+          <NavigationProperty Name="ARPM" Relationship="ApfBaseModel.ARPM_Seasons_fk" FromRole="Seasons" ToRole="ARPM" />
+          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_Seasons_fk" FromRole="Seasons" ToRole="PreFaultConditions" />
         </EntityType>
         <EntityType Name="Temperature">
           <Key>
@@ -983,9 +1420,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.TemperaturePreFaultConditions_fk" FromRole="Temperature" ToRole="PreFaultConditions" />
+          <Property Name="Priority" Type="Int32" />
+          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_Temperature_fk" FromRole="Temperature" ToRole="PreFaultConditions" />
         </EntityType>
-        <Association Name="AggregatedEquipment_fk">
+        <Association Name="Equipment_AggregatedEquipment_fk">
           <End Type="ApfBaseModel.AggregatedEquipment" Role="AggregatedEquipment" Multiplicity="0..1" />
           <End Type="ApfBaseModel.Equipment" Role="Equipment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -997,19 +1435,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AnnexBrGr_fk">
-          <End Type="ApfBaseModel.Annex" Role="Annex" Multiplicity="0..1" />
-          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="*" />
+        <Association Name="AOPO_BranchGroup_fk">
+          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.AOPO" Role="AOPO" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Annex">
-              <PropertyRef Name="Id" />
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
             </Principal>
-            <Dependent Role="BranchGroup">
-              <PropertyRef Name="AnnexId" />
+            <Dependent Role="AOPO">
+              <PropertyRef Name="BranchGroupUid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AOPOPostFaultConditions_fk">
+        <Association Name="AOPO_Seasons_fk">
+          <End Type="ApfBaseModel.Seasons" Role="Seasons" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.AOPO" Role="AOPO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AOPO">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_AOPO_fk">
           <End Type="ApfBaseModel.AOPO" Role="AOPO" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1021,7 +1471,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AOSNPostFaultConditions_fk">
+        <Association Name="AOSN_BranchGroup_fk">
+          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.AOSN" Role="AOSN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="AOSN">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AOSN_Seasons_fk">
+          <End Type="ApfBaseModel.Seasons" Role="Seasons" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.AOSN" Role="AOSN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AOSN">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_AOSN_fk">
           <End Type="ApfBaseModel.AOSN" Role="AOSN" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1033,7 +1507,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="PreFaultConditionsAPF_fk">
+        <Association Name="APF_PreFaultConditions_fk">
           <End Type="ApfBaseModel.PreFaultConditions" Role="PreFaultConditions" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1049,7 +1523,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="APNUPostFaultConditions_fk">
+        <Association Name="APNU_BranchGroup_fk">
+          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.APNU" Role="APNU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="APNU">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="APNU_Seasons_fk">
+          <End Type="ApfBaseModel.Seasons" Role="Seasons" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.APNU" Role="APNU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APNU">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_APNU_fk">
           <End Type="ApfBaseModel.APNU" Role="APNU" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1061,7 +1559,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ARPMPostFaultConditions_fk">
+        <Association Name="ARPM_BranchGroup_fk">
+          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.ARPM" Role="ARPM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="ARPM">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ARPM_Seasons_fk">
+          <End Type="ApfBaseModel.Seasons" Role="Seasons" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.ARPM" Role="ARPM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ARPM">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_ARPM_fk">
           <End Type="ApfBaseModel.ARPM" Role="ARPM" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1073,7 +1595,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="BoundingElementsPostFaultConditions_fk">
+        <Association Name="BoundingElements_BranchGroup_fk">
+          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.BoundingElements" Role="BoundingElements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="BoundingElements">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_BoundingElements_fk">
           <End Type="ApfBaseModel.BoundingElements" Role="BoundingElements" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1085,7 +1619,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="BoundingElementsPreFaultConditions_fk">
+        <Association Name="PreFaultConditions_BoundingElements_fk">
           <End Type="ApfBaseModel.BoundingElements" Role="BoundingElements" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PreFaultConditions" Role="PreFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1097,19 +1631,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="BranchGroupBrGrSch_fk">
+        <Association Name="Conditions_BranchGroup_fk">
           <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="0..1" />
-          <End Type="ApfBaseModel.BranchGroupScheme" Role="BranchGroupScheme" Multiplicity="*" />
+          <End Type="ApfBaseModel.Conditions" Role="Conditions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BranchGroup">
               <PropertyRef Name="Uid" />
             </Principal>
-            <Dependent Role="BranchGroupScheme">
+            <Dependent Role="Conditions">
               <PropertyRef Name="BranchGroupUid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="BranchGroupSchemePreFaultConditions_fk">
+        <Association Name="Disturbances_BranchGroup_fk">
+          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.Disturbances" Role="Disturbances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchGroup">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Disturbances">
+              <PropertyRef Name="BranchGroupUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PreFaultConditions_BranchGroupScheme_fk">
           <End Type="ApfBaseModel.BranchGroupScheme" Role="BranchGroupScheme" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1123,7 +1669,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ConditionsPostFaultConditions_fk">
+        <Association Name="FrequencyPowerFlow_Conditions_fk">
+          <End Type="ApfBaseModel.Conditions" Role="Conditions" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.FrequencyPowerFlow" Role="FrequencyPowerFlow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FrequencyPowerFlow">
+              <PropertyRef Name="ConditionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_Conditions_fk">
           <End Type="ApfBaseModel.Conditions" Role="Conditions" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1135,19 +1693,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Conditions_Replacement">
+        <Association Name="PreFaultConditions_CurrentConditions_fk">
           <End Type="ApfBaseModel.Conditions" Role="Conditions" Multiplicity="0..1" />
-          <End Type="ApfBaseModel.Conditions" Role="Conditions1" Multiplicity="*" />
+          <End Type="ApfBaseModel.PreFaultConditions" Role="PreFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Conditions">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Conditions1">
-              <PropertyRef Name="ReplacementOfConditionId" />
+            <Dependent Role="PreFaultConditions">
+              <PropertyRef Name="CurrentConditionsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DisturbancesPostFaultConditions_fk">
+        <Association Name="PreFaultConditions_StaticConditions_fk">
+          <End Type="ApfBaseModel.Conditions" Role="Conditions" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.PreFaultConditions" Role="PreFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conditions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PreFaultConditions">
+              <PropertyRef Name="StaticConditionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_Disturbances_fk">
           <End Type="ApfBaseModel.Disturbances" Role="Disturbances" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1173,33 +1743,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="InfluencingEquipment_fk">
+        <Association Name="EquipmentVsInfluencingEquipment_InfluencingEquipment_fk">
           <End Type="ApfBaseModel.InfluencingEquipment" Role="InfluencingEquipment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="ApfBaseModel.EquipmentVsInfluencingEquipment" Role="EquipmentVsInfluencingEquipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InfluencingEquipment">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="Uid" />
             </Principal>
             <Dependent Role="EquipmentVsInfluencingEquipment">
-              <PropertyRef Name="InfluencingEquipmentId" />
+              <PropertyRef Name="InfluencingEquipmentUid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="InfluencingEquipmentPreFaultConditions_fk">
+        <Association Name="PostFaultConditions_FrequencyPowerFlow_fk">
+          <End Type="ApfBaseModel.FrequencyPowerFlow" Role="FrequencyPowerFlow" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FrequencyPowerFlow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostFaultConditions">
+              <PropertyRef Name="FrequencyPowerFlowId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PreFaultConditions_InfluencingEquipment_fk">
           <End Type="ApfBaseModel.InfluencingEquipment" Role="InfluencingEquipment" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PreFaultConditions" Role="PreFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InfluencingEquipment">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="Uid" />
             </Principal>
             <Dependent Role="PreFaultConditions">
-              <PropertyRef Name="InfluencingEquipmentId" />
+              <PropertyRef Name="InfluencingEquipmentUid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="PreFaultConditionsPostFaultConditions_fk">
+        <Association Name="Management_ManagementTasks_fk">
+          <End Type="ApfBaseModel.ManagementTasks" Role="ManagementTasks" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.Management" Role="Management" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagementTasks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Management">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostFaultConditions_PreFaultConditions_fk">
           <End Type="ApfBaseModel.PreFaultConditions" Role="PreFaultConditions" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1215,7 +1811,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="SeasonPreFaultConditions_fk">
+        <Association Name="PreFaultConditions_Seasons_fk">
           <End Type="ApfBaseModel.Seasons" Role="Seasons" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PreFaultConditions" Role="PreFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1227,7 +1823,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="TemperaturePreFaultConditions_fk">
+        <Association Name="PreFaultConditions_Temperature_fk">
           <End Type="ApfBaseModel.Temperature" Role="Temperature" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PreFaultConditions" Role="PreFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1238,6 +1834,14 @@
               <PropertyRef Name="TemperatureId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="AnnexVsBranchGroup">
+          <End Type="ApfBaseModel.Annex" Role="Annex" Multiplicity="*" />
+          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="*" />
+        </Association>
+        <Association Name="BranchGroupVsBranchGroupScheme">
+          <End Type="ApfBaseModel.BranchGroup" Role="BranchGroup" Multiplicity="*" />
+          <End Type="ApfBaseModel.BranchGroupScheme" Role="BranchGroupScheme" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1271,6 +1875,8 @@
                 <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1282,6 +1888,8 @@
                 <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1289,6 +1897,8 @@
           <EntitySetMapping Name="APF">
             <EntityTypeMapping TypeName="ApfBaseModel.APF">
               <MappingFragment StoreEntitySet="APF">
+                <ScalarProperty Name="PowerFlowForcedStateDescriptionHandWritten" ColumnName="PowerFlowForcedStateDescriptionHandWritten" />
+                <ScalarProperty Name="PowerFlowForcedStateValueHandWritten" ColumnName="PowerFlowForcedStateValueHandWritten" />
                 <ScalarProperty Name="PowerFlowEmergencyDescriptionHandWritten" ColumnName="PowerFlowEmergencyDescriptionHandWritten" />
                 <ScalarProperty Name="PowerFlowEmergencyValueHandWritten" ColumnName="PowerFlowEmergencyValueHandWritten" />
                 <ScalarProperty Name="PowerFlowSafeDescriptionHandWritten" ColumnName="PowerFlowSafeDescriptionHandWritten" />
@@ -1320,6 +1930,8 @@
                 <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1331,6 +1943,8 @@
                 <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1341,6 +1955,7 @@
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1349,9 +1964,7 @@
             <EntityTypeMapping TypeName="ApfBaseModel.BranchGroup">
               <MappingFragment StoreEntitySet="BranchGroup">
                 <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="CorrectionFactorMaxValue" ColumnName="CorrectionFactorMaxValue" />
-                <ScalarProperty Name="CorrectionFactorMinValue" ColumnName="CorrectionFactorMinValue" />
-                <ScalarProperty Name="CorrectionFactorName" ColumnName="CorrectionFactorName" />
+                <ScalarProperty Name="RoundValue" ColumnName="RoundValue" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="AnnexId" ColumnName="AnnexId" />
@@ -1372,12 +1985,11 @@
           <EntitySetMapping Name="Conditions">
             <EntityTypeMapping TypeName="ApfBaseModel.Conditions">
               <MappingFragment StoreEntitySet="Conditions">
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="MaxValue" ColumnName="MaxValue" />
                 <ScalarProperty Name="MinValue" ColumnName="MinValue" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ReplacementOfConditionId" ColumnName="ReplacementOfConditionId" />
+                <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1385,13 +1997,10 @@
           <EntitySetMapping Name="Disturbances">
             <EntityTypeMapping TypeName="ApfBaseModel.Disturbances">
               <MappingFragment StoreEntitySet="Disturbances">
-                <ScalarProperty Name="PowerFlowBehindBranchMax" ColumnName="PowerFlowBehindBranchMax" />
-                <ScalarProperty Name="PowerFlowBehindBranchMin" ColumnName="PowerFlowBehindBranchMin" />
-                <ScalarProperty Name="PowerConsumptionDescription" ColumnName="PowerConsumptionDescription" />
-                <ScalarProperty Name="PowerConsumptionFactor" ColumnName="PowerConsumptionFactor" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1409,8 +2018,20 @@
             <EntityTypeMapping TypeName="ApfBaseModel.EquipmentVsInfluencingEquipment">
               <MappingFragment StoreEntitySet="EquipmentVsInfluencingEquipment">
                 <ScalarProperty Name="Equipments" ColumnName="Equipments" />
-                <ScalarProperty Name="InfluencingEquipmentId" ColumnName="InfluencingEquipmentId" />
+                <ScalarProperty Name="InfluencingEquipmentUid" ColumnName="InfluencingEquipmentUid" />
                 <ScalarProperty Name="EquipmentId" ColumnName="EquipmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FrequencyPowerFlow">
+            <EntityTypeMapping TypeName="ApfBaseModel.FrequencyPowerFlow">
+              <MappingFragment StoreEntitySet="FrequencyPowerFlow">
+                <ScalarProperty Name="MaxValue" ColumnName="MaxValue" />
+                <ScalarProperty Name="MinValue" ColumnName="MinValue" />
+                <ScalarProperty Name="PowerConsumptionDescription" ColumnName="PowerConsumptionDescription" />
+                <ScalarProperty Name="PowerConsumptionFactor" ColumnName="PowerConsumptionFactor" />
+                <ScalarProperty Name="ConditionId" ColumnName="ConditionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1418,7 +2039,7 @@
             <EntityTypeMapping TypeName="ApfBaseModel.InfluencingEquipment">
               <MappingFragment StoreEntitySet="InfluencingEquipment">
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1427,6 +2048,16 @@
               <MappingFragment StoreEntitySet="Management">
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Using" ColumnName="Using" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagementTasks">
+            <EntityTypeMapping TypeName="ApfBaseModel.ManagementTasks">
+              <MappingFragment StoreEntitySet="ManagementTasks">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1442,6 +2073,7 @@
                 <ScalarProperty Name="DynamicPowerFlow" ColumnName="DynamicPowerFlow" />
                 <ScalarProperty Name="EprPowerFlow" ColumnName="EprPowerFlow" />
                 <ScalarProperty Name="UsingRow" ColumnName="UsingRow" />
+                <ScalarProperty Name="FrequencyPowerFlowId" ColumnName="FrequencyPowerFlowId" />
                 <ScalarProperty Name="ConditionsId" ColumnName="ConditionsId" />
                 <ScalarProperty Name="AosnId" ColumnName="AosnId" />
                 <ScalarProperty Name="ArpmId" ColumnName="ArpmId" />
@@ -1461,14 +2093,17 @@
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="IrOscExpressions" ColumnName="IrOscExpressions" />
                 <ScalarProperty Name="VoltagePowerFlow" ColumnName="VoltagePowerFlow" />
+                <ScalarProperty Name="CurrentAOPO" ColumnName="CurrentAOPO" />
                 <ScalarProperty Name="CurrentPowerFlow" ColumnName="CurrentPowerFlow" />
                 <ScalarProperty Name="EprPowerFlow" ColumnName="EprPowerFlow" />
                 <ScalarProperty Name="TprPowerFlow" ColumnName="TprPowerFlow" />
                 <ScalarProperty Name="LimitPowerFlow" ColumnName="LimitPowerFlow" />
                 <ScalarProperty Name="UsingRow" ColumnName="UsingRow" />
+                <ScalarProperty Name="CurrentConditionsId" ColumnName="CurrentConditionsId" />
+                <ScalarProperty Name="StaticConditionsId" ColumnName="StaticConditionsId" />
                 <ScalarProperty Name="TemperatureId" ColumnName="TemperatureId" />
                 <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
-                <ScalarProperty Name="InfluencingEquipmentId" ColumnName="InfluencingEquipmentId" />
+                <ScalarProperty Name="InfluencingEquipmentUid" ColumnName="InfluencingEquipmentUid" />
                 <ScalarProperty Name="BoundingElementsId" ColumnName="BoundingElementsId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BranchGroupSchemeUid" ColumnName="BranchGroupSchemeUid" />
@@ -1483,22 +2118,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Setting">
-            <EntityTypeMapping TypeName="ApfBaseModel.Setting">
-              <MappingFragment StoreEntitySet="Setting">
-                <ScalarProperty Name="RoundValue" ColumnName="RoundValue" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Temperature">
             <EntityTypeMapping TypeName="ApfBaseModel.Temperature">
               <MappingFragment StoreEntitySet="Temperature">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AnnexVsBranchGroup" TypeName="ApfBaseModel.AnnexVsBranchGroup" StoreEntitySet="AnnexVsBranchGroup">
+            <EndProperty Name="BranchGroup">
+              <ScalarProperty Name="Uid" ColumnName="BranchGroupUid" />
+            </EndProperty>
+            <EndProperty Name="Annex">
+              <ScalarProperty Name="Id" ColumnName="AnnexId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="BranchGroupVsBranchGroupScheme" TypeName="ApfBaseModel.BranchGroupVsBranchGroupScheme" StoreEntitySet="BranchGroupVsBranchGroupScheme">
+            <EndProperty Name="BranchGroupScheme">
+              <ScalarProperty Name="Uid" ColumnName="BranchGroupSchemeUid" />
+            </EndProperty>
+            <EndProperty Name="BranchGroup">
+              <ScalarProperty Name="Uid" ColumnName="BranchGroupUid" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
