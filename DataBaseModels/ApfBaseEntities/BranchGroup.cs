@@ -29,7 +29,6 @@ namespace DataBaseModels.ApfBaseEntities
         }
     
         public System.Guid Uid { get; set; }
-        public Nullable<int> AnnexId { get; set; }
         public Nullable<int> Number { get; set; }
         public string Name { get; set; }
         public Nullable<int> RoundValue { get; set; }

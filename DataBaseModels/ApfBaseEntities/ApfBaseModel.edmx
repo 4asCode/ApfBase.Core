@@ -122,7 +122,6 @@
             <PropertyRef Name="Uid" />
           </Key>
           <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="AnnexId" Type="int" />
           <Property Name="Number" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="RoundValue" Type="int" />
@@ -133,7 +132,6 @@
             <PropertyRef Name="Uid" />
           </Key>
           <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="BranchGroupUid" Type="uniqueidentifier" />
           <Property Name="Number" Type="float" />
           <Property Name="Name" Type="nvarchar" MaxLength="4000" />
         </EntityType>
@@ -1219,7 +1217,6 @@
             <PropertyRef Name="Uid" />
           </Key>
           <Property Name="Uid" Type="Guid" Nullable="false" />
-          <Property Name="AnnexId" Type="Int32" />
           <Property Name="Number" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="RoundValue" Type="Int32" />
@@ -1239,7 +1236,6 @@
             <PropertyRef Name="Uid" />
           </Key>
           <Property Name="Uid" Type="Guid" Nullable="false" />
-          <Property Name="BranchGroupUid" Type="Guid" />
           <Property Name="Number" Type="Double" />
           <Property Name="Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_BranchGroupScheme_fk" FromRole="BranchGroupScheme" ToRole="PreFaultConditions" />
@@ -1967,7 +1963,6 @@
                 <ScalarProperty Name="RoundValue" ColumnName="RoundValue" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="AnnexId" ColumnName="AnnexId" />
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1977,7 +1972,6 @@
               <MappingFragment StoreEntitySet="BranchGroupScheme">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -22,7 +22,6 @@ namespace DataBaseModels.ApfBaseEntities
         }
     
         public System.Guid Uid { get; set; }
-        public Nullable<System.Guid> BranchGroupUid { get; set; }
         public Nullable<double> Number { get; set; }
         public string Name { get; set; }
     
