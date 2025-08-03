@@ -137,6 +137,10 @@
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ApfBaseEntities\DataBaseConnection.cs" />
+    <Compile Include="ApfBaseEntities\EntityRelations\EntityExtensions.cs" />
+    <Compile Include="ApfBaseEntities\EntityRelations\EntityRelationMetadata.cs" />
+    <Compile Include="ApfBaseEntities\EntityRelations\EntityRelationRegistry.cs" />
+    <Compile Include="ApfBaseEntities\EntityRelations\RelationKind.cs" />
     <Compile Include="ApfBaseEntities\Equipment.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>

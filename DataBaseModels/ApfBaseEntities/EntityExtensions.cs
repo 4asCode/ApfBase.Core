@@ -21,7 +21,7 @@ using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 
 namespace DataBaseModels.ApfBaseEntities
 {
-    public static class EntityExtensions
+    public static partial class EntityExtensions
     {
         private static volatile object _locker = new object();
 
