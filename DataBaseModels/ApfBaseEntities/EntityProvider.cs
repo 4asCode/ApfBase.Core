@@ -20,6 +20,24 @@ namespace DataBaseModels.ApfBaseEntities
 {
     public class EntityProvider
     {
+        public static EntityMetadata<T> GetMetadataEntity<T>(
+            T _, bool isLazyLoadingEnabled = false)
+            where T : class, IEntity
+        {
+            var context = new ApfBaseContext(
+                DataBaseConnection.ConnectionString);
+            context.Configuration.LazyLoadingEnabled =
+                isLazyLoadingEnabled;
+
+            var data = GetEntity<T>(context);
+
+            return new EntityMetadata<T>
+            {
+                Entities = data,
+                Context = context
+            };
+        }
+
         public static BindingList<TEntity> GetEntity<TEntity>(
             ApfBaseContext context) where TEntity : class, IEntity
         {
