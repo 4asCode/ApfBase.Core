@@ -80,7 +80,7 @@ namespace ApfBuilder.Context
                         BranchGroupSchemeUid UNIQUEIDENTIFIER,
                         PreFaultConditionsId INT,
                         BoundingElementsId INT NULL,
-                        InfluencingEquipmentId INT NULL,
+                        InfluencingEquipmentUid UNIQUEIDENTIFIER NULL,
                         SeasonId INT NULL,
                         TemperatureId INT NULL,
                         UsingRow BIT NULL,
@@ -88,6 +88,7 @@ namespace ApfBuilder.Context
                         TprPowerFlow FLOAT NULL,
                         EprPowerFlow FLOAT NULL,
                         CurrentPowerFlow FLOAT NULL,
+                        CurrentAOPO FLOAT NULL,
                         VoltagePowerFlow FLOAT NULL,
                         IrOscExpressions INT NULL,
                         Comment NVARCHAR(MAX) NULL,
@@ -109,6 +110,8 @@ namespace ApfBuilder.Context
                         PowerFlowSafeDescriptionHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowEmergencyValueHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowEmergencyDescriptionHandWritten NVARCHAR(MAX) NULL,
+                        PowerFlowForcedStateValueHandWritten NVARCHAR(MAX) NULL,
+	                    PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
                         PRIMARY KEY(BranchGroupSchemeUid, PreFaultConditionsId)
                     );";
 
@@ -122,7 +125,7 @@ namespace ApfBuilder.Context
                 dataTable.Columns.Add("BranchGroupSchemeUid", typeof(Guid));
                 dataTable.Columns.Add("PreFaultConditionsId", typeof(int));
                 dataTable.Columns.Add("BoundingElementsId", typeof(int));
-                dataTable.Columns.Add("InfluencingEquipmentId", typeof(int));
+                dataTable.Columns.Add("InfluencingEquipmentUid", typeof(Guid));
                 dataTable.Columns.Add("SeasonId", typeof(int));
                 dataTable.Columns.Add("TemperatureId", typeof(int));
                 dataTable.Columns.Add("UsingRow", typeof(bool));
@@ -130,6 +133,7 @@ namespace ApfBuilder.Context
                 dataTable.Columns.Add("TprPowerFlow", typeof(double));
                 dataTable.Columns.Add("EprPowerFlow", typeof(double));
                 dataTable.Columns.Add("CurrentPowerFlow", typeof(double));
+                dataTable.Columns.Add("CurrentAOPO", typeof(double));
                 dataTable.Columns.Add("VoltagePowerFlow", typeof(double));
                 dataTable.Columns.Add("IrOscExpressions", typeof(int));
                 dataTable.Columns.Add("Comment", typeof(string));
@@ -168,6 +172,10 @@ namespace ApfBuilder.Context
                     "PowerFlowEmergencyValueHandWritten", typeof(string));
                 dataTable.Columns.Add(
                     "PowerFlowEmergencyDescriptionHandWritten", typeof(string));
+                dataTable.Columns.Add(
+                    "PowerFlowForcedStateValueHandWritten", typeof(string));
+                dataTable.Columns.Add(
+                    "PowerFlowForcedStateDescriptionHandWritten", typeof(string));
 
                 foreach (var item in preFaultCollection)
                 {
@@ -216,7 +224,7 @@ namespace ApfBuilder.Context
                         Target.Id = Source.PreFaultConditionsId
                     WHEN MATCHED THEN UPDATE SET
                         BoundingElementsId = Source.BoundingElementsId,
-                        InfluencingEquipmentId = Source.InfluencingEquipmentId,
+                        InfluencingEquipmentUid = Source.InfluencingEquipmentUid,
                         SeasonId = Source.SeasonId,
                         TemperatureId = Source.TemperatureId,
                         UsingRow = Source.UsingRow,
@@ -224,6 +232,7 @@ namespace ApfBuilder.Context
                         TprPowerFlow = Source.TprPowerFlow,
                         EprPowerFlow = Source.EprPowerFlow,
                         CurrentPowerFlow = Source.CurrentPowerFlow,
+                        CurrentAOPO = Source.CurrentAOPO,
                         VoltagePowerFlow = Source.VoltagePowerFlow,
                         IrOscExpressions = Source.IrOscExpressions,
                         Comment = Source.Comment;";
@@ -269,7 +278,11 @@ namespace ApfBuilder.Context
                         PowerFlowEmergencyValueHandWritten = 
                             Source.PowerFlowEmergencyValueHandWritten,
                         PowerFlowEmergencyDescriptionHandWritten = 
-                            Source.PowerFlowEmergencyDescriptionHandWritten;";
+                            Source.PowerFlowEmergencyDescriptionHandWritten,
+                        PowerFlowForcedStateValueHandWritten =
+                            Source.PowerFlowForcedStateValueHandWritten,
+                        PowerFlowForcedStateDescriptionHandWritten =
+                            Source.PowerFlowForcedStateDescriptionHandWritten;";
 
                 using (var mergeCmd1 = new SqlCommand(
                     mergePreFaultSql, connection))

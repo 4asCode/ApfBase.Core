@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="ApfBaseModel.APNU" Width="1.5" PointX="3" PointY="16.625" />
         <EntityTypeShape EntityType="ApfBaseModel.ARPM" Width="1.5" PointX="6" PointY="12.75" />
         <EntityTypeShape EntityType="ApfBaseModel.BoundingElements" Width="1.5" PointX="12" PointY="18" />
-        <EntityTypeShape EntityType="ApfBaseModel.BranchGroup" Width="1.5" PointX="0.75" PointY="8.375" />
+        <EntityTypeShape EntityType="ApfBaseModel.BranchGroup" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ApfBaseModel.BranchGroupScheme" Width="1.5" PointX="6.75" PointY="19.875" />
         <EntityTypeShape EntityType="ApfBaseModel.Conditions" Width="1.5" PointX="12" PointY="7.125" />
         <EntityTypeShape EntityType="ApfBaseModel.Disturbances" Width="1.5" PointX="12" PointY="4" />
