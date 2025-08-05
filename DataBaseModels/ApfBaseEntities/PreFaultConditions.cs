@@ -24,7 +24,7 @@ namespace DataBaseModels.ApfBaseEntities
         public int Id { get; set; }
         public Nullable<int> BoundingElementsId { get; set; }
         public Nullable<System.Guid> InfluencingEquipmentUid { get; set; }
-        public Nullable<int> SeasonId { get; set; }
+        public Nullable<int> SeasonsId { get; set; }
         public Nullable<int> TemperatureId { get; set; }
         public Nullable<int> StaticConditionsId { get; set; }
         public Nullable<int> CurrentConditionsId { get; set; }

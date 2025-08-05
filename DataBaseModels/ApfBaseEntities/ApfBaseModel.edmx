@@ -36,7 +36,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BranchGroupUid" Type="uniqueidentifier" />
-          <Property Name="SeasonId" Type="int" />
+          <Property Name="SeasonsId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="PowerFlowSetting" Type="float" />
@@ -48,7 +48,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BranchGroupUid" Type="uniqueidentifier" />
-          <Property Name="SeasonId" Type="int" />
+          <Property Name="SeasonsId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="PowerFlowSetting" Type="float" />
@@ -87,7 +87,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BranchGroupUid" Type="uniqueidentifier" />
-          <Property Name="SeasonId" Type="int" />
+          <Property Name="SeasonsId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="PowerFlowSetting" Type="float" />
@@ -101,7 +101,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BranchGroupUid" Type="uniqueidentifier" />
-          <Property Name="SeasonId" Type="int" />
+          <Property Name="SeasonsId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
           <Property Name="PowerFlowSetting" Type="float" />
@@ -251,7 +251,7 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="BoundingElementsId" Type="int" />
           <Property Name="InfluencingEquipmentUid" Type="uniqueidentifier" />
-          <Property Name="SeasonId" Type="int" />
+          <Property Name="SeasonsId" Type="int" />
           <Property Name="TemperatureId" Type="int" />
           <Property Name="StaticConditionsId" Type="int" />
           <Property Name="CurrentConditionsId" Type="int" />
@@ -328,7 +328,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AOPO">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,7 +352,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AOSN">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -392,7 +392,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="APNU">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -416,7 +416,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ARPM">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -720,7 +720,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PreFaultConditions">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1115,7 +1115,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BranchGroupUid" Type="Guid" />
-          <Property Name="SeasonId" Type="Int32" />
+          <Property Name="SeasonsId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowSetting" Type="Double" />
@@ -1130,7 +1130,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BranchGroupUid" Type="Guid" />
-          <Property Name="SeasonId" Type="Int32" />
+          <Property Name="SeasonsId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowSetting" Type="Double" />
@@ -1173,7 +1173,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BranchGroupUid" Type="Guid" />
-          <Property Name="SeasonId" Type="Int32" />
+          <Property Name="SeasonsId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowSetting" Type="Double" />
@@ -1190,7 +1190,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BranchGroupUid" Type="Guid" />
-          <Property Name="SeasonId" Type="Int32" />
+          <Property Name="SeasonsId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PowerFlowSetting" Type="Double" />
@@ -1375,7 +1375,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="BoundingElementsId" Type="Int32" />
           <Property Name="InfluencingEquipmentUid" Type="Guid" />
-          <Property Name="SeasonId" Type="Int32" />
+          <Property Name="SeasonsId" Type="Int32" />
           <Property Name="TemperatureId" Type="Int32" />
           <Property Name="StaticConditionsId" Type="Int32" />
           <Property Name="CurrentConditionsId" Type="Int32" />
@@ -1451,7 +1451,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AOPO">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1487,7 +1487,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AOSN">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1539,7 +1539,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="APNU">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1575,7 +1575,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ARPM">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1815,7 +1815,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PreFaultConditions">
-              <PropertyRef Name="SeasonId" />
+              <PropertyRef Name="SeasonsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1871,7 +1871,7 @@
                 <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />
                 <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1884,7 +1884,7 @@
                 <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />
                 <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1926,7 +1926,7 @@
                 <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />
                 <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1939,7 +1939,7 @@
                 <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />
                 <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -2096,7 +2096,7 @@
                 <ScalarProperty Name="CurrentConditionsId" ColumnName="CurrentConditionsId" />
                 <ScalarProperty Name="StaticConditionsId" ColumnName="StaticConditionsId" />
                 <ScalarProperty Name="TemperatureId" ColumnName="TemperatureId" />
-                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />
                 <ScalarProperty Name="InfluencingEquipmentUid" ColumnName="InfluencingEquipmentUid" />
                 <ScalarProperty Name="BoundingElementsId" ColumnName="BoundingElementsId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

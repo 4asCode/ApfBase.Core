@@ -81,7 +81,7 @@ namespace ApfBuilder.Context
                         PreFaultConditionsId INT,
                         BoundingElementsId INT NULL,
                         InfluencingEquipmentUid UNIQUEIDENTIFIER NULL,
-                        SeasonId INT NULL,
+                        SeasonsId INT NULL,
                         TemperatureId INT NULL,
                         UsingRow BIT NULL,
                         LimitPowerFlow FLOAT NULL,
@@ -126,7 +126,7 @@ namespace ApfBuilder.Context
                 dataTable.Columns.Add("PreFaultConditionsId", typeof(int));
                 dataTable.Columns.Add("BoundingElementsId", typeof(int));
                 dataTable.Columns.Add("InfluencingEquipmentUid", typeof(Guid));
-                dataTable.Columns.Add("SeasonId", typeof(int));
+                dataTable.Columns.Add("SeasonsId", typeof(int));
                 dataTable.Columns.Add("TemperatureId", typeof(int));
                 dataTable.Columns.Add("UsingRow", typeof(bool));
                 dataTable.Columns.Add("LimitPowerFlow", typeof(double));
@@ -184,7 +184,7 @@ namespace ApfBuilder.Context
                     dataTable.Rows.Add(
                         item.BranchGroupSchemeUid, item.Id, 
                         item.BoundingElementsId, item.InfluencingEquipmentUid,
-                        item.SeasonId, item.TemperatureId, 
+                        item.SeasonsId, item.TemperatureId, 
                         item.UsingRow, item.LimitPowerFlow,
                         item.TprPowerFlow, item.EprPowerFlow, 
                         item.CurrentPowerFlow, item.VoltagePowerFlow,
@@ -225,7 +225,7 @@ namespace ApfBuilder.Context
                     WHEN MATCHED THEN UPDATE SET
                         BoundingElementsId = Source.BoundingElementsId,
                         InfluencingEquipmentUid = Source.InfluencingEquipmentUid,
-                        SeasonId = Source.SeasonId,
+                        SeasonsId = Source.SeasonsId,
                         TemperatureId = Source.TemperatureId,
                         UsingRow = Source.UsingRow,
                         LimitPowerFlow = Source.LimitPowerFlow,

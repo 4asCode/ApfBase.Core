@@ -12,21 +12,21 @@
         <EntityTypeShape EntityType="ApfBaseModel.APF" Width="1.5" PointX="11.25" PointY="11.625" />
         <EntityTypeShape EntityType="ApfBaseModel.APNU" Width="1.5" PointX="3" PointY="16.625" />
         <EntityTypeShape EntityType="ApfBaseModel.ARPM" Width="1.5" PointX="6" PointY="12.75" />
-        <EntityTypeShape EntityType="ApfBaseModel.BoundingElements" Width="1.5" PointX="12" PointY="18" />
-        <EntityTypeShape EntityType="ApfBaseModel.BranchGroup" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApfBaseModel.BranchGroupScheme" Width="1.5" PointX="6.75" PointY="19.875" />
-        <EntityTypeShape EntityType="ApfBaseModel.Conditions" Width="1.5" PointX="12" PointY="7.125" />
-        <EntityTypeShape EntityType="ApfBaseModel.Disturbances" Width="1.5" PointX="12" PointY="4" />
+        <EntityTypeShape EntityType="ApfBaseModel.BoundingElements" Width="1.5" PointX="12" PointY="18.5" />
+        <EntityTypeShape EntityType="ApfBaseModel.BranchGroup" Width="1.5" PointX="0.75" PointY="8.375" />
+        <EntityTypeShape EntityType="ApfBaseModel.BranchGroupScheme" Width="1.5" PointX="6.75" PointY="17.25" />
+        <EntityTypeShape EntityType="ApfBaseModel.Conditions" Width="1.5" PointX="12" PointY="21.75" />
+        <EntityTypeShape EntityType="ApfBaseModel.Disturbances" Width="1.5" PointX="12" PointY="7.375" />
         <EntityTypeShape EntityType="ApfBaseModel.Equipment" Width="1.5" PointX="6.75" PointY="5.625" />
         <EntityTypeShape EntityType="ApfBaseModel.EquipmentVsInfluencingEquipment" Width="1.5" PointX="9" PointY="7.625" />
-        <EntityTypeShape EntityType="ApfBaseModel.FrequencyPowerFlow" Width="1.5" PointX="12" PointY="21.375" />
+        <EntityTypeShape EntityType="ApfBaseModel.FrequencyPowerFlow" Width="1.5" PointX="12" PointY="4" />
         <EntityTypeShape EntityType="ApfBaseModel.InfluencingEquipment" Width="1.5" PointX="6.75" PointY="9.75" />
         <EntityTypeShape EntityType="ApfBaseModel.Management" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="ApfBaseModel.ManagementTasks" Width="1.5" PointX="0.75" PointY="1.375" />
         <EntityTypeShape EntityType="ApfBaseModel.PostFaultConditions" Width="1.5" PointX="14.25" PointY="11.25" />
         <EntityTypeShape EntityType="ApfBaseModel.PreFaultConditions" Width="1.5" PointX="9" PointY="11.25" />
         <EntityTypeShape EntityType="ApfBaseModel.Seasons" Width="1.5" PointX="0.75" PointY="13.125" />
-        <EntityTypeShape EntityType="ApfBaseModel.Temperature" Width="1.5" PointX="6.75" PointY="17.25" />
+        <EntityTypeShape EntityType="ApfBaseModel.Temperature" Width="1.5" PointX="6.75" PointY="20" />
         <AssociationConnector Association="ApfBaseModel.Equipment_AggregatedEquipment_fk" />
         <AssociationConnector Association="ApfBaseModel.AOPO_BranchGroup_fk" />
         <AssociationConnector Association="ApfBaseModel.AOPO_Seasons_fk" />

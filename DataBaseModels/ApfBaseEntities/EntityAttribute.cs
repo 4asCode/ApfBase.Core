@@ -35,7 +35,9 @@ namespace DataBaseModels.ApfBaseEntities
                     var instance = Activator.CreateInstance(t);
 
                     if (instance == null)
+                    {
                         throw new ArgumentNullException();
+                    }
 
                     return (IEntity)instance;
                 }
