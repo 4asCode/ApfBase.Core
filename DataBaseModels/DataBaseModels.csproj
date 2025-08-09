@@ -96,6 +96,12 @@
     <Compile Include="ApfBaseEntities\ARPM.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityDefinition.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityFieldDefinition.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityFieldMap.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityReferenceMap.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityMap\IDefinition.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityMap\IMap.cs" />
     <Compile Include="ApfBaseEntities\Entities\FrequencyPowerFlow.cs" />
     <Compile Include="ApfBaseEntities\Entities\ManagementTasks.cs" />
     <Compile Include="ApfBaseEntities\EntityAttribute.cs" />
@@ -138,7 +144,6 @@
     </Compile>
     <Compile Include="ApfBaseEntities\DataBaseConnection.cs" />
     <Compile Include="ApfBaseEntities\EntityMetadata.cs" />
-    <Compile Include="ApfBaseEntities\EntityRelations\EntityExtensions.cs" />
     <Compile Include="ApfBaseEntities\EntityRelations\EntityRelationMetadata.cs" />
     <Compile Include="ApfBaseEntities\EntityRelations\EntityRelationRegistry.cs" />
     <Compile Include="ApfBaseEntities\EntityRelations\RelationKind.cs" />
@@ -226,5 +231,6 @@
       <Name>Serialize</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

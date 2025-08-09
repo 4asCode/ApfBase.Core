@@ -39,7 +39,7 @@
           <Property Name="SeasonsId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
-          <Property Name="PowerFlowSetting" Type="float" />
+          <Property Name="ControlValuePowerFlow" Type="float" />
           <Property Name="Coefficient" Type="float" />
         </EntityType>
         <EntityType Name="AOSN">
@@ -51,7 +51,7 @@
           <Property Name="SeasonsId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
-          <Property Name="PowerFlowSetting" Type="float" />
+          <Property Name="ControlValuePowerFlow" Type="float" />
           <Property Name="Coefficient" Type="float" />
         </EntityType>
         <EntityType Name="APF">
@@ -90,7 +90,7 @@
           <Property Name="SeasonsId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
-          <Property Name="PowerFlowSetting" Type="float" />
+          <Property Name="ControlValuePowerFlow" Type="float" />
           <Property Name="StaticsCoefficient" Type="float" />
           <Property Name="DynamicsCoefficient" Type="float" />
           <Property Name="CurrentCoefficient" Type="float" />
@@ -104,7 +104,7 @@
           <Property Name="SeasonsId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="FormalName" Type="nvarchar" MaxLength="100" />
-          <Property Name="PowerFlowSetting" Type="float" />
+          <Property Name="ControlValuePowerFlow" Type="float" />
           <Property Name="Coefficient" Type="float" />
         </EntityType>
         <EntityType Name="BoundingElements">
@@ -1118,7 +1118,7 @@
           <Property Name="SeasonsId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PowerFlowSetting" Type="Double" />
+          <Property Name="ControlValuePowerFlow" Type="Double" />
           <Property Name="Coefficient" Type="Double" />
           <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.AOPO_BranchGroup_fk" FromRole="AOPO" ToRole="BranchGroup" />
           <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.AOPO_Seasons_fk" FromRole="AOPO" ToRole="Seasons" />
@@ -1133,7 +1133,7 @@
           <Property Name="SeasonsId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PowerFlowSetting" Type="Double" />
+          <Property Name="ControlValuePowerFlow" Type="Double" />
           <Property Name="Coefficient" Type="Double" />
           <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.AOSN_BranchGroup_fk" FromRole="AOSN" ToRole="BranchGroup" />
           <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.AOSN_Seasons_fk" FromRole="AOSN" ToRole="Seasons" />
@@ -1176,7 +1176,7 @@
           <Property Name="SeasonsId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PowerFlowSetting" Type="Double" />
+          <Property Name="ControlValuePowerFlow" Type="Double" />
           <Property Name="StaticsCoefficient" Type="Double" />
           <Property Name="DynamicsCoefficient" Type="Double" />
           <Property Name="CurrentCoefficient" Type="Double" />
@@ -1193,7 +1193,7 @@
           <Property Name="SeasonsId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FormalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PowerFlowSetting" Type="Double" />
+          <Property Name="ControlValuePowerFlow" Type="Double" />
           <Property Name="Coefficient" Type="Double" />
           <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.ARPM_BranchGroup_fk" FromRole="ARPM" ToRole="BranchGroup" />
           <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.ARPM_Seasons_fk" FromRole="ARPM" ToRole="Seasons" />
@@ -1868,7 +1868,7 @@
             <EntityTypeMapping TypeName="ApfBaseModel.AOPO">
               <MappingFragment StoreEntitySet="AOPO">
                 <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
-                <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
+                <ScalarProperty Name="ControlValuePowerFlow" ColumnName="ControlValuePowerFlow" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />
@@ -1881,7 +1881,7 @@
             <EntityTypeMapping TypeName="ApfBaseModel.AOSN">
               <MappingFragment StoreEntitySet="AOSN">
                 <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
-                <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
+                <ScalarProperty Name="ControlValuePowerFlow" ColumnName="ControlValuePowerFlow" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />
@@ -1923,7 +1923,7 @@
                 <ScalarProperty Name="CurrentCoefficient" ColumnName="CurrentCoefficient" />
                 <ScalarProperty Name="DynamicsCoefficient" ColumnName="DynamicsCoefficient" />
                 <ScalarProperty Name="StaticsCoefficient" ColumnName="StaticsCoefficient" />
-                <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
+                <ScalarProperty Name="ControlValuePowerFlow" ColumnName="ControlValuePowerFlow" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />
@@ -1936,7 +1936,7 @@
             <EntityTypeMapping TypeName="ApfBaseModel.ARPM">
               <MappingFragment StoreEntitySet="ARPM">
                 <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
-                <ScalarProperty Name="PowerFlowSetting" ColumnName="PowerFlowSetting" />
+                <ScalarProperty Name="ControlValuePowerFlow" ColumnName="ControlValuePowerFlow" />
                 <ScalarProperty Name="FormalName" ColumnName="FormalName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SeasonsId" ColumnName="SeasonsId" />

@@ -25,7 +25,7 @@ namespace DataBaseModels.ApfBaseEntities
         public Nullable<int> SeasonsId { get; set; }
         public string Name { get; set; }
         public string FormalName { get; set; }
-        public Nullable<double> PowerFlowSetting { get; set; }
+        public Nullable<double> ControlValuePowerFlow { get; set; }
         public Nullable<double> StaticsCoefficient { get; set; }
         public Nullable<double> DynamicsCoefficient { get; set; }
         public Nullable<double> CurrentCoefficient { get; set; }

@@ -23,7 +23,7 @@ namespace ApfBuilder.Services
                 {
                     case AOPO aopo:
                         aopo.Value = GetValueOrDescription(
-                            aopo.Coefficient, aopo.PowerFlowSetting
+                            aopo.Coefficient, aopo.ControlValuePowerFlow
                             );
                         aopo.Description = GetValueOrDescription(
                             aopo.Coefficient, aopo.FormalName
@@ -33,7 +33,7 @@ namespace ApfBuilder.Services
                         break;
                     case ARPM arpm:
                         arpm.Value = GetValueOrDescription(
-                            arpm.Coefficient, arpm.PowerFlowSetting
+                            arpm.Coefficient, arpm.ControlValuePowerFlow
                             );
                         arpm.Description = GetValueOrDescription(
                             arpm.Coefficient, arpm.FormalName
@@ -43,7 +43,7 @@ namespace ApfBuilder.Services
                         break;
                     case AOSN aosn:
                         aosn.Value = GetValueOrDescription(
-                            aosn.Coefficient, aosn.PowerFlowSetting
+                            aosn.Coefficient, aosn.ControlValuePowerFlow
                             );
                         aosn.Description = GetValueOrDescription(
                             aosn.Coefficient, aosn.FormalName
@@ -55,14 +55,14 @@ namespace ApfBuilder.Services
                         if (type == CriterionType.Static)
                         {
                             apnu.Value = GetValueOrDescription(
-                                apnu.StaticsCoefficient, apnu.PowerFlowSetting
+                                apnu.StaticsCoefficient, apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
                         }
                         if (type == CriterionType.Dynamic)
                         {
                             apnu.Value = GetValueOrDescription(
-                                apnu.DynamicsCoefficient, apnu.PowerFlowSetting
+                                apnu.DynamicsCoefficient, apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
                         }
@@ -71,7 +71,7 @@ namespace ApfBuilder.Services
                             )
                         {
                             apnu.Value = GetValueOrDescription(
-                                apnu.CurrentCoefficient, apnu.PowerFlowSetting
+                                apnu.CurrentCoefficient, apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
                         }
