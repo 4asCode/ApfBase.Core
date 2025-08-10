@@ -41,8 +41,8 @@ namespace DataBaseModels.ApfBaseEntities
         public virtual APF APF { get; set; }
         public virtual BoundingElements BoundingElements { get; set; }
         public virtual BranchGroupScheme BranchGroupScheme { get; set; }
-        public virtual Conditions Conditions { get; set; }
-        public virtual Conditions Conditions1 { get; set; }
+        public virtual Conditions ConditionsCurrent { get; set; }
+        public virtual Conditions ConditionsStatic { get; set; }
         public virtual InfluencingEquipment InfluencingEquipment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostFaultConditions> PostFaultConditions { get; set; }

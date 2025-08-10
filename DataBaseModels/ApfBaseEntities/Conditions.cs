@@ -19,8 +19,8 @@ namespace DataBaseModels.ApfBaseEntities
         {
             this.FrequencyPowerFlow = new HashSet<FrequencyPowerFlow>();
             this.PostFaultConditions = new HashSet<PostFaultConditions>();
-            this.PreFaultConditions = new HashSet<PreFaultConditions>();
-            this.PreFaultConditions1 = new HashSet<PreFaultConditions>();
+            this.PreFaultConditionsCurrent = new HashSet<PreFaultConditions>();
+            this.PreFaultConditionsStatic = new HashSet<PreFaultConditions>();
         }
     
         public int Id { get; set; }
@@ -36,8 +36,8 @@ namespace DataBaseModels.ApfBaseEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostFaultConditions> PostFaultConditions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PreFaultConditions> PreFaultConditions { get; set; }
+        public virtual ICollection<PreFaultConditions> PreFaultConditionsCurrent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PreFaultConditions> PreFaultConditions1 { get; set; }
+        public virtual ICollection<PreFaultConditions> PreFaultConditionsStatic { get; set; }
     }
 }

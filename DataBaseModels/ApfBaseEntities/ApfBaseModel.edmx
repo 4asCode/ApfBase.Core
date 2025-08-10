@@ -1254,8 +1254,8 @@
           <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.Conditions_BranchGroup_fk" FromRole="Conditions" ToRole="BranchGroup" />
           <NavigationProperty Name="FrequencyPowerFlow" Relationship="ApfBaseModel.FrequencyPowerFlow_Conditions_fk" FromRole="Conditions" ToRole="FrequencyPowerFlow" />
           <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_Conditions_fk" FromRole="Conditions" ToRole="PostFaultConditions" />
-          <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_CurrentConditions_fk" FromRole="Conditions" ToRole="PreFaultConditions" />
-          <NavigationProperty Name="PreFaultConditions1" Relationship="ApfBaseModel.PreFaultConditions_StaticConditions_fk" FromRole="Conditions" ToRole="PreFaultConditions" />
+          <NavigationProperty Name="PreFaultConditionsCurrent" Relationship="ApfBaseModel.PreFaultConditions_CurrentConditions_fk" FromRole="Conditions" ToRole="PreFaultConditions" />
+          <NavigationProperty Name="PreFaultConditionsStatic" Relationship="ApfBaseModel.PreFaultConditions_StaticConditions_fk" FromRole="Conditions" ToRole="PreFaultConditions" />
         </EntityType>
         <EntityType Name="Disturbances">
           <Key>
@@ -1391,8 +1391,8 @@
           <NavigationProperty Name="APF" Relationship="ApfBaseModel.APF_PreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="APF" />
           <NavigationProperty Name="BoundingElements" Relationship="ApfBaseModel.PreFaultConditions_BoundingElements_fk" FromRole="PreFaultConditions" ToRole="BoundingElements" />
           <NavigationProperty Name="BranchGroupScheme" Relationship="ApfBaseModel.PreFaultConditions_BranchGroupScheme_fk" FromRole="PreFaultConditions" ToRole="BranchGroupScheme" />
-          <NavigationProperty Name="Conditions" Relationship="ApfBaseModel.PreFaultConditions_CurrentConditions_fk" FromRole="PreFaultConditions" ToRole="Conditions" />
-          <NavigationProperty Name="Conditions1" Relationship="ApfBaseModel.PreFaultConditions_StaticConditions_fk" FromRole="PreFaultConditions" ToRole="Conditions" />
+          <NavigationProperty Name="ConditionsCurrent" Relationship="ApfBaseModel.PreFaultConditions_CurrentConditions_fk" FromRole="PreFaultConditions" ToRole="Conditions" />
+          <NavigationProperty Name="ConditionsStatic" Relationship="ApfBaseModel.PreFaultConditions_StaticConditions_fk" FromRole="PreFaultConditions" ToRole="Conditions" />
           <NavigationProperty Name="InfluencingEquipment" Relationship="ApfBaseModel.PreFaultConditions_InfluencingEquipment_fk" FromRole="PreFaultConditions" ToRole="InfluencingEquipment" />
           <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_PreFaultConditions_fk" FromRole="PreFaultConditions" ToRole="PostFaultConditions" />
           <NavigationProperty Name="Seasons" Relationship="ApfBaseModel.PreFaultConditions_Seasons_fk" FromRole="PreFaultConditions" ToRole="Seasons" />
