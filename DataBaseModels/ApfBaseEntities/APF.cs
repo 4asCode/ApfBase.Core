@@ -14,7 +14,7 @@ namespace DataBaseModels.ApfBaseEntities
     
     public partial class APF
     {
-        public System.Guid BranchGroupSchemeUid { get; set; }
+        public int BranchGroupVsBranchGroupSchemeId { get; set; }
         public int PreFaultConditionsId { get; set; }
         public string PowerFlowStandardValue { get; set; }
         public string PowerFlowStandardDescription { get; set; }

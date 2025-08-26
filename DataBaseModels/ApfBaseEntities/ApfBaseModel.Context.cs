@@ -27,6 +27,7 @@ namespace DataBaseModels.ApfBaseEntities
     
         public virtual DbSet<AggregatedEquipment> AggregatedEquipment { get; set; }
         public virtual DbSet<Annex> Annex { get; set; }
+        public virtual DbSet<AnnexVsBranchGroup> AnnexVsBranchGroup { get; set; }
         public virtual DbSet<AOPO> AOPO { get; set; }
         public virtual DbSet<AOSN> AOSN { get; set; }
         public virtual DbSet<APF> APF { get; set; }
@@ -35,6 +36,7 @@ namespace DataBaseModels.ApfBaseEntities
         public virtual DbSet<BoundingElements> BoundingElements { get; set; }
         public virtual DbSet<BranchGroup> BranchGroup { get; set; }
         public virtual DbSet<BranchGroupScheme> BranchGroupScheme { get; set; }
+        public virtual DbSet<BranchGroupVsBranchGroupScheme> BranchGroupVsBranchGroupScheme { get; set; }
         public virtual DbSet<Conditions> Conditions { get; set; }
         public virtual DbSet<Disturbances> Disturbances { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }

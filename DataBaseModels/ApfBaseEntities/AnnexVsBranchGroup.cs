@@ -12,19 +12,13 @@ namespace DataBaseModels.ApfBaseEntities
     using System;
     using System.Collections.Generic;
     
-    public partial class BranchGroupScheme
+    public partial class AnnexVsBranchGroup
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BranchGroupScheme()
-        {
-            this.BranchGroupVsBranchGroupScheme = new HashSet<BranchGroupVsBranchGroupScheme>();
-        }
+        public int Id { get; set; }
+        public int AnnexId { get; set; }
+        public System.Guid BranchGroupUid { get; set; }
     
-        public System.Guid Uid { get; set; }
-        public Nullable<double> Number { get; set; }
-        public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BranchGroupVsBranchGroupScheme> BranchGroupVsBranchGroupScheme { get; set; }
+        public virtual Annex Annex { get; set; }
+        public virtual BranchGroup BranchGroup { get; set; }
     }
 }

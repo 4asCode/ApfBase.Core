@@ -21,6 +21,7 @@ namespace DataBaseModels.ApfBaseEntities
             this.PostFaultConditions = new HashSet<PostFaultConditions>();
             this.PreFaultConditionsCurrent = new HashSet<PreFaultConditions>();
             this.PreFaultConditionsStatic = new HashSet<PreFaultConditions>();
+            this.PreFaultConditionsVoltage = new HashSet<PreFaultConditions>();
         }
     
         public int Id { get; set; }
@@ -39,5 +40,7 @@ namespace DataBaseModels.ApfBaseEntities
         public virtual ICollection<PreFaultConditions> PreFaultConditionsCurrent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PreFaultConditions> PreFaultConditionsStatic { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PreFaultConditions> PreFaultConditionsVoltage { get; set; }
     }
 }
