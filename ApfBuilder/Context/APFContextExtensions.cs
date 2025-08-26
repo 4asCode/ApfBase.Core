@@ -77,12 +77,15 @@ namespace ApfBuilder.Context
                 string createTempTableSql = @"
                     CREATE TABLE #TempPreFaultApf 
                     (
-                        BranchGroupSchemeUid UNIQUEIDENTIFIER,
-                        PreFaultConditionsId INT,
+                        BranchGroupVsBranchGroupSchemeId INT,
+                        Id INT,
                         BoundingElementsId INT NULL,
                         InfluencingEquipmentUid UNIQUEIDENTIFIER NULL,
                         SeasonsId INT NULL,
                         TemperatureId INT NULL,
+                        ConditionsStaticId INT NULL,
+                        ConditionsCurrentId INT NULL,
+                        ConditionsVoltageId INT NULL,
                         UsingRow BIT NULL,
                         LimitPowerFlow FLOAT NULL,
                         TprPowerFlow FLOAT NULL,
@@ -112,7 +115,7 @@ namespace ApfBuilder.Context
                         PowerFlowEmergencyDescriptionHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowForcedStateValueHandWritten NVARCHAR(MAX) NULL,
 	                    PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
-                        PRIMARY KEY(BranchGroupSchemeUid, PreFaultConditionsId)
+                        PRIMARY KEY(BranchGroupVsBranchGroupSchemeId, Id)
                     );";
 
                 using (var createCmd = new SqlCommand(
@@ -122,12 +125,15 @@ namespace ApfBuilder.Context
                 }
 
                 var dataTable = new DataTable();
-                dataTable.Columns.Add("BranchGroupSchemeUid", typeof(Guid));
-                dataTable.Columns.Add("PreFaultConditionsId", typeof(int));
+                dataTable.Columns.Add("BranchGroupVsBranchGroupSchemeId", typeof(int));
+                dataTable.Columns.Add("Id", typeof(int));
                 dataTable.Columns.Add("BoundingElementsId", typeof(int));
                 dataTable.Columns.Add("InfluencingEquipmentUid", typeof(Guid));
                 dataTable.Columns.Add("SeasonsId", typeof(int));
                 dataTable.Columns.Add("TemperatureId", typeof(int));
+                dataTable.Columns.Add("ConditionsStaticId", typeof(int));
+                dataTable.Columns.Add("ConditionsCurrentId", typeof(int));
+                dataTable.Columns.Add("ConditionsVoltageId", typeof(int));
                 dataTable.Columns.Add("UsingRow", typeof(bool));
                 dataTable.Columns.Add("LimitPowerFlow", typeof(double));
                 dataTable.Columns.Add("TprPowerFlow", typeof(double));
@@ -182,12 +188,14 @@ namespace ApfBuilder.Context
                     var apf = item.APF;
 
                     dataTable.Rows.Add(
-                        item.BranchGroupSchemeUid, item.Id, 
+                        item.BranchGroupVsBranchGroupSchemeId, item.Id, 
                         item.BoundingElementsId, item.InfluencingEquipmentUid,
-                        item.SeasonsId, item.TemperatureId, 
+                        item.SeasonsId, item.TemperatureId, item.ConditionsStaticId,
+                        item.ConditionsCurrentId, item.ConditionsVoltageId,
                         item.UsingRow, item.LimitPowerFlow,
                         item.TprPowerFlow, item.EprPowerFlow, 
-                        item.CurrentPowerFlow, item.VoltagePowerFlow,
+                        item.CurrentPowerFlow, item.CurrentAOPO, 
+                        item.VoltagePowerFlow,
                         item.IrOscExpressions, item.Comment,
 
                         apf?.PowerFlowStandardValue, 
@@ -219,14 +227,17 @@ namespace ApfBuilder.Context
                 string mergePreFaultSql = @"
                     MERGE INTO PreFaultConditions AS Target
                     USING #TempPreFaultApf AS Source
-                    ON Target.BranchGroupSchemeUid = 
-                        Source.BranchGroupSchemeUid AND 
-                        Target.Id = Source.PreFaultConditionsId
+                    ON Target.BranchGroupVsBranchGroupSchemeId = 
+                        Source.BranchGroupVsBranchGroupSchemeId AND 
+                        Target.Id = Source.Id
                     WHEN MATCHED THEN UPDATE SET
                         BoundingElementsId = Source.BoundingElementsId,
                         InfluencingEquipmentUid = Source.InfluencingEquipmentUid,
                         SeasonsId = Source.SeasonsId,
                         TemperatureId = Source.TemperatureId,
+                        ConditionsStaticId = Source.ConditionsStaticId,
+                        ConditionsCurrentId = Source.ConditionsCurrentId,
+                        ConditionsVoltageId = Source.ConditionsVoltageId,
                         UsingRow = Source.UsingRow,
                         LimitPowerFlow = Source.LimitPowerFlow,
                         TprPowerFlow = Source.TprPowerFlow,
@@ -240,10 +251,10 @@ namespace ApfBuilder.Context
                 string mergeApfSql = @"
                     MERGE INTO APF AS Target
                     USING #TempPreFaultApf AS Source
-                    ON Target.BranchGroupSchemeUid = 
-                        Source.BranchGroupSchemeUid AND 
+                    ON Target.BranchGroupVsBranchGroupSchemeId = 
+                        Source.BranchGroupVsBranchGroupSchemeId AND 
                         Target.PreFaultConditionsId = 
-                            Source.PreFaultConditionsId
+                            Source.Id
                     WHEN MATCHED THEN UPDATE SET
                         PowerFlowStandardValue = 
                             Source.PowerFlowStandardValue,

@@ -8,7 +8,7 @@ using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 namespace DataBaseModels.ApfBaseEntities
 {
     [ReferenceDataEntity]
-    public partial class InfluencingEquipment : IEntity, IComparable<InfluencingEquipment>
+    public partial class InfluencingEquipment : IEntity, IUidProvider, IComparable<InfluencingEquipment>
     {
         public override string ToString()
         {
@@ -20,21 +20,12 @@ namespace DataBaseModels.ApfBaseEntities
 
         public override bool Equals(object other)
         {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-            else if (!(other is InfluencingEquipment))
-            {
-                return false;
-            }
-
-            return Equals((other as InfluencingEquipment).Uid, Uid);
+            return other is InfluencingEquipment ae && Uid.Equals(ae.Uid);
         }
 
         public override int GetHashCode()
         {
-            return new { Uid }.GetHashCode();
+            return Uid.GetHashCode();
         }
 
         public void Remove()
@@ -50,6 +41,27 @@ namespace DataBaseModels.ApfBaseEntities
                 {
                     dbSet.Remove(removeEntity);
                     context.SaveChanges();
+                }
+            }
+        }
+
+        public void GenerateUid()
+        {
+            if (Uid != Guid.Empty) return;
+
+            using (var context = new ApfBaseContext(
+                DataBaseConnection.ConnectionString))
+            {
+                Uid = Guid.NewGuid();
+
+                var dbSet = context.Set<InfluencingEquipment>();
+
+                var uid = dbSet.Find(Uid)?.Uid;
+
+                while (uid != null)
+                {
+                    Uid = Guid.NewGuid();
+                    uid = dbSet.Find(Uid)?.Uid;
                 }
             }
         }

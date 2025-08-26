@@ -14,7 +14,7 @@ namespace DataBaseModels.ApfBaseEntities
     
     public partial class PostFaultConditions
     {
-        public System.Guid BranchGroupSchemeUid { get; set; }
+        public int BranchGroupVsBranchGroupSchemeId { get; set; }
         public int PreFaultConditionsId { get; set; }
         public int Id { get; set; }
         public Nullable<int> DisturbancesId { get; set; }

@@ -81,6 +81,9 @@
     <Compile Include="ApfBaseEntities\Annex.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApfBaseEntities\AnnexVsBranchGroup.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApfBaseEntities\AOPO.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
@@ -96,10 +99,15 @@
     <Compile Include="ApfBaseEntities\ARPM.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApfBaseEntities\BranchGroupVsBranchGroupScheme.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApfBaseEntities\Entities\AnnexVsBranchGroup.cs" />
+    <Compile Include="ApfBaseEntities\Entities\BranchGroupVsBranchGroupScheme.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityDefinition.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityFieldDefinition.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityFieldMap.cs" />
-    <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityReferenceMap.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityMap.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\IDefinition.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\IMap.cs" />
     <Compile Include="ApfBaseEntities\Entities\FrequencyPowerFlow.cs" />

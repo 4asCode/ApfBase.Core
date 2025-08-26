@@ -20,7 +20,7 @@ namespace DataBaseModels.ApfBaseEntities
                 var dbSet = context.Set<PreFaultConditions>();
 
                 var removeEntity = dbSet.Find(
-                    BranchGroupSchemeUid,
+                    BranchGroupVsBranchGroupSchemeId,
                     Id
                     );
 

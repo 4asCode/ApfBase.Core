@@ -22,33 +22,21 @@ namespace DataBaseModels.ApfBaseEntities
             return Name?.ToString();
         }
 
-        public int CompareTo(AggregatedEquipment aggregatedEquipment)
+        public int CompareTo(AggregatedEquipment other)
         {
-            if (this.Id < aggregatedEquipment.Id)
-                return -1;
-            else if (this.Id > aggregatedEquipment.Id)
-                return 1;
-            else
-                return 0;
+            if (ReferenceEquals(other, null)) return 1;
+
+            return Id < other.Id ? -1 : (Id > other.Id ? 1 : 0);
         }
 
         public override bool Equals(object other)
         {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-            else if (!(other is AggregatedEquipment))
-            {
-                return false;
-            }
-
-            return Equals((other as AggregatedEquipment).Id, Id);
+            return other is AggregatedEquipment ae && Id.Equals(ae.Id);
         }
 
         public override int GetHashCode()
         {
-            return new { Id }.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public void Remove()

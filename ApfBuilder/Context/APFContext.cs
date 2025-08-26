@@ -43,8 +43,8 @@ namespace ApfBuilder.Context
                     DataBaseConnection.ConnectionString);
 
                 _preF = EntityProvider.GetEntity<PreFaultConditions>(context,
-                    p => p.BranchGroupSchemeUid == 
-                        postF.BranchGroupSchemeUid &&
+                    p => p.BranchGroupVsBranchGroupSchemeId == 
+                        postF.BranchGroupVsBranchGroupSchemeId &&
                         p.Id == postF.PreFaultConditionsId)
                     .FirstOrDefault();
 
@@ -61,7 +61,7 @@ namespace ApfBuilder.Context
             {
                 context.Apf = new APF
                 {
-                    BranchGroupSchemeUid = context.PreF.BranchGroupSchemeUid,
+                    BranchGroupVsBranchGroupSchemeId = context.PreF.BranchGroupVsBranchGroupSchemeId,
                     PreFaultConditionsId = context.PreF.Id,
                 };
             }
@@ -80,8 +80,8 @@ namespace ApfBuilder.Context
                     {
                         context.Apf = new APF
                         {
-                            BranchGroupSchemeUid = 
-                                context.PreF.BranchGroupSchemeUid,
+                            BranchGroupVsBranchGroupSchemeId = 
+                                context.PreF.BranchGroupVsBranchGroupSchemeId,
                             PreFaultConditionsId = context.PreF.Id,
                         };
                     }
