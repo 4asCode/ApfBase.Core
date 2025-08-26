@@ -23,7 +23,7 @@ namespace DataBaseModels.ApfBaseEntities
         public int Id { get; set; }
         public Nullable<int> ConditionId { get; set; }
         public Nullable<double> PowerConsumptionFactor { get; set; }
-        public string PowerConsumptionDescription { get; set; }
+        public string PowerConsumptionName { get; set; }
         public Nullable<double> MinValue { get; set; }
         public Nullable<double> MaxValue { get; set; }
     
