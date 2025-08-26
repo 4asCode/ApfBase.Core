@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace Serialize
 {
-    public class XmlSerializer
+    public static class XmlSerializer
     {
-        public void Serialize<T>(List<T> settingList, string fileName)
+        public static void Serialize<T>(List<T> settingList, string fileName)
         {
             try
             {
@@ -29,7 +25,7 @@ namespace Serialize
             }
         }
 
-        public List<T> Deserialize<T>(string fileName)
+        public static List<T> Deserialize<T>(string fileName)
         {
             var settingList = new List<T>();
 

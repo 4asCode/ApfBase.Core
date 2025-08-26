@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 
 namespace Serialize
 {
-    public class JsonSerializer
+    public static class JsonSerializer
     {
-        public string Serialize<T>(T collection)
+        public static string Serialize<T>(T collection)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace Serialize
             }
         }
 
-        public T Deserialize<T>(string data)
+        public static T Deserialize<T>(string data)
         {
             try
             {

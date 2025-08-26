@@ -8,7 +8,7 @@ namespace Extensions
 {
     public static class Rounder
     {
-        public static int Value { get; private set; }
+        public static int Value { get; private set; } = 1;
 
         public static void SetValue(int value)
         {

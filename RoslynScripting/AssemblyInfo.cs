@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Serialize;
+using Stream;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Serialize;
-using Stream;
 
 namespace RoslynScripting
 {
@@ -24,7 +22,7 @@ namespace RoslynScripting
         {
             var read = Reader.Read(_settingPath);
 
-            var assembly = new JsonSerializer().
+            var assembly = JsonSerializer.
                 Deserialize<AssemblyInfo>(read);
 
             References = assembly.References;
