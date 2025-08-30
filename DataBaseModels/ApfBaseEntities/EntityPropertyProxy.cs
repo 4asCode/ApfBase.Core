@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 
 namespace DataBaseModels.ApfBaseEntities
@@ -308,61 +302,26 @@ namespace DataBaseModels.ApfBaseEntities
                 this, new PropertyChangedEventArgs(propertyName)
                 );
 
+        [ProxyFor(nameof(AnnexId))]
         [ProxyFor(nameof(Annex))]
-        public string AnnexProxy
+        public int? AnnexProxy
         {
-            get
-            {
-                using (var ctx = new ApfBaseContext(
-                    DataBaseConnection.ConnectionString))
-                {
-                    var ids = ctx.Database
-                        .SqlQuery<int>(
-                            "SELECT AnnexId " +
-                            "FROM [ApfBase].[dbo].[AnnexVsBranchGroup] " +
-                            "WHERE BranchGroupUid = @p0",
-                            this.Uid)
-                        .ToList();
-                    return string.Join(",", ids);
-                }
-            }
+            get => AnnexId;
             set
             {
-                var ids = string.IsNullOrWhiteSpace(value)
-                    ? new int[0]
-                    : value.Split(new[] { ',' }, 
-                                StringSplitOptions.RemoveEmptyEntries)
-                           .Select(s => int.Parse(s.Trim()))
-                           .Distinct()
-                           .ToArray();
-
-                using (var ctx = new ApfBaseContext(
+                using (var context = new ApfBaseContext(
                     DataBaseConnection.ConnectionString))
-                using (var tx = ctx.Database.BeginTransaction())
                 {
-                    ctx.Database.ExecuteSqlCommand(
-                        "DELETE FROM " +
-                        "[ApfBase].[dbo].[AnnexVsBranchGroup] " +
-                        "WHERE BranchGroupUid = @p0",
-                        this.Uid);
+                    var temp = context.Annex.FirstOrDefault(
+                        t => t.Id == value);
 
-                    if (ids.Length > 0)
-                    {
-                        foreach (var id in ids)
-                        {
-                            ctx.Database.ExecuteSqlCommand(
-                                "INSERT INTO " +
-                                "[ApfBase].[dbo].[AnnexVsBranchGroup] " +
-                                "(AnnexId, BranchGroupUid) VALUES (@p0, @p1)",
-                                id, this.Uid);
-                        }
-                    }
+                    Annex = temp;
+                    AnnexId = temp?.Id;
 
-                    tx.Commit();
+                    OnPropertyChanged(nameof(Annex));
+                    OnPropertyChanged(nameof(AnnexId));
+                    OnPropertyChanged(nameof(AnnexProxy));
                 }
-
-                OnPropertyChanged(nameof(AnnexProxy));
-                OnPropertyChanged(nameof(Annex));
             }
         }
     }

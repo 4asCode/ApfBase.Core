@@ -83,7 +83,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                 },
                 { 
                     typeof(ManagementTasks), 
-                    ("Задачи", "Администрирование", false) 
+                    ("Задачи", "Администрирование", true) 
                 }
             };
 

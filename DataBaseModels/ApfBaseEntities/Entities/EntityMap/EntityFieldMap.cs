@@ -98,9 +98,9 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "AnnexVsBranchGroup",
-                                        FieldName = "AnnexVsBranchGroup",
-                                        DataType = typeof(ICollection<AnnexVsBranchGroup>),
+                                        Name = "BranchGroup",
+                                        FieldName = "BranchGroup",
+                                        DataType = typeof(ICollection<BranchGroup>),
                                         Visible = false,
                                         IsReadOnly = true
                                     }
@@ -529,6 +529,14 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
+                                        Name = "APFReferenceData",
+                                        FieldName = "APFReferenceData",
+                                        DataType = typeof(string),
+                                        Visible = false,
+                                        IsReadOnly = true
+                                    },
+                                    new FieldDefinition()
+                                    {
                                         Name = "InfluencingEquipmentProxy",
                                         FieldName = "Влияющее оборудование",
                                         DataType = typeof(string),
@@ -885,6 +893,14 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
+                                        Name = "AnnexId",
+                                        FieldName = "Id",
+                                        DataType = typeof(int?),
+                                        Visible = false,
+                                        IsReadOnly = true
+                                    },
+                                    new FieldDefinition()
+                                    {
                                         Name = "Number",
                                         FieldName = "Номер",
                                         DataType = typeof(int?),
@@ -977,9 +993,9 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "AnnexVsBranchGroup",
-                                        FieldName = "AnnexVsBranchGroup",
-                                        DataType = typeof(ICollection<AnnexVsBranchGroup>),
+                                        Name = "Annex",
+                                        FieldName = "Annex",
+                                        DataType = typeof(Annex),
                                         Visible = false,
                                         IsReadOnly = true
                                     },
