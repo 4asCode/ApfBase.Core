@@ -38,7 +38,7 @@ namespace DataBaseModels.ApfBaseEntities
             };
         }
 
-        public static BindingList<TEntity> GetEntity<TEntity>(
+        public static IList<TEntity> GetEntity<TEntity>(
             ApfBaseContext context,
             Expression<Func<TEntity, bool>> filter = null)
             where TEntity : class, IEntity

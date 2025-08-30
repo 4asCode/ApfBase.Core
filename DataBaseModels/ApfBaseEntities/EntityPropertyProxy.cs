@@ -337,7 +337,7 @@ namespace DataBaseModels.ApfBaseEntities
                 this, new PropertyChangedEventArgs(propertyName)
                 );
 
-        [ProxyFor(nameof(BranchGroup))]
+        [ProxyFor(nameof(BranchGroupVsBranchGroupScheme))]
         public string BranchGroupProxy
         {
             get
