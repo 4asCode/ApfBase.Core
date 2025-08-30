@@ -75,20 +75,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\APFContextExtensions.cs" />
+    <Compile Include="Criteria\Core\CriterionBase.cs" />
+    <Compile Include="Criteria\Core\Current.cs" />
+    <Compile Include="Criteria\Core\CurrentAOPO.cs" />
+    <Compile Include="Criteria\Core\CurrentSecondary.cs" />
+    <Compile Include="Criteria\Core\Dynamic.cs" />
+    <Compile Include="Criteria\Core\Frequency.cs" />
+    <Compile Include="Criteria\Core\FrequencyAlternate.cs" />
+    <Compile Include="Criteria\Core\Static.cs" />
+    <Compile Include="Criteria\Core\StaticBaseCaseEPR.cs" />
+    <Compile Include="Criteria\Core\StaticBaseCaseTPR.cs" />
+    <Compile Include="Criteria\Core\Voltage.cs" />
+    <Compile Include="Criteria\Core\VoltageSecondary.cs" />
     <Compile Include="Criteria\CriterionExtension.cs" />
-    <Compile Include="Criteria\CriterionType.cs" />
-    <Compile Include="Criteria\IBaseCaseCriterion.cs" />
-    <Compile Include="Criteria\IEmergencyResponceCriterion.cs" />
-    <Compile Include="Criteria\ICurrentCriterion.cs" />
-    <Compile Include="Criteria\IFrequencyAlternateCriterion.cs" />
-    <Compile Include="Criteria\IFrequencyCriterion.cs" />
-    <Compile Include="Criteria\ISecondaryCriterion.cs" />
+    <Compile Include="Criteria\Core\CriterionType.cs" />
+    <Compile Include="Criteria\Core\Interfaces\IBaseCaseCriterion.cs" />
+    <Compile Include="Criteria\Core\Interfaces\IEmergencyResponceCriterion.cs" />
+    <Compile Include="Criteria\Core\Interfaces\ICurrentCriterion.cs" />
+    <Compile Include="Criteria\Core\Interfaces\IFrequencyAlternateCriterion.cs" />
+    <Compile Include="Criteria\Core\Interfaces\IFrequencyCriterion.cs" />
+    <Compile Include="Criteria\Core\Interfaces\ISecondaryCriterion.cs" />
     <Compile Include="PowerFlow\Factory\PowerFlowEmergencyFactory.cs" />
     <Compile Include="PowerFlow\Factory\PowerFlowForcedStateFactory.cs" />
     <Compile Include="PowerFlow\Factory\PowerFlowSafeFactory.cs" />
     <Compile Include="PowerFlow\IComposer.cs" />
     <Compile Include="PowerFlow\PowerFlowBase.cs" />
     <Compile Include="PowerFlow\Composer.cs" />
+    <Compile Include="Services\APFAnalysis.cs" />
     <Compile Include="Services\EmergencyResponseHandler.cs" />
     <Compile Include="PowerFlow\Factory\IPowerFlowCollectionFactory.cs" />
     <Compile Include="PowerFlow\Factory\IPowerFlowFactory.cs" />
@@ -105,7 +118,7 @@
     <Compile Include="Criteria\CriterionFactory.cs" />
     <Compile Include="Criteria\ICriterionFactory.cs" />
     <Compile Include="Services\CriterionSelector .cs" />
-    <Compile Include="Criteria\ICriterion.cs" />
+    <Compile Include="Criteria\Core\Interfaces\ICriterion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Builder.cs" />
   </ItemGroup>

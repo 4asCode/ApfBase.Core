@@ -81,9 +81,6 @@
     <Compile Include="ApfBaseEntities\Annex.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApfBaseEntities\AnnexVsBranchGroup.cs">
-      <DependentUpon>ApfBaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ApfBaseEntities\AOPO.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
@@ -102,7 +99,6 @@
     <Compile Include="ApfBaseEntities\BranchGroupVsBranchGroupScheme.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApfBaseEntities\Entities\AnnexVsBranchGroup.cs" />
     <Compile Include="ApfBaseEntities\Entities\BranchGroupVsBranchGroupScheme.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityDefinition.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityFieldDefinition.cs" />
@@ -152,9 +148,9 @@
     </Compile>
     <Compile Include="ApfBaseEntities\DataBaseConnection.cs" />
     <Compile Include="ApfBaseEntities\EntityMetadata.cs" />
-    <Compile Include="ApfBaseEntities\EntityRelations\EntityRelationMetadata.cs" />
-    <Compile Include="ApfBaseEntities\EntityRelations\EntityRelationRegistry.cs" />
-    <Compile Include="ApfBaseEntities\EntityRelations\RelationKind.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityRelations\EntityRelationMetadata.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityRelations\EntityRelationRegistry.cs" />
+    <Compile Include="ApfBaseEntities\Entities\EntityRelations\RelationKind.cs" />
     <Compile Include="ApfBaseEntities\Equipment.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>

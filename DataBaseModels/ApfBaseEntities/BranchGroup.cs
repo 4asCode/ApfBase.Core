@@ -17,7 +17,6 @@ namespace DataBaseModels.ApfBaseEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BranchGroup()
         {
-            this.AnnexVsBranchGroup = new HashSet<AnnexVsBranchGroup>();
             this.AOPO = new HashSet<AOPO>();
             this.AOSN = new HashSet<AOSN>();
             this.APNU = new HashSet<APNU>();
@@ -29,13 +28,13 @@ namespace DataBaseModels.ApfBaseEntities
         }
     
         public System.Guid Uid { get; set; }
+        public Nullable<int> AnnexId { get; set; }
         public Nullable<int> Number { get; set; }
         public string Name { get; set; }
         public Nullable<int> RoundValue { get; set; }
         public string Note { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AnnexVsBranchGroup> AnnexVsBranchGroup { get; set; }
+        public virtual Annex Annex { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AOPO> AOPO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -35,6 +35,7 @@ namespace DataBaseModels.ApfBaseEntities
         public string PowerFlowEmergencyDescriptionHandWritten { get; set; }
         public string PowerFlowForcedStateValueHandWritten { get; set; }
         public string PowerFlowForcedStateDescriptionHandWritten { get; set; }
+        public string APFReferenceData { get; set; }
     
         public virtual PreFaultConditions PreFaultConditions { get; set; }
     }
