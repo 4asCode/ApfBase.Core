@@ -16,7 +16,7 @@ namespace ApfBuilder.Context
     public static class APFContextExtensions
     {
         public static void ExecuteBuild(
-            this IEnumerable<IAPFContext> context)
+            this IList<IAPFContext> context)
         {
             foreach (var participant in context)
             {
@@ -33,7 +33,7 @@ namespace ApfBuilder.Context
         }
 
         public static void ExecuteBuildParallel(
-            this IEnumerable<IAPFContext> context,
+            this IList<IAPFContext> context,
             int maxDegreeOfParallelism = 4)
         {
             var options = new ParallelOptions
@@ -57,16 +57,13 @@ namespace ApfBuilder.Context
             );
         }
 
-        public static void Save(
-            this IEnumerable<IAPFContext> apfContext)
+        public static void Save(this IList<IAPFContext> apfContext)
         {
-            var preFaultCollection = apfContext.Select(x => x.PreF);
-
-            preFaultCollection.SqlTransactionMerge();
+            apfContext.SqlTransactionMerge();
         }
 
         private static void SqlTransactionMerge(
-            this IEnumerable<PreFaultConditions> preFaultCollection)
+            this IList<IAPFContext> apfContext)
         {
             string connectionString = DataBaseConnection.ConnectionString;
 
@@ -114,7 +111,7 @@ namespace ApfBuilder.Context
                         PowerFlowEmergencyValueHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowEmergencyDescriptionHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowForcedStateValueHandWritten NVARCHAR(MAX) NULL,
-	                    PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
+                     PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
                         PRIMARY KEY(BranchGroupVsBranchGroupSchemeId, Id)
                     );";
 
@@ -183,38 +180,48 @@ namespace ApfBuilder.Context
                 dataTable.Columns.Add(
                     "PowerFlowForcedStateDescriptionHandWritten", typeof(string));
 
-                foreach (var item in preFaultCollection)
+                foreach (var item in apfContext)
                 {
-                    var apf = item.APF;
+                    var preF = item.PreF;
+                    var apf = item.Apf;
 
                     dataTable.Rows.Add(
-                        item.BranchGroupVsBranchGroupSchemeId, item.Id, 
-                        item.BoundingElementsId, item.InfluencingEquipmentUid,
-                        item.SeasonsId, item.TemperatureId, item.ConditionsStaticId,
-                        item.ConditionsCurrentId, item.ConditionsVoltageId,
-                        item.UsingRow, item.LimitPowerFlow,
-                        item.TprPowerFlow, item.EprPowerFlow, 
-                        item.CurrentPowerFlow, item.CurrentAOPO, 
-                        item.VoltagePowerFlow,
-                        item.IrOscExpressions, item.Comment,
+                        preF.BranchGroupVsBranchGroupSchemeId,
+                        preF.Id,
+                        preF.BoundingElementsId,
+                        preF.InfluencingEquipmentUid,
+                        preF.SeasonsId,
+                        preF.TemperatureId,
+                        preF.ConditionsStaticId,
+                        preF.ConditionsCurrentId,
+                        preF.ConditionsVoltageId,
+                        preF.UsingRow,
+                        preF.LimitPowerFlow,
+                        preF.TprPowerFlow,
+                        preF.EprPowerFlow,
+                        preF.CurrentPowerFlow,
+                        preF.CurrentAOPO,
+                        preF.VoltagePowerFlow,
+                        preF.IrOscExpressions,
+                        preF.Comment,
 
-                        apf?.PowerFlowStandardValue, 
-                        apf?.PowerFlowStandardDescription, 
-                        apf?.PowerFlowSafeValue,
-                        apf?.PowerFlowSafeDescription, 
-                        apf?.PowerFlowEmergencyValue, 
-                        apf?.PowerFlowEmergencyDescription,
-                        apf?.ControlledPowerFlowStandard, 
-                        apf?.ControlledPowerFlowSafe, 
-                        apf?.ControlledPowerFlowEmergency,
-                        apf?.PowerFlowForcedStateValue, 
-                        apf?.PowerFlowForcedStateDescription,
-                        apf?.PowerFlowStandardValueHandWritten, 
-                        apf?.PowerFlowStandardDescriptionHandWritten,
-                        apf?.PowerFlowSafeValueHandWritten, 
-                        apf?.PowerFlowSafeDescriptionHandWritten,
-                        apf?.PowerFlowEmergencyValueHandWritten, 
-                        apf?.PowerFlowEmergencyDescriptionHandWritten
+                        apf.PowerFlowStandardValue,
+                        apf.PowerFlowStandardDescription,
+                        apf.PowerFlowSafeValue,
+                        apf.PowerFlowSafeDescription,
+                        apf.PowerFlowEmergencyValue,
+                        apf.PowerFlowEmergencyDescription,
+                        apf.ControlledPowerFlowStandard,
+                        apf.ControlledPowerFlowSafe,
+                        apf.ControlledPowerFlowEmergency,
+                        apf.PowerFlowForcedStateValue,
+                        apf.PowerFlowForcedStateDescription,
+                        apf.PowerFlowStandardValueHandWritten,
+                        apf.PowerFlowStandardDescriptionHandWritten,
+                        apf.PowerFlowSafeValueHandWritten,
+                        apf.PowerFlowSafeDescriptionHandWritten,
+                        apf.PowerFlowEmergencyValueHandWritten,
+                        apf.PowerFlowEmergencyDescriptionHandWritten
                     );
                 }
 

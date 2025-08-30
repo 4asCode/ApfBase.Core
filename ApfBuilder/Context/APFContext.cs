@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
+using ApfBuilder.Criteria.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,7 +34,17 @@ namespace ApfBuilder.Context
             if (entity is PreFaultConditions preF)
             {
                 _preF = preF;
-                _apf = preF?.APF;
+                _apf = new APF
+                {
+                    BranchGroupVsBranchGroupSchemeId =
+                        _preF.BranchGroupVsBranchGroupSchemeId,
+                    PreFaultConditionsId = _preF.Id,
+                };
+
+                if (_preF?.APF == null)
+                {
+                    _apf.Save();
+                }
             }
             else if (entity is PostFaultConditions postF)
             {
@@ -48,49 +59,36 @@ namespace ApfBuilder.Context
                         p.Id == postF.PreFaultConditionsId)
                     .FirstOrDefault();
 
-                _apf = postF.PreFaultConditions?.APF;
+                _apf = new APF
+                {
+                    BranchGroupVsBranchGroupSchemeId =
+                        _preF.BranchGroupVsBranchGroupSchemeId,
+                    PreFaultConditionsId = _preF.Id,
+                };
+
+                if (_preF?.APF == null)
+                {
+                    _apf.Save();
+                }
             }
         }
 
         public static IAPFContext ContextInitialize(
-            IAPFContextParticipant partContext)
-        {
-            var context = new APFContext(partContext);
+            IAPFContextParticipant partContext) => 
+                new APFContext(partContext);
 
-            if (context.Apf == null)
-            {
-                context.Apf = new APF
-                {
-                    BranchGroupVsBranchGroupSchemeId = context.PreF.BranchGroupVsBranchGroupSchemeId,
-                    PreFaultConditionsId = context.PreF.Id,
-                };
-            }
-
-            return context;
-        }
-
-        public static IEnumerable<IAPFContext> ContextInitialize(
+        public static IList<IAPFContext> ContextInitialize(
             IEnumerable<IAPFContextParticipant> partContextCollection) => 
             partContextCollection.Select(
                 partContext =>
                 {
                     var context = new APFContext(partContext);
 
-                    if (context.Apf == null)
-                    {
-                        context.Apf = new APF
-                        {
-                            BranchGroupVsBranchGroupSchemeId = 
-                                context.PreF.BranchGroupVsBranchGroupSchemeId,
-                            PreFaultConditionsId = context.PreF.Id,
-                        };
-                    }
-
-                    return context;
+                    return (IAPFContext)context;
                 }
-            );
+            ).ToList();
 
-        public static IEnumerable<IAPFContext> InitializeParallelBuildContext(
+        public static IList<IAPFContext> InitializeParallelBuildContext(
             Expression<Func<PreFaultConditions, bool>> filter)
         {
             using (var dbContext = new ApfBaseContext(
