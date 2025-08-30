@@ -1,23 +1,7 @@
-﻿using Serialize;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Entity;
-using System.Data.Entity.Core;
 using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
-using MoreLinq;
-using System.Threading;
-using System.Data;
-using System.Data.SqlClient;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
-using System.Runtime.Remoting.Contexts;
-using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 
 namespace DataBaseModels.ApfBaseEntities
 {
@@ -129,12 +113,13 @@ namespace DataBaseModels.ApfBaseEntities
             }
         }
 
-        private static Func<List<Task>, Task> Complited = async (collection) =>
-        {
-            for (int i = 0; i < collection.Count; i++)
+        private static readonly Func<List<Task>, Task> Complited = 
+            async (collection) =>
             {
-                await collection[i];
-            }
-        };
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    await collection[i];
+                }
+            };
     }
 }

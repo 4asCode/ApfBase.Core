@@ -41,12 +41,14 @@ namespace RoslynScripting
         {
             _globals.CancellationRequest = token;
 
-            await Task.Run(async () =>
-            {
-                await _scriptState.ContinueWithAsync(
-                    code, null, token
-                    );
-            });
+            await Task.Run(
+                async () =>
+                {
+                    await _scriptState.ContinueWithAsync(
+                        code, null, token
+                        );
+                }
+            );
 
             if (token.IsCancellationRequested)
             {
