@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataBaseModels.ApfBaseEntities;
 
-namespace ApfBuilder.Criteria
+namespace ApfBuilder.Criteria.Core.Interfaces
 {
     public interface ICurrentCriterion : ICriterion 
     {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApfBuilder.Criteria.Core.Interfaces;
 using static ApfBuilder.Criteria.CriterionAttribute;
 
 namespace ApfBuilder.PowerFlow.Factory
@@ -29,7 +30,7 @@ namespace ApfBuilder.PowerFlow.Factory
                 );
 
             var emergencyResponceCriteria = baseCriteria
-                .OfType<IEmergencyResponceCriterion>();
+                .OfType<IEmergencyResponseCriterion>();
 
             var otherCriteria = baseCriteria.Except(
                 emergencyResponceCriteria);
@@ -37,9 +38,9 @@ namespace ApfBuilder.PowerFlow.Factory
             var minValueOfMaxValueBaseEmergency = emergencyResponceCriteria
                 .Min(
                         (ICriterion c) => 
-                        (c as IEmergencyResponceCriterion).MaxValueER
+                        (c as IEmergencyResponseCriterion).MaxValueER
                     )
-                as IEmergencyResponceCriterion;
+                as IEmergencyResponseCriterion;
 
             var minValueOfMaxValueBaseOther = otherCriteria.Min(
                 x => x.MaxValue);

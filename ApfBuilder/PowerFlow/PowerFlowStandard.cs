@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ApfBuilder.Criteria.Core.Interfaces;
 using System.Threading.Tasks;
 
 namespace ApfBuilder.PowerFlow
@@ -60,7 +61,7 @@ namespace ApfBuilder.PowerFlow
                     Description = TerminateLine(Description);
                 }
 
-                if (criterion is IEmergencyResponceCriterion complexCriterion)
+                if (criterion is IEmergencyResponseCriterion complexCriterion)
                 {
                     Value += $" {complexCriterion.Condition?.FormalName}";
 

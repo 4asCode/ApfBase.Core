@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreLinq;
 using System.Text;
+using ApfBuilder.Criteria.Core.Interfaces;
 using System.Threading.Tasks;
 
 namespace ApfBuilder.PowerFlow
@@ -26,7 +27,7 @@ namespace ApfBuilder.PowerFlow
 
         protected (string Value, string Description) EmergencyResponseCompose(
             string value, string description, 
-            IEmergencyResponceCriterion emergencyCriterion)
+            IEmergencyResponseCriterion emergencyCriterion)
         {
             string responce = string.Empty;
             emergencyCriterion.EmergencyResponse.ForEach(

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApfBuilder.Criteria
+namespace ApfBuilder.Criteria.Core.Interfaces
 {
-    public interface IFrequencyAlternateCriterion : IEmergencyResponceCriterion 
+    public interface IFrequencyAlternateCriterion : IEmergencyResponseCriterion 
     {
-        IEmergencyResponceCriterion StaticCriterion { get; }
+        IEmergencyResponseCriterion StaticCriterion { get; }
 
         double? LimitPowerFlow { get; }
 

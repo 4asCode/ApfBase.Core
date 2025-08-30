@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApfBuilder.PowerFlow;
+using ApfBuilder.Criteria.Core.Interfaces;
 using ApfBuilder.PowerFlow.Factory;
 
 namespace ApfBuilder.Services

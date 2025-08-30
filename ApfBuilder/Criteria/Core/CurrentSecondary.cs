@@ -1,0 +1,37 @@
+﻿using DataBaseModels.ApfBaseEntities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ApfBuilder.Criteria.Core.Interfaces;
+using static ApfBuilder.Criteria.CriterionAttribute;
+
+namespace ApfBuilder.Criteria.Core
+{
+    [SecondaryAllowablePF]
+    public sealed class CurrentSecondary : CriterionBase, ICurrentCriterion, ISecondaryCriterion
+    {
+        public static ICriterion Create(PreFaultConditions preF)
+             => new CurrentSecondary(preF);
+
+        public override CriterionType Type
+            => CriterionType.CurrentSecondary;
+
+        public BoundingElements Bounding { get; }
+
+        public string Postfix { get; }
+
+        private CurrentSecondary(PreFaultConditions preF)
+            : base
+            (
+                  preF.CurrentPowerFlow - preF.IrOscExpressions
+                    ?? preF.CurrentPowerFlow
+            )
+        {
+            Name = "ДДТН";
+            Postfix = "*";
+            Bounding = preF.BoundingElements;
+        }
+    }
+}

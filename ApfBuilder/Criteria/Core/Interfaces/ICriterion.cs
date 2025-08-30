@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApfBuilder.Criteria
+namespace ApfBuilder.Criteria.Core.Interfaces
 {
     public interface ICriterion
     {
