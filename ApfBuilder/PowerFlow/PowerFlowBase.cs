@@ -11,6 +11,8 @@ namespace ApfBuilder.PowerFlow
 {
     public abstract class PowerFlowBase : Composer, IPowerFlow
     {
+        public abstract PowerFlowKind Kind { get; }
+
         public ICriterion[] Criteria { get; }
 
         public string Value { get; protected set; } = string.Empty;

@@ -11,6 +11,9 @@ namespace ApfBuilder.PowerFlow
 {
     public class PowerFlowEmergency : PowerFlowBase
     {
+        public override PowerFlowKind Kind => 
+            PowerFlowKind.PowerFlowEmergency;
+
         public PowerFlowEmergency(IEnumerable<ICriterion> criteria)
             : base(criteria)
         {

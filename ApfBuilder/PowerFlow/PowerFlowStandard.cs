@@ -12,6 +12,8 @@ namespace ApfBuilder.PowerFlow
 {
     public class PowerFlowStandard : PowerFlowBase
     {
+        public override PowerFlowKind Kind => PowerFlowKind.PowerFlowStandard;
+
         public PowerFlowStandard(IEnumerable<ICriterion> criteria)
             : base(criteria)
         {

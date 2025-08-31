@@ -11,6 +11,9 @@ namespace ApfBuilder.PowerFlow
 {
     public class PowerFlowForcedState : PowerFlowBase
     {
+        public override PowerFlowKind Kind => 
+            PowerFlowKind.PowerFlowForcedState;
+
         public PowerFlowForcedState(IEnumerable<ICriterion> criteria)
             : base(criteria)
         {
