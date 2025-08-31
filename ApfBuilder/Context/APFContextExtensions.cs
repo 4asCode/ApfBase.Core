@@ -1,4 +1,5 @@
 ﻿using ApfBuilder.Services;
+using ApfBuilder.Services.Analysis;
 using DataBaseModels.ApfBaseEntities;
 using MoreLinq.Extensions;
 using System;
@@ -111,7 +112,8 @@ namespace ApfBuilder.Context
                         PowerFlowEmergencyValueHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowEmergencyDescriptionHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowForcedStateValueHandWritten NVARCHAR(MAX) NULL,
-                     PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
+                        PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
+                        APFReferenceData NVARCHAR(MAX) NULL,
                         PRIMARY KEY(BranchGroupVsBranchGroupSchemeId, Id)
                     );";
 
@@ -178,7 +180,9 @@ namespace ApfBuilder.Context
                 dataTable.Columns.Add(
                     "PowerFlowForcedStateValueHandWritten", typeof(string));
                 dataTable.Columns.Add(
-                    "PowerFlowForcedStateDescriptionHandWritten", typeof(string));
+                    "PowerFlowForcedStateDescriptionHandWritten", typeof(string)); 
+                dataTable.Columns.Add(
+                    "APFReferenceData", typeof(string));
 
                 foreach (var item in apfContext)
                 {
@@ -221,13 +225,22 @@ namespace ApfBuilder.Context
                         apf.PowerFlowSafeValueHandWritten,
                         apf.PowerFlowSafeDescriptionHandWritten,
                         apf.PowerFlowEmergencyValueHandWritten,
-                        apf.PowerFlowEmergencyDescriptionHandWritten
+                        apf.PowerFlowEmergencyDescriptionHandWritten,
+                        apf.PowerFlowForcedStateValue,
+                        apf.PowerFlowForcedStateDescription,
+                        apf.APFReferenceData
                     );
                 }
 
                 using (var bulkCopy = new SqlBulkCopy(connection))
                 {
                     bulkCopy.DestinationTableName = "#TempPreFaultApf";
+
+                    foreach (DataColumn col in dataTable.Columns)
+                    {
+                        bulkCopy.ColumnMappings.Add(col.ColumnName, col.ColumnName);
+                    }
+
                     bulkCopy.WriteToServer(dataTable);
                 }
 
@@ -300,7 +313,9 @@ namespace ApfBuilder.Context
                         PowerFlowForcedStateValueHandWritten =
                             Source.PowerFlowForcedStateValueHandWritten,
                         PowerFlowForcedStateDescriptionHandWritten =
-                            Source.PowerFlowForcedStateDescriptionHandWritten;";
+                            Source.PowerFlowForcedStateDescriptionHandWritten,
+                        APFReferenceData =
+                            Source.APFReferenceData;";
 
                 using (var mergeCmd1 = new SqlCommand(
                     mergePreFaultSql, connection))
