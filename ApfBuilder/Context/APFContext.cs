@@ -12,6 +12,8 @@ using System.Text;
 using ApfBuilder.Criteria.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using ApfBuilder.Services.Analysis;
+using Serialize;
 
 namespace ApfBuilder.Context
 {
@@ -48,8 +50,6 @@ namespace ApfBuilder.Context
             }
             else if (entity is PostFaultConditions postF)
             {
-                postF.Save();
-
                 var context = new ApfBaseContext(
                     DataBaseConnection.ConnectionString);
 
@@ -190,6 +190,9 @@ namespace ApfBuilder.Context
                     default: break;
                 }
             }
+
+            var apfRef = this.GetReference();
+            Apf.APFReferenceData = JsonSerializer.Serialize(apfRef);
         }
 
         private IEnumerable<string> GetCriteriaNecessaryControl(
