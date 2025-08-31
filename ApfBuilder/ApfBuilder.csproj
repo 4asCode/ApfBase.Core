@@ -60,6 +60,10 @@
     <Reference Include="MoreLinq">
       <HintPath>..\packages\morelinq.4.4.0\lib\netstandard2.0\MoreLinq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -101,7 +105,12 @@
     <Compile Include="PowerFlow\IComposer.cs" />
     <Compile Include="PowerFlow\PowerFlowBase.cs" />
     <Compile Include="PowerFlow\Composer.cs" />
-    <Compile Include="Services\APFAnalysis.cs" />
+    <Compile Include="PowerFlow\PowerFlowKind.cs" />
+    <Compile Include="Services\Analysis\APFAnalysis.cs" />
+    <Compile Include="Services\Analysis\APFReference.cs" />
+    <Compile Include="Services\Analysis\IAPFReference.cs" />
+    <Compile Include="Services\Analysis\PowerFlowReference.cs" />
+    <Compile Include="Services\Analysis\SummaryReference.cs" />
     <Compile Include="Services\EmergencyResponseHandler.cs" />
     <Compile Include="PowerFlow\Factory\IPowerFlowCollectionFactory.cs" />
     <Compile Include="PowerFlow\Factory\IPowerFlowFactory.cs" />
@@ -130,6 +139,10 @@
     <ProjectReference Include="..\Extensions\Extensions.csproj">
       <Project>{b328ad2f-7acd-463e-94fd-a00fef5eb8de}</Project>
       <Name>Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Serialize\Serialize.csproj">
+      <Project>{2393A73C-E1FA-4940-91D5-049D78D4D6E2}</Project>
+      <Name>Serialize</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
