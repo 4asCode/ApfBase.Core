@@ -226,8 +226,8 @@ namespace ApfBuilder.Context
                         apf.PowerFlowSafeDescriptionHandWritten,
                         apf.PowerFlowEmergencyValueHandWritten,
                         apf.PowerFlowEmergencyDescriptionHandWritten,
-                        apf.PowerFlowForcedStateValue,
-                        apf.PowerFlowForcedStateDescription,
+                        apf.PowerFlowForcedStateValueHandWritten,
+                        apf.PowerFlowForcedStateDescriptionHandWritten,
                         apf.APFReferenceData
                     );
                 }
