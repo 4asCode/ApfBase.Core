@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataBaseModels.ApfBaseEntities.Proxy;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using static DataBaseModels.ApfBaseEntities.EntityAttribute;
@@ -302,26 +304,35 @@ namespace DataBaseModels.ApfBaseEntities
                 this, new PropertyChangedEventArgs(propertyName)
                 );
 
-        [ProxyFor(nameof(AnnexId))]
-        [ProxyFor(nameof(Annex))]
-        public int? AnnexProxy
+        [ProxyFor(nameof(AnnexVsBranchGroup))]
+        public string AnnexProxy
         {
-            get => AnnexId;
-            set
+            get
             {
-                using (var context = new ApfBaseContext(
+                using (var ctx = new ApfBaseContext(
                     DataBaseConnection.ConnectionString))
                 {
-                    var temp = context.Annex.FirstOrDefault(
-                        t => t.Id == value);
-
-                    Annex = temp;
-                    AnnexId = temp?.Id;
-
-                    OnPropertyChanged(nameof(Annex));
-                    OnPropertyChanged(nameof(AnnexId));
-                    OnPropertyChanged(nameof(AnnexProxy));
+                    var ids = LinkSyncService.GetActiveLinks<int>(
+                        ctx, "AnnexVsBranchGroup", 
+                        "BranchGroupUid", "AnnexId", this.Uid
+                        );
+                    return string.Join(",", ids);
                 }
+            }
+            set
+            {
+                using (var ctx = new ApfBaseContext(
+                    DataBaseConnection.ConnectionString))
+                {
+                    var desired = LinkParsing.ParseAnnexIds(value, ctx);
+                    LinkSyncService.SyncLinks<int>(
+                        ctx, "AnnexVsBranchGroup", 
+                        "BranchGroupUid", "AnnexId", this.Uid, desired
+                        );
+                }
+
+                OnPropertyChanged(nameof(AnnexProxy));
+                OnPropertyChanged(nameof(Annex));
             }
         }
     }
@@ -345,49 +356,24 @@ namespace DataBaseModels.ApfBaseEntities
                 using (var ctx = new ApfBaseContext(
                     DataBaseConnection.ConnectionString))
                 {
-                    var uids = ctx.Database
-                        .SqlQuery<Guid>(
-                            "SELECT BranchGroupUid " +
-                            "FROM [ApfBase].[dbo].[BranchGroupVsBranchGroupScheme] " +
-                            "WHERE BranchGroupSchemeUid = @p0",
-                            this.Uid)
-                        .ToList();
+                    var uids = LinkSyncService.GetActiveLinks<Guid>(
+                        ctx, "BranchGroupVsBranchGroupScheme", 
+                        "BranchGroupSchemeUid", "BranchGroupUid", this.Uid
+                        );
                     return string.Join(",", uids);
                 }
             }
             set
             {
-                var uids = string.IsNullOrWhiteSpace(value)
-                    ? new Guid[0]
-                    : value.Split(new[] { ',' },
-                                StringSplitOptions.RemoveEmptyEntries)
-                           .Select(s => Guid.Parse(s.Trim()))
-                           .Distinct()
-                           .ToArray();
-
                 using (var ctx = new ApfBaseContext(
                     DataBaseConnection.ConnectionString))
-                using (var tx = ctx.Database.BeginTransaction())
                 {
-                    ctx.Database.ExecuteSqlCommand(
-                        "DELETE FROM " +
-                        "[ApfBase].[dbo].[BranchGroupVsBranchGroupScheme] " +
-                        "WHERE BranchGroupSchemeUid = @p0",
-                        this.Uid);
-
-                    if (uids.Length > 0)
-                    {
-                        foreach (var uid in uids)
-                        {
-                            ctx.Database.ExecuteSqlCommand(
-                                "INSERT INTO " +
-                                "[ApfBase].[dbo].[BranchGroupVsBranchGroupScheme] " +
-                                "(BranchGroupUid, BranchGroupSchemeUid) VALUES (@p0, @p1)",
-                                uid, this.Uid);
-                        }
-                    }
-
-                    tx.Commit();
+                    var desired = LinkParsing.ParseBranchGroupUid(value, ctx);
+                    LinkSyncService.SyncLinks<Guid>(
+                        ctx, "BranchGroupVsBranchGroupScheme", 
+                        "BranchGroupSchemeUid", "BranchGroupUid", 
+                        this.Uid, desired
+                        );
                 }
 
                 OnPropertyChanged(nameof(BranchGroupProxy));
