@@ -79,7 +79,7 @@
         /// <summary>
         /// Универсальное получение активных ключей.
         /// </summary>
-        public static List<TKey> GetActiveLinks<TKey>(
+        public static IList<TKey> GetActiveLinks<TKey>(
             ApfBaseContext ctx,
             string tableName,
             string leftColumn,
