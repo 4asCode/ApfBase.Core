@@ -86,7 +86,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityRelations
                 EntityType = typeof(BranchGroup),
                 RelatedEntityType = typeof(Annex),
                 NavigationProperty = "AnnexProxy",
-                RelationKind = RelationKind.OneToMany
+                RelationKind = RelationKind.ManyToMany
             },
             new EntityRelationMetadata
             {

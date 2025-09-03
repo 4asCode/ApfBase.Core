@@ -17,7 +17,7 @@ namespace DataBaseModels.ApfBaseEntities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Annex()
         {
-            this.BranchGroup = new HashSet<BranchGroup>();
+            this.AnnexVsBranchGroup = new HashSet<AnnexVsBranchGroup>();
         }
     
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace DataBaseModels.ApfBaseEntities
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BranchGroup> BranchGroup { get; set; }
+        public virtual ICollection<AnnexVsBranchGroup> AnnexVsBranchGroup { get; set; }
     }
 }

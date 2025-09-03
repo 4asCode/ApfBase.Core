@@ -98,9 +98,9 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "BranchGroup",
-                                        FieldName = "BranchGroup",
-                                        DataType = typeof(ICollection<BranchGroup>),
+                                        Name = "AnnexVsBranchGroup",
+                                        FieldName = "AnnexVsBranchGroup",
+                                        DataType = typeof(ICollection<AnnexVsBranchGroup>),
                                         Visible = false,
                                         IsReadOnly = true
                                     }
@@ -537,6 +537,14 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
+                                        Name = "APFAppliedCriteriaData",
+                                        FieldName = "APFAppliedCriteriaData",
+                                        DataType = typeof(string),
+                                        Visible = false,
+                                        IsReadOnly = true
+                                    },
+                                    new FieldDefinition()
+                                    {
                                         Name = "InfluencingEquipmentProxy",
                                         FieldName = "Влияющее оборудование",
                                         DataType = typeof(string),
@@ -893,14 +901,6 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "AnnexId",
-                                        FieldName = "Id",
-                                        DataType = typeof(int?),
-                                        Visible = false,
-                                        IsReadOnly = true
-                                    },
-                                    new FieldDefinition()
-                                    {
                                         Name = "Number",
                                         FieldName = "Номер",
                                         DataType = typeof(int?),
@@ -993,9 +993,9 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "Annex",
-                                        FieldName = "Annex",
-                                        DataType = typeof(Annex),
+                                        Name = "AnnexVsBranchGroup",
+                                        FieldName = "AnnexVsBranchGroup",
+                                        DataType = typeof(ICollection<AnnexVsBranchGroup>),
                                         Visible = false,
                                         IsReadOnly = true
                                     },
@@ -1688,10 +1688,19 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "UsingRow",
-                                        FieldName = "Использовать",
+                                        Name = "UsingApf",
+                                        FieldName = "Использовать (МДП)",
                                         DataType = typeof(bool?),
                                         Index = 1,
+                                        Visible = true,
+                                        IsReadOnly = false
+                                    },
+                                    new FieldDefinition()
+                                    {
+                                        Name = "UsingFSpf",
+                                        FieldName = "Использовать (ВДП)",
+                                        DataType = typeof(bool?),
+                                        Index = 2,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1700,7 +1709,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "SeasonsProxy",
                                         FieldName = "Сезон",
                                         DataType = typeof(int?),
-                                        Index = 2,
+                                        Index = 3,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1709,7 +1718,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "TemperatureProxy",
                                         FieldName = "Температура",
                                         DataType = typeof(int?),
-                                        Index = 3,
+                                        Index = 4,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1718,7 +1727,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "BoundingElementsProxy",
                                         FieldName = "Ограничивающий элемент",
                                         DataType = typeof(int?),
-                                        Index = 4,
+                                        Index = 5,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1727,7 +1736,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "InfluencingEquipmentProxy",
                                         FieldName = "Влияющее оборудование",
                                         DataType = typeof(Guid?),
-                                        Index = 5,
+                                        Index = 6,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1736,7 +1745,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "LimitPowerFlowProxy",
                                         FieldName = "Предельно допустимый переток по СУ",
                                         DataType = typeof(double?),
-                                        Index = 6,
+                                        Index = 7,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1753,7 +1762,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "TprPowerFlow",
                                         FieldName = "80% ДП по СУ",
                                         DataType = typeof(double?),
-                                        Index = 7,
+                                        Index = 8,
                                         Visible = true,
                                         IsReadOnly = true
                                     },
@@ -1762,7 +1771,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "EprPowerFlow",
                                         FieldName = "92% ДП по СУ",
                                         DataType = typeof(double?),
-                                        Index = 8,
+                                        Index = 9,
                                         Visible = true,
                                         IsReadOnly = true
                                     },
@@ -1771,7 +1780,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "ConditionsStaticProxy",
                                         FieldName = "Переменные (СУ)",
                                         DataType = typeof(int?),
-                                        Index = 9,
+                                        Index = 10,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1780,7 +1789,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "CurrentPowerFlow",
                                         FieldName = "ДП по току",
                                         DataType = typeof(double?),
-                                        Index = 10,
+                                        Index = 11,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1789,7 +1798,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "CurrentAOPO",
                                         FieldName = "ДП по току (АОПО)",
                                         DataType = typeof(double?),
-                                        Index = 11,
+                                        Index = 12,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1798,7 +1807,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "ConditionsCurrentProxy",
                                         FieldName = "Переменные (Ток)",
                                         DataType = typeof(int?),
-                                        Index = 12,
+                                        Index = 13,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1807,7 +1816,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "VoltagePowerFlow",
                                         FieldName = "ДП по напряжению",
                                         DataType = typeof(double?),
-                                        Index = 13,
+                                        Index = 14,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1816,7 +1825,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "ConditionsVoltageProxy",
                                         FieldName = "Переменные (Напряжение)",
                                         DataType = typeof(int?),
-                                        Index = 14,
+                                        Index = 15,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1825,7 +1834,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "IrOscExpressions",
                                         FieldName = "Нерегулярные колебания",
                                         DataType = typeof(int?),
-                                        Index = 15,
+                                        Index = 16,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -1834,7 +1843,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                         Name = "Comment",
                                         FieldName = "Комментарий",
                                         DataType = typeof(string),
-                                        Index = 16,
+                                        Index = 17,
                                         Visible = true,
                                         IsReadOnly = false
                                     },
@@ -2016,7 +2025,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "UsingRow",
+                                        Name = "Using",
                                         FieldName = "Использовать",
                                         DataType = typeof(bool?),
                                         Index = 1,

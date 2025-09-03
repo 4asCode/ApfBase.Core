@@ -81,6 +81,9 @@
     <Compile Include="ApfBaseEntities\Annex.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApfBaseEntities\AnnexVsBranchGroup.cs">
+      <DependentUpon>ApfBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApfBaseEntities\AOPO.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
@@ -99,6 +102,7 @@
     <Compile Include="ApfBaseEntities\BranchGroupVsBranchGroupScheme.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApfBaseEntities\Entities\AnnexVsBranchGroup.cs" />
     <Compile Include="ApfBaseEntities\Entities\BranchGroupVsBranchGroupScheme.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityDefinition.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\EntityFieldDefinition.cs" />
@@ -157,7 +161,7 @@
     <Compile Include="ApfBaseEntities\EquipmentVsInfluencingEquipment.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApfBaseEntities\EntityPropertyProxy.cs" />
+    <Compile Include="ApfBaseEntities\Proxy\EntityPropertyProxy.cs" />
     <Compile Include="ApfBaseEntities\EntityProvider.cs" />
     <Compile Include="ApfBaseEntities\FrequencyPowerFlow.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
@@ -181,6 +185,8 @@
     <Compile Include="ApfBaseEntities\PreFaultConditions.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApfBaseEntities\Proxy\LinkParsing.cs" />
+    <Compile Include="ApfBaseEntities\Proxy\LinkSyncService.cs" />
     <Compile Include="ApfBaseEntities\Seasons.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
