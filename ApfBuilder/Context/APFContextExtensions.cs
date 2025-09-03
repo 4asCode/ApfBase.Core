@@ -66,278 +66,209 @@ namespace ApfBuilder.Context
         private static void SqlTransactionMerge(
             this IList<IAPFContext> apfContext)
         {
-            string connectionString = DataBaseConnection.ConnectionString;
+            string cs = DataBaseConnection.ConnectionString;
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(cs))
             {
                 connection.Open();
-
-                string createTempTableSql = @"
-                    CREATE TABLE #TempPreFaultApf 
-                    (
-                        BranchGroupVsBranchGroupSchemeId INT,
-                        Id INT,
-                        BoundingElementsId INT NULL,
-                        InfluencingEquipmentUid UNIQUEIDENTIFIER NULL,
-                        SeasonsId INT NULL,
-                        TemperatureId INT NULL,
-                        ConditionsStaticId INT NULL,
-                        ConditionsCurrentId INT NULL,
-                        ConditionsVoltageId INT NULL,
-                        UsingApf BIT NULL,
-                        UsingFSpf BIT NULL,
-                        LimitPowerFlow FLOAT NULL,
-                        TprPowerFlow FLOAT NULL,
-                        EprPowerFlow FLOAT NULL,
-                        CurrentPowerFlow FLOAT NULL,
-                        CurrentAOPO FLOAT NULL,
-                        VoltagePowerFlow FLOAT NULL,
-                        IrOscExpressions INT NULL,
-                        Comment NVARCHAR(MAX) NULL,
-
-                        PowerFlowStandardValue NVARCHAR(MAX) NULL,
-                        PowerFlowStandardDescription NVARCHAR(MAX) NULL,
-                        PowerFlowSafeValue NVARCHAR(MAX) NULL,
-                        PowerFlowSafeDescription NVARCHAR(MAX) NULL,
-                        PowerFlowEmergencyValue NVARCHAR(MAX) NULL,
-                        PowerFlowEmergencyDescription NVARCHAR(MAX) NULL,
-                        ControlledPowerFlowStandard NVARCHAR(MAX) NULL,
-                        ControlledPowerFlowSafe NVARCHAR(MAX) NULL,
-                        ControlledPowerFlowEmergency NVARCHAR(MAX) NULL,
-                        PowerFlowForcedStateValue NVARCHAR(MAX) NULL,
-                        PowerFlowForcedStateDescription NVARCHAR(MAX) NULL,
-                        PowerFlowStandardValueHandWritten NVARCHAR(MAX) NULL,
-                        PowerFlowStandardDescriptionHandWritten NVARCHAR(MAX) NULL,
-                        PowerFlowSafeValueHandWritten NVARCHAR(MAX) NULL,
-                        PowerFlowSafeDescriptionHandWritten NVARCHAR(MAX) NULL,
-                        PowerFlowEmergencyValueHandWritten NVARCHAR(MAX) NULL,
-                        PowerFlowEmergencyDescriptionHandWritten NVARCHAR(MAX) NULL,
-                        PowerFlowForcedStateValueHandWritten NVARCHAR(MAX) NULL,
-                        PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
-                        APFReferenceData NVARCHAR(MAX) NULL,
-                        APFAppliedCriteriaData NVARCHAR(MAX) NULL,
-                        PRIMARY KEY(BranchGroupVsBranchGroupSchemeId, Id)
-                    );";
-
-                using (var createCmd = new SqlCommand(
-                    createTempTableSql, connection))
+                using (var tx = connection.BeginTransaction())
                 {
-                    createCmd.ExecuteNonQuery();
-                }
+                    string createTempTableSql = @"
+                        CREATE TABLE #TempApfUpsert 
+                        (
+                            BranchGroupVsBranchGroupSchemeId INT NOT NULL,
+                            PreFaultConditionsId INT NOT NULL,
 
-                var dataTable = new DataTable();
-                dataTable.Columns.Add("BranchGroupVsBranchGroupSchemeId", typeof(int));
-                dataTable.Columns.Add("Id", typeof(int));
-                dataTable.Columns.Add("BoundingElementsId", typeof(int));
-                dataTable.Columns.Add("InfluencingEquipmentUid", typeof(Guid));
-                dataTable.Columns.Add("SeasonsId", typeof(int));
-                dataTable.Columns.Add("TemperatureId", typeof(int));
-                dataTable.Columns.Add("ConditionsStaticId", typeof(int));
-                dataTable.Columns.Add("ConditionsCurrentId", typeof(int));
-                dataTable.Columns.Add("ConditionsVoltageId", typeof(int));
-                dataTable.Columns.Add("UsingApf", typeof(bool));
-                dataTable.Columns.Add("UsingFSpf", typeof(bool));
-                dataTable.Columns.Add("LimitPowerFlow", typeof(double));
-                dataTable.Columns.Add("TprPowerFlow", typeof(double));
-                dataTable.Columns.Add("EprPowerFlow", typeof(double));
-                dataTable.Columns.Add("CurrentPowerFlow", typeof(double));
-                dataTable.Columns.Add("CurrentAOPO", typeof(double));
-                dataTable.Columns.Add("VoltagePowerFlow", typeof(double));
-                dataTable.Columns.Add("IrOscExpressions", typeof(int));
-                dataTable.Columns.Add("Comment", typeof(string));
+                            PowerFlowStandardValue NVARCHAR(MAX) NULL,
+                            PowerFlowStandardDescription NVARCHAR(MAX) NULL,
+                            PowerFlowSafeValue NVARCHAR(MAX) NULL,
+                            PowerFlowSafeDescription NVARCHAR(MAX) NULL,
+                            PowerFlowEmergencyValue NVARCHAR(MAX) NULL,
+                            PowerFlowEmergencyDescription NVARCHAR(MAX) NULL,
+                            ControlledPowerFlowStandard NVARCHAR(MAX) NULL,
+                            ControlledPowerFlowSafe NVARCHAR(MAX) NULL,
+                            ControlledPowerFlowEmergency NVARCHAR(MAX) NULL,
+                            PowerFlowForcedStateValue NVARCHAR(MAX) NULL,
+                            PowerFlowForcedStateDescription NVARCHAR(MAX) NULL,
 
-                dataTable.Columns.Add(
-                    "PowerFlowStandardValue", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowStandardDescription", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowSafeValue", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowSafeDescription", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowEmergencyValue", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowEmergencyDescription", typeof(string));
-                dataTable.Columns.Add(
-                    "ControlledPowerFlowStandard", typeof(string));
-                dataTable.Columns.Add(
-                    "ControlledPowerFlowSafe", typeof(string));
-                dataTable.Columns.Add(
-                    "ControlledPowerFlowEmergency", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowForcedStateValue", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowForcedStateDescription", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowStandardValueHandWritten", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowStandardDescriptionHandWritten", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowSafeValueHandWritten", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowSafeDescriptionHandWritten", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowEmergencyValueHandWritten", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowEmergencyDescriptionHandWritten", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowForcedStateValueHandWritten", typeof(string));
-                dataTable.Columns.Add(
-                    "PowerFlowForcedStateDescriptionHandWritten", typeof(string)); 
-                dataTable.Columns.Add(
-                    "APFReferenceData", typeof(string));
-                dataTable.Columns.Add(
-                    "APFAppliedCriteriaData", typeof(string));
+                            PowerFlowStandardValueHandWritten NVARCHAR(MAX) NULL,
+                            PowerFlowStandardDescriptionHandWritten NVARCHAR(MAX) NULL,
+                            PowerFlowSafeValueHandWritten NVARCHAR(MAX) NULL,
+                            PowerFlowSafeDescriptionHandWritten NVARCHAR(MAX) NULL,
+                            PowerFlowEmergencyValueHandWritten NVARCHAR(MAX) NULL,
+                            PowerFlowEmergencyDescriptionHandWritten NVARCHAR(MAX) NULL,
+                            PowerFlowForcedStateValueHandWritten NVARCHAR(MAX) NULL,
+                            PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
 
-                foreach (var item in apfContext)
-                {
-                    var preF = item.PreF;
-                    var apf = item.Apf;
+                            APFReferenceData NVARCHAR(MAX) NULL,
+                            APFAppliedCriteriaData NVARCHAR(MAX) NULL,
 
-                    dataTable.Rows.Add(
-                        preF.BranchGroupVsBranchGroupSchemeId,
-                        preF.Id,
-                        preF.BoundingElementsId,
-                        preF.InfluencingEquipmentUid,
-                        preF.SeasonsId,
-                        preF.TemperatureId,
-                        preF.ConditionsStaticId,
-                        preF.ConditionsCurrentId,
-                        preF.ConditionsVoltageId,
-                        preF.UsingApf,
-                        preF.UsingFSpf,
-                        preF.LimitPowerFlow,
-                        preF.TprPowerFlow,
-                        preF.EprPowerFlow,
-                        preF.CurrentPowerFlow,
-                        preF.CurrentAOPO,
-                        preF.VoltagePowerFlow,
-                        preF.IrOscExpressions,
-                        preF.Comment,
+                            PRIMARY KEY(BranchGroupVsBranchGroupSchemeId, PreFaultConditionsId)
+                        );";
 
-                        apf.PowerFlowStandardValue,
-                        apf.PowerFlowStandardDescription,
-                        apf.PowerFlowSafeValue,
-                        apf.PowerFlowSafeDescription,
-                        apf.PowerFlowEmergencyValue,
-                        apf.PowerFlowEmergencyDescription,
-                        apf.ControlledPowerFlowStandard,
-                        apf.ControlledPowerFlowSafe,
-                        apf.ControlledPowerFlowEmergency,
-                        apf.PowerFlowForcedStateValue,
-                        apf.PowerFlowForcedStateDescription,
-                        apf.PowerFlowStandardValueHandWritten,
-                        apf.PowerFlowStandardDescriptionHandWritten,
-                        apf.PowerFlowSafeValueHandWritten,
-                        apf.PowerFlowSafeDescriptionHandWritten,
-                        apf.PowerFlowEmergencyValueHandWritten,
-                        apf.PowerFlowEmergencyDescriptionHandWritten,
-                        apf.PowerFlowForcedStateValueHandWritten,
-                        apf.PowerFlowForcedStateDescriptionHandWritten,
-                        apf.APFReferenceData,
-                        apf.APFAppliedCriteriaData
-                    );
-                }
-
-                using (var bulkCopy = new SqlBulkCopy(connection))
-                {
-                    bulkCopy.DestinationTableName = "#TempPreFaultApf";
-
-                    foreach (DataColumn col in dataTable.Columns)
+                    using (var createCmd = new SqlCommand(
+                        createTempTableSql, connection, tx))
                     {
-                        bulkCopy.ColumnMappings.Add(
-                            col.ColumnName, col.ColumnName);
+                        createCmd.ExecuteNonQuery();
                     }
 
-                    bulkCopy.WriteToServer(dataTable);
-                }
+                    var dt = new DataTable();
+                    dt.Columns.Add("BranchGroupVsBranchGroupSchemeId", typeof(int));
+                    dt.Columns.Add("PreFaultConditionsId", typeof(int));
 
-                string mergePreFaultSql = @"
-                    MERGE INTO PreFaultConditions AS Target
-                    USING #TempPreFaultApf AS Source
-                    ON Target.BranchGroupVsBranchGroupSchemeId = 
-                        Source.BranchGroupVsBranchGroupSchemeId AND 
-                        Target.Id = Source.Id
-                    WHEN MATCHED THEN UPDATE SET
-                        BoundingElementsId = Source.BoundingElementsId,
-                        InfluencingEquipmentUid = Source.InfluencingEquipmentUid,
-                        SeasonsId = Source.SeasonsId,
-                        TemperatureId = Source.TemperatureId,
-                        ConditionsStaticId = Source.ConditionsStaticId,
-                        ConditionsCurrentId = Source.ConditionsCurrentId,
-                        ConditionsVoltageId = Source.ConditionsVoltageId,
-                        UsingApf = Source.UsingApf,
-                        UsingFSpf = Source.UsingFSpf,
-                        LimitPowerFlow = Source.LimitPowerFlow,
-                        TprPowerFlow = Source.TprPowerFlow,
-                        EprPowerFlow = Source.EprPowerFlow,
-                        CurrentPowerFlow = Source.CurrentPowerFlow,
-                        CurrentAOPO = Source.CurrentAOPO,
-                        VoltagePowerFlow = Source.VoltagePowerFlow,
-                        IrOscExpressions = Source.IrOscExpressions,
-                        Comment = Source.Comment;";
+                    dt.Columns.Add("PowerFlowStandardValue", typeof(string));
+                    dt.Columns.Add("PowerFlowStandardDescription", typeof(string));
+                    dt.Columns.Add("PowerFlowSafeValue", typeof(string));
+                    dt.Columns.Add("PowerFlowSafeDescription", typeof(string));
+                    dt.Columns.Add("PowerFlowEmergencyValue", typeof(string));
+                    dt.Columns.Add("PowerFlowEmergencyDescription", typeof(string));
+                    dt.Columns.Add("ControlledPowerFlowStandard", typeof(string));
+                    dt.Columns.Add("ControlledPowerFlowSafe", typeof(string));
+                    dt.Columns.Add("ControlledPowerFlowEmergency", typeof(string));
+                    dt.Columns.Add("PowerFlowForcedStateValue", typeof(string));
+                    dt.Columns.Add("PowerFlowForcedStateDescription", typeof(string));
 
-                string mergeApfSql = @"
-                    MERGE INTO APF AS Target
-                    USING #TempPreFaultApf AS Source
-                    ON Target.BranchGroupVsBranchGroupSchemeId = 
-                        Source.BranchGroupVsBranchGroupSchemeId AND 
-                        Target.PreFaultConditionsId = 
-                            Source.Id
-                    WHEN MATCHED THEN UPDATE SET
-                        PowerFlowStandardValue = 
-                            Source.PowerFlowStandardValue,
-                        PowerFlowStandardDescription = 
-                            Source.PowerFlowStandardDescription,
-                        PowerFlowSafeValue = 
-                            Source.PowerFlowSafeValue,
-                        PowerFlowSafeDescription = 
-                            Source.PowerFlowSafeDescription,
-                        PowerFlowEmergencyValue = 
-                            Source.PowerFlowEmergencyValue,
-                        PowerFlowEmergencyDescription = 
-                            Source.PowerFlowEmergencyDescription,
-                        ControlledPowerFlowStandard = 
-                            Source.ControlledPowerFlowStandard,
-                        ControlledPowerFlowSafe = 
-                            Source.ControlledPowerFlowSafe,
-                        ControlledPowerFlowEmergency = 
-                            Source.ControlledPowerFlowEmergency,
-                        PowerFlowForcedStateValue = 
-                            Source.PowerFlowForcedStateValue,
-                        PowerFlowForcedStateDescription = 
-                            Source.PowerFlowForcedStateDescription,
-                        PowerFlowStandardValueHandWritten = 
-                            Source.PowerFlowStandardValueHandWritten,
-                        PowerFlowStandardDescriptionHandWritten = 
-                            Source.PowerFlowStandardDescriptionHandWritten,
-                        PowerFlowSafeValueHandWritten = 
-                            Source.PowerFlowSafeValueHandWritten,
-                        PowerFlowSafeDescriptionHandWritten = 
-                            Source.PowerFlowSafeDescriptionHandWritten,
-                        PowerFlowEmergencyValueHandWritten = 
-                            Source.PowerFlowEmergencyValueHandWritten,
-                        PowerFlowEmergencyDescriptionHandWritten = 
-                            Source.PowerFlowEmergencyDescriptionHandWritten,
-                        PowerFlowForcedStateValueHandWritten =
-                            Source.PowerFlowForcedStateValueHandWritten,
-                        PowerFlowForcedStateDescriptionHandWritten =
-                            Source.PowerFlowForcedStateDescriptionHandWritten,
-                        APFReferenceData =
-                            Source.APFReferenceData,
-                        APFAppliedCriteriaData =
-                            Source.APFAppliedCriteriaData;";
+                    dt.Columns.Add("PowerFlowStandardValueHandWritten", typeof(string));
+                    dt.Columns.Add("PowerFlowStandardDescriptionHandWritten", typeof(string));
+                    dt.Columns.Add("PowerFlowSafeValueHandWritten", typeof(string));
+                    dt.Columns.Add("PowerFlowSafeDescriptionHandWritten", typeof(string));
+                    dt.Columns.Add("PowerFlowEmergencyValueHandWritten", typeof(string));
+                    dt.Columns.Add("PowerFlowEmergencyDescriptionHandWritten", typeof(string));
+                    dt.Columns.Add("PowerFlowForcedStateValueHandWritten", typeof(string));
+                    dt.Columns.Add("PowerFlowForcedStateDescriptionHandWritten", typeof(string));
 
-                using (var mergeCmd1 = new SqlCommand(
-                    mergePreFaultSql, connection))
-                {
-                    mergeCmd1.ExecuteNonQuery();
-                }
+                    dt.Columns.Add("APFReferenceData", typeof(string));
+                    dt.Columns.Add("APFAppliedCriteriaData", typeof(string));
 
-                using (var mergeCmd2 = new SqlCommand(
-                    mergeApfSql, connection))
-                {
-                    mergeCmd2.ExecuteNonQuery();
+                    foreach (var ctx in apfContext)
+                    {
+                        var preF = ctx.PreF;
+                        var apf = ctx.Apf;
+
+                        dt.Rows.Add(
+                            preF.BranchGroupVsBranchGroupSchemeId,
+                            preF.Id,
+
+                            apf.PowerFlowStandardValue,
+                            apf.PowerFlowStandardDescription,
+                            apf.PowerFlowSafeValue,
+                            apf.PowerFlowSafeDescription,
+                            apf.PowerFlowEmergencyValue,
+                            apf.PowerFlowEmergencyDescription,
+                            apf.ControlledPowerFlowStandard,
+                            apf.ControlledPowerFlowSafe,
+                            apf.ControlledPowerFlowEmergency,
+                            apf.PowerFlowForcedStateValue,
+                            apf.PowerFlowForcedStateDescription,
+
+                            apf.PowerFlowStandardValueHandWritten,
+                            apf.PowerFlowStandardDescriptionHandWritten,
+                            apf.PowerFlowSafeValueHandWritten,
+                            apf.PowerFlowSafeDescriptionHandWritten,
+                            apf.PowerFlowEmergencyValueHandWritten,
+                            apf.PowerFlowEmergencyDescriptionHandWritten,
+                            apf.PowerFlowForcedStateValueHandWritten,
+                            apf.PowerFlowForcedStateDescriptionHandWritten,
+
+                            apf.APFReferenceData,
+                            apf.APFAppliedCriteriaData
+                        );
+                    }
+
+                    using (var bulkCopy = new SqlBulkCopy(
+                        connection, SqlBulkCopyOptions.TableLock, tx))
+                    {
+                        bulkCopy.DestinationTableName = "#TempApfUpsert";
+                        bulkCopy.BatchSize = 5000;
+
+                        foreach (DataColumn col in dt.Columns)
+                            bulkCopy.ColumnMappings.Add(
+                                col.ColumnName, col.ColumnName);
+
+                        bulkCopy.WriteToServer(dt);
+                    }
+
+                    string mergeApfSql = @"
+                        MERGE INTO APF AS Target
+                        USING #TempApfUpsert AS Source
+                        ON Target.BranchGroupVsBranchGroupSchemeId = Source.BranchGroupVsBranchGroupSchemeId
+                           AND Target.PreFaultConditionsId = Source.PreFaultConditionsId
+                        WHEN MATCHED THEN UPDATE SET
+                              PowerFlowStandardValue = Source.PowerFlowStandardValue
+                            , PowerFlowStandardDescription = Source.PowerFlowStandardDescription
+                            , PowerFlowSafeValue = Source.PowerFlowSafeValue
+                            , PowerFlowSafeDescription = Source.PowerFlowSafeDescription
+                            , PowerFlowEmergencyValue = Source.PowerFlowEmergencyValue
+                            , PowerFlowEmergencyDescription = Source.PowerFlowEmergencyDescription
+                            , ControlledPowerFlowStandard = Source.ControlledPowerFlowStandard
+                            , ControlledPowerFlowSafe = Source.ControlledPowerFlowSafe
+                            , ControlledPowerFlowEmergency = Source.ControlledPowerFlowEmergency
+                            , PowerFlowForcedStateValue = Source.PowerFlowForcedStateValue
+                            , PowerFlowForcedStateDescription = Source.PowerFlowForcedStateDescription
+                            , PowerFlowStandardValueHandWritten = Source.PowerFlowStandardValueHandWritten
+                            , PowerFlowStandardDescriptionHandWritten = Source.PowerFlowStandardDescriptionHandWritten
+                            , PowerFlowSafeValueHandWritten = Source.PowerFlowSafeValueHandWritten
+                            , PowerFlowSafeDescriptionHandWritten = Source.PowerFlowSafeDescriptionHandWritten
+                            , PowerFlowEmergencyValueHandWritten = Source.PowerFlowEmergencyValueHandWritten
+                            , PowerFlowEmergencyDescriptionHandWritten = Source.PowerFlowEmergencyDescriptionHandWritten
+                            , PowerFlowForcedStateValueHandWritten = Source.PowerFlowForcedStateValueHandWritten
+                            , PowerFlowForcedStateDescriptionHandWritten = Source.PowerFlowForcedStateDescriptionHandWritten
+                            , APFReferenceData = Source.APFReferenceData
+                            , APFAppliedCriteriaData = Source.APFAppliedCriteriaData
+                        WHEN NOT MATCHED THEN INSERT
+                            ( BranchGroupVsBranchGroupSchemeId
+                            , PreFaultConditionsId
+                            , PowerFlowStandardValue
+                            , PowerFlowStandardDescription
+                            , PowerFlowSafeValue
+                            , PowerFlowSafeDescription
+                            , PowerFlowEmergencyValue
+                            , PowerFlowEmergencyDescription
+                            , ControlledPowerFlowStandard
+                            , ControlledPowerFlowSafe
+                            , ControlledPowerFlowEmergency
+                            , PowerFlowForcedStateValue
+                            , PowerFlowForcedStateDescription
+                            , PowerFlowStandardValueHandWritten
+                            , PowerFlowStandardDescriptionHandWritten
+                            , PowerFlowSafeValueHandWritten
+                            , PowerFlowSafeDescriptionHandWritten
+                            , PowerFlowEmergencyValueHandWritten
+                            , PowerFlowEmergencyDescriptionHandWritten
+                            , PowerFlowForcedStateValueHandWritten
+                            , PowerFlowForcedStateDescriptionHandWritten
+                            , APFReferenceData
+                            , APFAppliedCriteriaData)
+                        VALUES
+                            ( Source.BranchGroupVsBranchGroupSchemeId
+                            , Source.PreFaultConditionsId
+                            , Source.PowerFlowStandardValue
+                            , Source.PowerFlowStandardDescription
+                            , Source.PowerFlowSafeValue
+                            , Source.PowerFlowSafeDescription
+                            , Source.PowerFlowEmergencyValue
+                            , Source.PowerFlowEmergencyDescription
+                            , Source.ControlledPowerFlowStandard
+                            , Source.ControlledPowerFlowSafe
+                            , Source.ControlledPowerFlowEmergency
+                            , Source.PowerFlowForcedStateValue
+                            , Source.PowerFlowForcedStateDescription
+                            , Source.PowerFlowStandardValueHandWritten
+                            , Source.PowerFlowStandardDescriptionHandWritten
+                            , Source.PowerFlowSafeValueHandWritten
+                            , Source.PowerFlowSafeDescriptionHandWritten
+                            , Source.PowerFlowEmergencyValueHandWritten
+                            , Source.PowerFlowEmergencyDescriptionHandWritten
+                            , Source.PowerFlowForcedStateValueHandWritten
+                            , Source.PowerFlowForcedStateDescriptionHandWritten
+                            , Source.APFReferenceData
+                            , Source.APFAppliedCriteriaData
+                            );";
+
+                    using (var mergeCmd = new SqlCommand(mergeApfSql, connection, tx))
+                        mergeCmd.ExecuteNonQuery();
+
+                    tx.Commit();
                 }
             }
         }
