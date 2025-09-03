@@ -29,7 +29,8 @@ namespace DataBaseModels.ApfBaseEntities
         public Nullable<int> ConditionsStaticId { get; set; }
         public Nullable<int> ConditionsCurrentId { get; set; }
         public Nullable<int> ConditionsVoltageId { get; set; }
-        public Nullable<bool> UsingRow { get; set; }
+        public Nullable<bool> UsingApf { get; set; }
+        public Nullable<bool> UsingFSpf { get; set; }
         public Nullable<double> LimitPowerFlow { get; set; }
         public Nullable<double> TprPowerFlow { get; set; }
         public Nullable<double> EprPowerFlow { get; set; }

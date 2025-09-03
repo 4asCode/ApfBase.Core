@@ -25,7 +25,7 @@ namespace DataBaseModels.ApfBaseEntities
         public Nullable<int> AosnId { get; set; }
         public Nullable<int> ConditionsId { get; set; }
         public Nullable<int> FrequencyPowerFlowId { get; set; }
-        public Nullable<bool> UsingRow { get; set; }
+        public Nullable<bool> Using { get; set; }
         public Nullable<double> EprPowerFlow { get; set; }
         public Nullable<double> DynamicPowerFlow { get; set; }
         public Nullable<double> CurrentPowerFlow { get; set; }
