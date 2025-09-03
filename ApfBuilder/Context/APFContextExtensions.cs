@@ -84,7 +84,8 @@ namespace ApfBuilder.Context
                         ConditionsStaticId INT NULL,
                         ConditionsCurrentId INT NULL,
                         ConditionsVoltageId INT NULL,
-                        UsingRow BIT NULL,
+                        UsingApf BIT NULL,
+                        UsingFSpf BIT NULL,
                         LimitPowerFlow FLOAT NULL,
                         TprPowerFlow FLOAT NULL,
                         EprPowerFlow FLOAT NULL,
@@ -114,6 +115,7 @@ namespace ApfBuilder.Context
                         PowerFlowForcedStateValueHandWritten NVARCHAR(MAX) NULL,
                         PowerFlowForcedStateDescriptionHandWritten NVARCHAR(MAX) NULL,
                         APFReferenceData NVARCHAR(MAX) NULL,
+                        APFAppliedCriteriaData NVARCHAR(MAX) NULL,
                         PRIMARY KEY(BranchGroupVsBranchGroupSchemeId, Id)
                     );";
 
@@ -133,7 +135,8 @@ namespace ApfBuilder.Context
                 dataTable.Columns.Add("ConditionsStaticId", typeof(int));
                 dataTable.Columns.Add("ConditionsCurrentId", typeof(int));
                 dataTable.Columns.Add("ConditionsVoltageId", typeof(int));
-                dataTable.Columns.Add("UsingRow", typeof(bool));
+                dataTable.Columns.Add("UsingApf", typeof(bool));
+                dataTable.Columns.Add("UsingFSpf", typeof(bool));
                 dataTable.Columns.Add("LimitPowerFlow", typeof(double));
                 dataTable.Columns.Add("TprPowerFlow", typeof(double));
                 dataTable.Columns.Add("EprPowerFlow", typeof(double));
@@ -183,6 +186,8 @@ namespace ApfBuilder.Context
                     "PowerFlowForcedStateDescriptionHandWritten", typeof(string)); 
                 dataTable.Columns.Add(
                     "APFReferenceData", typeof(string));
+                dataTable.Columns.Add(
+                    "APFAppliedCriteriaData", typeof(string));
 
                 foreach (var item in apfContext)
                 {
@@ -199,7 +204,8 @@ namespace ApfBuilder.Context
                         preF.ConditionsStaticId,
                         preF.ConditionsCurrentId,
                         preF.ConditionsVoltageId,
-                        preF.UsingRow,
+                        preF.UsingApf,
+                        preF.UsingFSpf,
                         preF.LimitPowerFlow,
                         preF.TprPowerFlow,
                         preF.EprPowerFlow,
@@ -228,7 +234,8 @@ namespace ApfBuilder.Context
                         apf.PowerFlowEmergencyDescriptionHandWritten,
                         apf.PowerFlowForcedStateValueHandWritten,
                         apf.PowerFlowForcedStateDescriptionHandWritten,
-                        apf.APFReferenceData
+                        apf.APFReferenceData,
+                        apf.APFAppliedCriteriaData
                     );
                 }
 
@@ -238,7 +245,8 @@ namespace ApfBuilder.Context
 
                     foreach (DataColumn col in dataTable.Columns)
                     {
-                        bulkCopy.ColumnMappings.Add(col.ColumnName, col.ColumnName);
+                        bulkCopy.ColumnMappings.Add(
+                            col.ColumnName, col.ColumnName);
                     }
 
                     bulkCopy.WriteToServer(dataTable);
@@ -258,7 +266,8 @@ namespace ApfBuilder.Context
                         ConditionsStaticId = Source.ConditionsStaticId,
                         ConditionsCurrentId = Source.ConditionsCurrentId,
                         ConditionsVoltageId = Source.ConditionsVoltageId,
-                        UsingRow = Source.UsingRow,
+                        UsingApf = Source.UsingApf,
+                        UsingFSpf = Source.UsingFSpf,
                         LimitPowerFlow = Source.LimitPowerFlow,
                         TprPowerFlow = Source.TprPowerFlow,
                         EprPowerFlow = Source.EprPowerFlow,
@@ -315,7 +324,9 @@ namespace ApfBuilder.Context
                         PowerFlowForcedStateDescriptionHandWritten =
                             Source.PowerFlowForcedStateDescriptionHandWritten,
                         APFReferenceData =
-                            Source.APFReferenceData;";
+                            Source.APFReferenceData,
+                        APFAppliedCriteriaData =
+                            Source.APFAppliedCriteriaData;";
 
                 using (var mergeCmd1 = new SqlCommand(
                     mergePreFaultSql, connection))
