@@ -22,12 +22,14 @@ namespace ApfBuilder.PowerFlow
 
         public override void Compose()
         {
-            var emergencyCriterion = Criteria.Where(x => x
+            Criteria = Criteria.Where(x => x
                 .GetType()
                 .GetCustomAttributes(typeof(EmergencyPF), false)
                 .Any()
                 )
-            .FirstOrDefault();
+            .ToArray();
+
+            var emergencyCriterion = Criteria.FirstOrDefault();
 
             if (emergencyCriterion != null)
             {

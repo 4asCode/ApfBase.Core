@@ -13,7 +13,7 @@ namespace ApfBuilder.PowerFlow
     {
         public abstract PowerFlowKind Kind { get; }
 
-        public ICriterion[] Criteria { get; }
+        public ICriterion[] Criteria { get; protected set; }
 
         public string Value { get; protected set; } = string.Empty;
 
