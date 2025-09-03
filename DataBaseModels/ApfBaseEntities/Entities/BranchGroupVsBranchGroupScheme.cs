@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static DataBaseModels.ApfBaseEntities.EntityAttribute;
-
-namespace DataBaseModels.ApfBaseEntities.Entities
+﻿namespace DataBaseModels.ApfBaseEntities
 {
-    class BranchGroupVsBranchGroupScheme : IEntity
+    public partial class BranchGroupVsBranchGroupScheme : IEntity
     {
         public void Remove() { }
     }
