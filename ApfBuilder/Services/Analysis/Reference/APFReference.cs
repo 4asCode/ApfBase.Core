@@ -1,15 +1,11 @@
 ﻿using ApfBuilder.Context;
-using ApfBuilder.Criteria.Core;
 using ApfBuilder.Criteria.Core.Interfaces;
 using DataBaseModels.ApfBaseEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace ApfBuilder.Services.Analysis
+namespace ApfBuilder.Services.Analysis.Reference
 {
     [Serializable]
     public class APFReference : IAPFReference
@@ -47,6 +43,12 @@ namespace ApfBuilder.Services.Analysis
                     {
                         pfr.SummaryReference.Add(
                             nameof(Disturbances), emr.Disturbance.Id);
+                    }
+
+                    if (criterion is ISecondaryCriterion sc)
+                    {
+                        pfr.SummaryReference.Add(
+                            nameof(ISecondaryCriterion), 1);
                     }
                 }
 

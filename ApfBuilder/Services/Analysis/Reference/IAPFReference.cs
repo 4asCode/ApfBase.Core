@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApfBuilder.Services.Analysis
+namespace ApfBuilder.Services.Analysis.Reference
 {
     public interface IAPFReference { }
 }

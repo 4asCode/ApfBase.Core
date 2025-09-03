@@ -1,13 +1,6 @@
 ﻿using ApfBuilder.Context;
-using ApfBuilder.Criteria;
-using ApfBuilder.PowerFlow;
-using DataBaseModels.ApfBaseEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ApfBuilder.Criteria.Core;
-using System.Threading.Tasks;
+using ApfBuilder.Services.Analysis.AppliedCriteria;
+using ApfBuilder.Services.Analysis.Reference;
 
 namespace ApfBuilder.Services.Analysis
 {
@@ -15,5 +8,8 @@ namespace ApfBuilder.Services.Analysis
     {
         public static IAPFReference GetReference(
             this IAPFContext context) => new APFReference(context);
+
+        public static IAPFApplied GetAppliedSecondaryCriterion(
+            this IAPFContext context) => new APFAppliedCriteria(context);
     }
 }
