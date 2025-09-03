@@ -13,7 +13,7 @@ namespace DataBaseModels.ApfBaseEntities
             using (var context = new ApfBaseContext(
                 DataBaseConnection.ConnectionString))
             {
-                var dbSet = context.Set<Seasons>();
+                var dbSet = context.Set<FrequencyPowerFlow>();
 
                 var removeEntity = dbSet.Find(Id);
 
