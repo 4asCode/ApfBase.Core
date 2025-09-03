@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -107,10 +108,13 @@
     <Compile Include="PowerFlow\Composer.cs" />
     <Compile Include="PowerFlow\PowerFlowKind.cs" />
     <Compile Include="Services\Analysis\APFAnalysis.cs" />
-    <Compile Include="Services\Analysis\APFReference.cs" />
-    <Compile Include="Services\Analysis\IAPFReference.cs" />
-    <Compile Include="Services\Analysis\PowerFlowReference.cs" />
-    <Compile Include="Services\Analysis\SummaryReference.cs" />
+    <Compile Include="Services\Analysis\AppliedCriteria\APFAppliedCriteria.cs" />
+    <Compile Include="Services\Analysis\AppliedCriteria\CriterionInfo.cs" />
+    <Compile Include="Services\Analysis\AppliedCriteria\IAPFApplied.cs" />
+    <Compile Include="Services\Analysis\Reference\APFReference.cs" />
+    <Compile Include="Services\Analysis\Reference\IAPFReference.cs" />
+    <Compile Include="Services\Analysis\Reference\PowerFlowReference.cs" />
+    <Compile Include="Services\Analysis\Reference\SummaryReference.cs" />
     <Compile Include="Services\EmergencyResponseHandler.cs" />
     <Compile Include="PowerFlow\Factory\IPowerFlowCollectionFactory.cs" />
     <Compile Include="PowerFlow\Factory\IPowerFlowFactory.cs" />

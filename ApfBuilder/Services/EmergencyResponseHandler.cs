@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ApfBuilder.Criteria;
+using ApfBuilder.Criteria.Core;
 using DataBaseModels.ApfBaseEntities;
 using static ApfBuilder.Criteria.CriterionAttribute;
 using Extensions;

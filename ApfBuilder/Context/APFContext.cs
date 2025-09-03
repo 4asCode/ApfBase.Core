@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ApfBuilder.Services.Analysis;
 using Serialize;
+using ApfBuilder.Services.Analysis.AppliedCriteria;
 
 namespace ApfBuilder.Context
 {
@@ -193,6 +194,9 @@ namespace ApfBuilder.Context
 
             var apfRef = this.GetReference();
             Apf.APFReferenceData = JsonSerializer.Serialize(apfRef);
+
+            var apfApplied = this.GetAppliedSecondaryCriterion();
+            Apf.APFAppliedCriteriaData = JsonSerializer.Serialize(apfApplied);
         }
 
         private IEnumerable<string> GetCriteriaNecessaryControl(
