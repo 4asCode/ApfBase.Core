@@ -60,6 +60,8 @@ namespace ApfBuilder.Criteria
         {
             foreach (var postF in _context.PreF.PostFaultConditions)
             {
+                if (!(postF.Using ?? false)) continue;
+
                 yield return new[]
                 {
                     Current.Create(postF),
