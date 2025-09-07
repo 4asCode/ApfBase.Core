@@ -8,25 +8,16 @@ namespace Extensions
 {
     public static class Rounder
     {
-        public static int Value { get; private set; } = 1;
+        private static readonly int _defaultRoundValue = 1;
 
-        public static void SetValue(int value)
-        {
-            if (value == 0)
-            {
-                throw new ArgumentException(
-                    "Вероятность получения " +
-                    "\"Not-a-Number\". " +
-                    "Значение \"0\" не допускается!"
-                    );
-            }
-
-            Value = value;
-        }
-
-        public static double? Round(this double? value) =>
+        public static double? Round(this double? value, int? roundParam) =>
             value == null ? null : (double?)Math.Floor(
-                Convert.ToDouble(value - value % Value)
+                value.Value - value.Value % 
+                    (
+                        (roundParam == null || roundParam <= 0) 
+                            ? _defaultRoundValue
+                            : roundParam.Value
+                    )
                 );
     }
 }

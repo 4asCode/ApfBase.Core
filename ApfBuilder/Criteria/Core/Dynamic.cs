@@ -32,6 +32,10 @@ namespace ApfBuilder.Criteria.Core
         private Dynamic(PostFaultConditions postF)
             : base
             (
+                  postF.PreFaultConditions
+                      ?.BranchGroupVsBranchGroupScheme
+                      ?.BranchGroup
+                      ?.RoundValue,
                   postF.DynamicPowerFlow -
                     postF.PreFaultConditions.IrOscExpressions ??
                     postF.DynamicPowerFlow,
@@ -42,7 +46,7 @@ namespace ApfBuilder.Criteria.Core
             Condition = postF.Conditions;
             Disturbance = postF.Disturbances;
             EmergencyResponse = EmergencyResponseHandler.
-                ProcessHandler(this.Type, postF.APNU, postF.ARPM);
+                ProcessHandler(base.RoundValue, this.Type, postF.APNU);
 
             MinValueER = MinValue;
             MaxValueER = MaxValue;

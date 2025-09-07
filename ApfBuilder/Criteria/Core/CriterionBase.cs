@@ -19,13 +19,21 @@ namespace ApfBuilder.Criteria.Core
 
         public double? MaxValue { get; protected set; }
 
+        public int? RoundValue { get; }
+
         public abstract CriterionType Type { get; }
 
         protected CriterionBase() { }
 
-        protected CriterionBase(double? baseValue) : this()
+        protected CriterionBase(int? roundParam) : this()
         {
-            Value = baseValue.Round();
+            RoundValue = roundParam;
+        }
+
+        protected CriterionBase(int? roundParam, double? baseValue)
+            : this(roundParam)
+        {
+            Value = baseValue.Round(roundParam);
 
             MinValue = Value;
 
@@ -33,18 +41,19 @@ namespace ApfBuilder.Criteria.Core
         }
 
         protected CriterionBase(
+            int? roundParam,
             double? baseValue,
             Conditions conditions
             )
-            : this(baseValue)
+            : this(roundParam, baseValue)
         {
             MinValue = conditions?.MinValue == null
                 ? Value
-                : Value + conditions.MinValue.Round();
+                : Value + conditions.MinValue.Round(roundParam);
 
             MaxValue = conditions?.MaxValue == null
                 ? Value
-                : Value + conditions.MaxValue.Round();
+                : Value + conditions.MaxValue.Round(roundParam);
         }
     }
 }

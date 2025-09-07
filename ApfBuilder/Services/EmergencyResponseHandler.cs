@@ -15,37 +15,38 @@ namespace ApfBuilder.Services
         private EmergencyResponseHandler() { }
 
         public static IEnumerable<IEmergencyResponse> ProcessHandler(
-            CriterionType type, params IEmergencyResponse[] emergencies)
+            int? roundParam, CriterionType type, 
+            params IEmergencyResponse[] emergencies)
         {
             foreach (var emergency in emergencies)
             {
                 switch (emergency)
                 {
                     case AOPO aopo:
-                        aopo.Value = GetValueOrDescription(
+                        aopo.Value = GetValueOrDescription(roundParam,
                             aopo.Coefficient, aopo.ControlValuePowerFlow
                             );
-                        aopo.Description = GetValueOrDescription(
+                        aopo.Description = GetValueOrDescription(roundParam,
                             aopo.Coefficient, aopo.FormalName
                             );
                         aopo.MaxValue = aopo.Value;
                         yield return aopo;
                         break;
                     case ARPM arpm:
-                        arpm.Value = GetValueOrDescription(
+                        arpm.Value = GetValueOrDescription(roundParam,
                             arpm.Coefficient, arpm.ControlValuePowerFlow
                             );
-                        arpm.Description = GetValueOrDescription(
+                        arpm.Description = GetValueOrDescription(roundParam,
                             arpm.Coefficient, arpm.FormalName
                             );
                         arpm.MaxValue = arpm.Value;
                         yield return arpm;
                         break;
                     case AOSN aosn:
-                        aosn.Value = GetValueOrDescription(
+                        aosn.Value = GetValueOrDescription(roundParam,
                             aosn.Coefficient, aosn.ControlValuePowerFlow
                             );
-                        aosn.Description = GetValueOrDescription(
+                        aosn.Description = GetValueOrDescription(roundParam,
                             aosn.Coefficient, aosn.FormalName
                             );
                         aosn.MaxValue = aosn.Value;
@@ -54,14 +55,14 @@ namespace ApfBuilder.Services
                     case APNU apnu:
                         if (type == CriterionType.Static)
                         {
-                            apnu.Value = GetValueOrDescription(
+                            apnu.Value = GetValueOrDescription(roundParam,
                                 apnu.StaticsCoefficient, apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
                         }
                         if (type == CriterionType.Dynamic)
                         {
-                            apnu.Value = GetValueOrDescription(
+                            apnu.Value = GetValueOrDescription(roundParam,
                                 apnu.DynamicsCoefficient, apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
@@ -70,13 +71,13 @@ namespace ApfBuilder.Services
                             type == CriterionType.CurrentAOPO
                             )
                         {
-                            apnu.Value = GetValueOrDescription(
+                            apnu.Value = GetValueOrDescription(roundParam,
                                 apnu.CurrentCoefficient, apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
                         }
 
-                        apnu.Description = GetValueOrDescription(
+                        apnu.Description = GetValueOrDescription(roundParam,
                                 apnu.StaticsCoefficient, apnu.FormalName
                                 );
 
@@ -88,7 +89,7 @@ namespace ApfBuilder.Services
         }
 
         private static dynamic GetValueOrDescription<TValue>(
-            double? coefficient, TValue value)
+            int? roundParam, double? coefficient, TValue value)
         {
             switch (value)
             {
@@ -100,7 +101,7 @@ namespace ApfBuilder.Services
                 case double _:
                     double? roundValue = (coefficient * (
                         value as double?)
-                        ).Round();
+                        ).Round(roundParam);
                     return roundValue;
                 default: return null;
             }

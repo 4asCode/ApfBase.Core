@@ -17,9 +17,9 @@ namespace ApfBuilder.Criteria.Core
         {
             return new StaticBaseCaseEPR
                 (
+                    preF,
                     preF.EprPowerFlow - preF.IrOscExpressions
-                        ?? preF.EprPowerFlow,
-                    preF.ConditionsStatic
+                        ?? preF.EprPowerFlow
                 );
         }
 
@@ -28,10 +28,10 @@ namespace ApfBuilder.Criteria.Core
         {
             return new StaticBaseCaseEPR
                 (
+                    preF,
                     preF.IrOscExpressions != null
                         ? preF.EprPowerFlow - preF.IrOscExpressions * 2
-                        : preF.EprPowerFlow,
-                    preF.ConditionsStatic
+                        : preF.EprPowerFlow
                 );
         }
 
@@ -40,11 +40,17 @@ namespace ApfBuilder.Criteria.Core
 
         public Conditions Condition { get; }
 
-        private StaticBaseCaseEPR(double? value, Conditions conditions)
-            : base(value, conditions)
+        private StaticBaseCaseEPR(PreFaultConditions preF, double? value)
+            : base
+            (
+                  preF?.BranchGroupVsBranchGroupScheme
+                      ?.BranchGroup
+                      ?.RoundValue,
+                  value
+            )
         {
             Name = "8% P, исходная схема";
-            Condition = conditions;
+            Condition = preF.ConditionsStatic;
         }
     }
 }

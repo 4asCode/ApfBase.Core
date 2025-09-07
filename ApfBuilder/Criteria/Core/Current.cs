@@ -54,12 +54,16 @@ namespace ApfBuilder.Criteria.Core
 
         public double? MaxValueER { get; }
 
-        private Current(PostFaultConditions postF, 
+        private Current(PostFaultConditions postF,
             double? value, string name)
             : base
             (
-                value,
-                postF.Conditions
+                  postF.PreFaultConditions
+                      ?.BranchGroupVsBranchGroupScheme
+                      ?.BranchGroup
+                      ?.RoundValue,
+                  value,
+                  postF.Conditions
             )
         {
             Name = name;
@@ -67,7 +71,7 @@ namespace ApfBuilder.Criteria.Core
             Disturbance = postF.Disturbances;
             Bounding = postF.BoundingElements;
             EmergencyResponse = EmergencyResponseHandler.
-                ProcessHandler(this.Type, postF.AOPO);
+                ProcessHandler(base.RoundValue, this.Type, postF.AOPO);
 
             MinValueER = MinValue;
             MaxValueER = MaxValue;

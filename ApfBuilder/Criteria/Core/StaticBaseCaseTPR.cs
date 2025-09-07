@@ -23,6 +23,9 @@ namespace ApfBuilder.Criteria.Core
         private StaticBaseCaseTPR(PreFaultConditions preF)
             : base
             (
+                  preF?.BranchGroupVsBranchGroupScheme
+                      ?.BranchGroup
+                      ?.RoundValue,
                   preF.TprPowerFlow - preF.IrOscExpressions
                     ?? preF.TprPowerFlow,
                   preF.ConditionsStatic

@@ -51,6 +51,9 @@ namespace ApfBuilder.Criteria.Core
             double? value, string name)
             : base
             (
+                  preF?.BranchGroupVsBranchGroupScheme
+                      ?.BranchGroup
+                      ?.RoundValue,
                   value,
                   preF.ConditionsCurrent
             )

@@ -32,6 +32,10 @@ namespace ApfBuilder.Criteria.Core
         private Voltage(PostFaultConditions postF)
             : base
             (
+                  postF.PreFaultConditions
+                      ?.BranchGroupVsBranchGroupScheme
+                      ?.BranchGroup
+                      ?.RoundValue,
                   postF.VoltagePowerFlow -
                     postF.PreFaultConditions.IrOscExpressions ??
                     postF.VoltagePowerFlow,
@@ -42,7 +46,7 @@ namespace ApfBuilder.Criteria.Core
             Condition = postF.Conditions;
             Disturbance = postF.Disturbances;
             EmergencyResponse = EmergencyResponseHandler.
-                ProcessHandler(this.Type, postF.AOSN);
+                ProcessHandler(base.RoundValue, this.Type, postF.AOSN);
 
             MinValueER = MinValue;
             MaxValueER = MaxValue;

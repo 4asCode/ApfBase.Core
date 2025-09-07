@@ -25,6 +25,9 @@ namespace ApfBuilder.Criteria.Core
         private VoltageSecondary(PreFaultConditions preF)
             : base
             (
+                  preF?.BranchGroupVsBranchGroupScheme
+                    ?.BranchGroup
+                    ?.RoundValue,
                   preF.VoltagePowerFlow - preF.IrOscExpressions
                     ?? preF.VoltagePowerFlow,
                   preF.ConditionsVoltage

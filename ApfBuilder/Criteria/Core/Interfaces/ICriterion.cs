@@ -18,6 +18,8 @@ namespace ApfBuilder.Criteria.Core.Interfaces
 
         double? MaxValue { get; }
 
+        int? RoundValue { get; }
+
         CriterionType Type { get; }
     }
 }
