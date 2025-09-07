@@ -20,15 +20,19 @@ namespace ApfBuilder.Criteria.Core
 
         public string Postfix { get; }
 
+        public Conditions Condition { get; }
+
         private VoltageSecondary(PreFaultConditions preF)
             : base
             (
                   preF.VoltagePowerFlow - preF.IrOscExpressions
-                    ?? preF.VoltagePowerFlow
+                    ?? preF.VoltagePowerFlow,
+                  preF.ConditionsVoltage
             )
         {
             Name = "15% U";
             Postfix = "*";
+            Condition = preF.ConditionsVoltage;
         }
     }
 }

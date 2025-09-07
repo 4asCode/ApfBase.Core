@@ -14,7 +14,7 @@ namespace ApfBuilder.Services
     {
         public IEnumerable<ICriterion> GetSimpleSelector(
             IEnumerable<ICriterion> criteriaList) 
-                => criteriaList.Where(c => c.Value != null && c.Value > 0);
+                => criteriaList.Where(c => c.Value != null);
 
         public IEnumerable<ICriterion> GetComplexSelector(
             IEnumerable<ICriterion[]> 
@@ -23,7 +23,7 @@ namespace ApfBuilder.Services
             foreach (var criteria in criteriaList)
             {
                 var correctCriteria = criteria.Where(
-                    c => c.Value != null && c.Value > 0).ToList();
+                    c => c.Value != null).ToList();
 
                 if (!correctCriteria.Any()) continue;
 

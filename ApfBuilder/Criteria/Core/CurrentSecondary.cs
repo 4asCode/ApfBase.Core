@@ -20,18 +20,22 @@ namespace ApfBuilder.Criteria.Core
 
         public BoundingElements Bounding { get; }
 
+        public Conditions Condition { get; }
+
         public string Postfix { get; }
 
         private CurrentSecondary(PreFaultConditions preF)
             : base
             (
                   preF.CurrentPowerFlow - preF.IrOscExpressions
-                    ?? preF.CurrentPowerFlow
+                    ?? preF.CurrentPowerFlow,
+                  preF.ConditionsCurrent
             )
         {
             Name = "ДДТН";
             Postfix = "*";
             Bounding = preF.BoundingElements;
+            Condition = preF.ConditionsCurrent;
         }
     }
 }

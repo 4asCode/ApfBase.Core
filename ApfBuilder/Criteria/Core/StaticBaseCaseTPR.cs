@@ -18,14 +18,18 @@ namespace ApfBuilder.Criteria.Core
         public override CriterionType Type
             => CriterionType.StaticBaseCaseTPR;
 
+        public Conditions Condition { get; }
+
         private StaticBaseCaseTPR(PreFaultConditions preF)
             : base
             (
                   preF.TprPowerFlow - preF.IrOscExpressions
-                    ?? preF.TprPowerFlow
+                    ?? preF.TprPowerFlow,
+                  preF.ConditionsStatic
             )
         {
             Name = "20% P, исходная схема";
+            Condition = preF.ConditionsStatic;
         }
     }
 }

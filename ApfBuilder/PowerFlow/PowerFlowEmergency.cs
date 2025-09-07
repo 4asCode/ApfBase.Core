@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApfBuilder.Criteria.Core.Interfaces;
 using static ApfBuilder.Criteria.CriterionAttribute;
+using ApfBuilder.Criteria.Core;
 
 namespace ApfBuilder.PowerFlow
 {
@@ -31,10 +32,14 @@ namespace ApfBuilder.PowerFlow
 
             var emergencyCriterion = Criteria.FirstOrDefault();
 
-            if (emergencyCriterion != null)
+            if (emergencyCriterion != null && 
+                emergencyCriterion is StaticBaseCaseEPR baseCaseEPR)
             {
-                Value += emergencyCriterion.Value;
-                Description += emergencyCriterion.Name;
+                Value += $"{baseCaseEPR.Value} " +
+                    $"{baseCaseEPR.Condition?.FormalName}";
+                Description += baseCaseEPR.Name;
+
+                Value = TerminateLine(Value);
             }
         }
     }

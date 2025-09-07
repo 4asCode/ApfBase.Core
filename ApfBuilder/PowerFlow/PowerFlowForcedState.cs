@@ -26,7 +26,8 @@ namespace ApfBuilder.PowerFlow
             {
                 if (criterion is IBaseCaseCriterion baseCaseCriterion)
                 {
-                    Value += baseCaseCriterion.Value;
+                    Value += $"{baseCaseCriterion.Value} " +
+                        $"{baseCaseCriterion.Condition?.FormalName}";
                     Description += baseCaseCriterion.Name;
 
                     Value = TerminateLine(Value);
@@ -39,7 +40,8 @@ namespace ApfBuilder.PowerFlow
 
                 if (criterion is ISecondaryCriterion secondaryCriterion)
                 {
-                    Value += secondaryCriterion.Postfix;
+                    Value += $"{secondaryCriterion.Postfix} " +
+                        $"{secondaryCriterion.Condition?.FormalName}";
                     Description +=
                         $"{secondaryCriterion.Name}" +
                         (secondaryCriterion is ICurrentCriterion currentSec ?

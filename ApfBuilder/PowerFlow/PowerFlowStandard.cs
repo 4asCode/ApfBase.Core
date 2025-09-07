@@ -29,11 +29,12 @@ namespace ApfBuilder.PowerFlow
                 switch (criterion)
                 {
                     case IBaseCaseCriterion baseCaseCriterion:
-                        Value += baseCaseCriterion.Value;
+                        Value += $"{baseCaseCriterion.Value} " +
+                            $"{baseCaseCriterion.Condition?.FormalName}";
                         Description += baseCaseCriterion.Name;
 
-                        Value = $"{Value.TrimEnd(' ')};\n";
-                        Description = $"{Description.TrimEnd(' ')};\n";
+                        Value = TerminateLine(Value);
+                        Description = TerminateLine(Description);
                         continue;
                     case IFrequencyCriterion frequencyCriterion:
                         Value += frequencyCriterion.FullValue.Value;
@@ -53,7 +54,8 @@ namespace ApfBuilder.PowerFlow
 
                 if (criterion is ISecondaryCriterion secondaryCriterion)
                 {
-                    Value += secondaryCriterion.Postfix;
+                    Value += $"{secondaryCriterion.Postfix} " +
+                        $"{secondaryCriterion.Condition?.FormalName}";
                     Description +=
                         $"{secondaryCriterion.Name}" +
                         (secondaryCriterion is ICurrentCriterion currentSec ?
