@@ -44,12 +44,6 @@ namespace ApfBuilder.Services.Analysis.Reference
                         pfr.SummaryReference.Add(
                             nameof(Disturbances), emr.Disturbance.Id);
                     }
-
-                    if (criterion is ISecondaryCriterion sc)
-                    {
-                        pfr.SummaryReference.Add(
-                            nameof(ISecondaryCriterion), 1);
-                    }
                 }
 
                 var r = pfr.SummaryReference;
