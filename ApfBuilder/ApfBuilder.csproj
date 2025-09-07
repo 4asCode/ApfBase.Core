@@ -82,7 +82,6 @@
     <Compile Include="Context\APFContextExtensions.cs" />
     <Compile Include="Criteria\Core\CriterionBase.cs" />
     <Compile Include="Criteria\Core\Current.cs" />
-    <Compile Include="Criteria\Core\CurrentAOPO.cs" />
     <Compile Include="Criteria\Core\CurrentSecondary.cs" />
     <Compile Include="Criteria\Core\Dynamic.cs" />
     <Compile Include="Criteria\Core\Frequency.cs" />

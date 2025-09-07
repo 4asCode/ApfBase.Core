@@ -12,8 +12,31 @@ namespace ApfBuilder.Criteria.Core
     [SecondaryAllowablePF]
     public sealed class CurrentSecondary : CriterionBase, ICurrentCriterion, ISecondaryCriterion
     {
-        public static ICriterion Create(PreFaultConditions preF)
-             => new CurrentSecondary(preF);
+        public static ICriterion CreateStandard(
+            PreFaultConditions preF)
+        {
+            return new CurrentSecondary
+                (
+                    preF,
+                    preF.CurrentPowerFlow -
+                        preF.IrOscExpressions ??
+                        preF.CurrentPowerFlow,
+                    "ДДТН"
+                );
+        }
+
+        public static ICriterion CreateAOPO(
+            PreFaultConditions preF)
+        {
+            return new CurrentSecondary
+                (
+                    preF,
+                    preF.CurrentAOPO -
+                        preF.IrOscExpressions ??
+                        preF.CurrentAOPO,
+                    "ДТН"
+                );
+        }
 
         public override CriterionType Type
             => CriterionType.CurrentSecondary;
@@ -24,15 +47,15 @@ namespace ApfBuilder.Criteria.Core
 
         public string Postfix { get; }
 
-        private CurrentSecondary(PreFaultConditions preF)
+        private CurrentSecondary(PreFaultConditions preF, 
+            double? value, string name)
             : base
             (
-                  preF.CurrentPowerFlow - preF.IrOscExpressions
-                    ?? preF.CurrentPowerFlow,
+                  value,
                   preF.ConditionsCurrent
             )
         {
-            Name = "ДДТН";
+            Name = name;
             Postfix = "*";
             Bounding = preF.BoundingElements;
             Condition = preF.ConditionsCurrent;

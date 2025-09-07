@@ -64,8 +64,8 @@ namespace ApfBuilder.Criteria
 
                 yield return new[]
                 {
-                    Current.Create(postF),
-                    CurrentAOPO.Create(postF),
+                    Current.CreateStandard(postF),
+                    Current.CreateAOPO(postF),
                     Dynamic.Create(postF),
                     Static.Create(postF),
                     Voltage.Create(postF),
@@ -78,7 +78,8 @@ namespace ApfBuilder.Criteria
         {
             return new[]
             {
-                CurrentSecondary.Create(_context.PreF),
+                CurrentSecondary.CreateStandard(_context.PreF),
+                CurrentSecondary.CreateAOPO(_context.PreF),
                 VoltageSecondary.Create(_context.PreF),
                 StaticBaseCaseTPR.Create(_context.PreF),
                 StaticBaseCaseEPR.CreateStandard(_context.PreF)
@@ -89,17 +90,18 @@ namespace ApfBuilder.Criteria
         {
             var criterionList = new List<ICriterion>()
             {
-                CurrentSecondary.Create(_context.PreF),
+                CurrentSecondary.CreateStandard(_context.PreF),
+                CurrentSecondary.CreateAOPO(_context.PreF),
                 StaticBaseCaseEPR.CreateForcedState(_context.PreF)
             };
 
             foreach (var postF in _context.PreF.PostFaultConditions)
             {
                 criterionList.Add(
-                    Current.Create(postF)
+                    Current.CreateStandard(postF)
                     );
                 criterionList.Add(
-                    CurrentAOPO.Create(postF)
+                    Current.CreateAOPO(postF)
                     );
             }
 

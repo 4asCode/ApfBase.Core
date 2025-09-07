@@ -14,8 +14,31 @@ namespace ApfBuilder.Criteria.Core
     [CriterionPriority(1)]
     public sealed class Current : CriterionBase, ICurrentCriterion, IEmergencyResponseCriterion
     {
-        public static ICriterion Create(PostFaultConditions postF)
-             => new Current(postF);
+        public static ICriterion CreateStandard(
+            PostFaultConditions postF)
+        {
+            return new Current
+                (
+                    postF,
+                    postF.CurrentPowerFlow -
+                        postF.PreFaultConditions.IrOscExpressions ??
+                        postF.CurrentPowerFlow,
+                    "АДТН"
+                );
+        }
+
+        public static ICriterion CreateAOPO(
+            PostFaultConditions postF)
+        {
+            return new Current
+                (
+                    postF,
+                    postF.CurrentAOPO -
+                        postF.PreFaultConditions.IrOscExpressions ??
+                        postF.CurrentAOPO,
+                    "ДТН"
+                );
+        }
 
         public override CriterionType Type => CriterionType.Current;
 
@@ -31,16 +54,15 @@ namespace ApfBuilder.Criteria.Core
 
         public double? MaxValueER { get; }
 
-        private Current(PostFaultConditions postF)
+        private Current(PostFaultConditions postF, 
+            double? value, string name)
             : base
             (
-                postF.CurrentPowerFlow -
-                    postF.PreFaultConditions.IrOscExpressions ??
-                    postF.CurrentPowerFlow,
+                value,
                 postF.Conditions
             )
         {
-            Name = "АДТН";
+            Name = name;
             Condition = postF.Conditions;
             Disturbance = postF.Disturbances;
             Bounding = postF.BoundingElements;
