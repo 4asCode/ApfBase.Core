@@ -85,7 +85,6 @@
     <Compile Include="Criteria\Core\CurrentSecondary.cs" />
     <Compile Include="Criteria\Core\Dynamic.cs" />
     <Compile Include="Criteria\Core\Frequency.cs" />
-    <Compile Include="Criteria\Core\FrequencyAlternate.cs" />
     <Compile Include="Criteria\Core\Static.cs" />
     <Compile Include="Criteria\Core\StaticBaseCaseEPR.cs" />
     <Compile Include="Criteria\Core\StaticBaseCaseTPR.cs" />
@@ -96,7 +95,6 @@
     <Compile Include="Criteria\Core\Interfaces\IBaseCaseCriterion.cs" />
     <Compile Include="Criteria\Core\Interfaces\IEmergencyResponceCriterion.cs" />
     <Compile Include="Criteria\Core\Interfaces\ICurrentCriterion.cs" />
-    <Compile Include="Criteria\Core\Interfaces\IFrequencyAlternateCriterion.cs" />
     <Compile Include="Criteria\Core\Interfaces\IFrequencyCriterion.cs" />
     <Compile Include="Criteria\Core\Interfaces\ISecondaryCriterion.cs" />
     <Compile Include="PowerFlow\Factory\PowerFlowEmergencyFactory.cs" />

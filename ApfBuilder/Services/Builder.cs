@@ -31,12 +31,10 @@ namespace ApfBuilder.Services
             IAPFContext context)
         {
             var baseCriteria = GetBaseStateCriteria(context);
-            var alternateCriteria = GetAlternateCriteria(context);
-            var criteria = baseCriteria.Concat(alternateCriteria);
 
-            if (criteria.All(c => c.Value == null)) yield break;
+            if (baseCriteria.All(c => c.Value == null)) yield break;
 
-            var factories = PowerFlowCollectionFactory.Create(criteria);
+            var factories = PowerFlowCollectionFactory.Create(baseCriteria);
 
             foreach ( var factory in factories)
             {
@@ -68,13 +66,6 @@ namespace ApfBuilder.Services
             var factory = new CriterionFactory(context);
 
             return factory.ForcedStateCriteria;
-        }
-
-        private ICriterion[] GetAlternateCriteria(IAPFContext context)
-        {
-            var factory = new CriterionFactory(context);
-
-            return factory.AlternateCriteria;
         }
     }
 }

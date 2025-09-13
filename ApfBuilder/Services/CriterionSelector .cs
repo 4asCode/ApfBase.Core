@@ -32,40 +32,5 @@ namespace ApfBuilder.Services
                 yield return minCriterion;
             }
         }
-
-        public IEnumerable<ICriterion> GetAlternateSelector(
-            IEnumerable<ICriterion> criteria)
-        {
-            //foreach (var criterion in criteria)
-            //{
-            //    var alternate = criterion as IFrequencyAlternateCriterion;
-
-            //    if (alternate?.StaticCriterion != null &&
-            //        alternate.StaticCriterion.Value.HasValue && 
-            //        alternate.LimitPowerFlowByEmergency > 0 &&
-            //        alternate?.IrOscExpressions != null &&
-            //        (alternate.LimitPowerFlowByEmergency / 0.92) <
-            //        alternate?.IrOscExpressions * 3)
-            //    {
-            //        yield return criterion;
-            //    }
-            //    else if (alternate.StaticCriterion.Value.HasValue &&
-            //            alternate.LimitPowerFlowByEmergency > 0 &&
-            //            alternate?.IrOscExpressions != null &&
-            //            (alternate.LimitPowerFlowByEmergency / 0.92) <
-            //            alternate?.LimitPowerFlow * 0.3)
-            //    {
-            //        yield return criterion;
-            //    }
-            //    else if (alternate.StaticCriterion.Value.HasValue &&
-            //            alternate.Condition?.MaxValue != null &&
-            //            alternate.Condition.MaxValue >
-            //            alternate?.LimitPowerFlow * 0.5)
-            //    {
-            //        yield return criterion;
-            //    }
-            //}
-            return new List<ICriterion>();
-        }
     }
 }

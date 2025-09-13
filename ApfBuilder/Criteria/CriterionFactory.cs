@@ -25,8 +25,6 @@ namespace ApfBuilder.Criteria
 
         public ICriterion[] ForcedStateCriteria { get; }
 
-        public ICriterion[] AlternateCriteria { get; }
-
         public CriterionFactory(IAPFContext context)
         {
             _context = context;
@@ -40,11 +38,6 @@ namespace ApfBuilder.Criteria
 
             ForcedStateCriteria = _selector.GetSimpleSelector(
                 CreateForsedStateCriteria()
-                )
-            .ToArray();
-
-            AlternateCriteria = _selector.GetAlternateSelector(
-                CreateAlternateCriteria()
                 )
             .ToArray();
         }
@@ -106,14 +99,6 @@ namespace ApfBuilder.Criteria
             }
 
             return criterionList.ToArray();
-        }
-
-        private IEnumerable<ICriterion> CreateAlternateCriteria()
-        {
-            foreach (var postF in _context.PreF.PostFaultConditions)
-            {
-                yield return FrequencyAlternate.Create(postF);
-            }
         }
     }
 }
