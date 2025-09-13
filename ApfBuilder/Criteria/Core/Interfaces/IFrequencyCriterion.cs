@@ -11,6 +11,8 @@ namespace ApfBuilder.Criteria.Core.Interfaces
     {
         (string Value, string Description) FullValue { get; }
 
+        FrequencyPowerFlow FrequencyPowerFlow { get; }
+
         Disturbances Disturbance { get; }
     }
 }
