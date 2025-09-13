@@ -101,5 +101,4 @@
             public bool IsActive { get; set; }
         }
     }
-
 }

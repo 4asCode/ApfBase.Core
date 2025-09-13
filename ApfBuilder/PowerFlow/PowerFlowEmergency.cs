@@ -36,10 +36,8 @@ namespace ApfBuilder.PowerFlow
                 emergencyCriterion is StaticBaseCaseEPR baseCaseEPR)
             {
                 Value += $"{baseCaseEPR.Value} " +
-                    $"{baseCaseEPR.Condition?.FormalName}";
+                    $"{baseCaseEPR.Condition?.FormalName}".TrimEnd(' ');
                 Description += baseCaseEPR.Name;
-
-                Value = TerminateLine(Value);
             }
         }
     }
