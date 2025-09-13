@@ -97,6 +97,8 @@ namespace ApfBuilder.Context
             {
                 var listPreF = dbContext.PreFaultConditions
                     .Where(filter)
+                    .Include(b => b.BranchGroupVsBranchGroupScheme
+                                   .BranchGroup)
                     .Include(p => p.PostFaultConditions
                         .Select(c => c.Conditions))
                     .Include(x => x.APF)
