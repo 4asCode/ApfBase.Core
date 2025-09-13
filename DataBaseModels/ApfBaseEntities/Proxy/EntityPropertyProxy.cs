@@ -1,6 +1,5 @@
 ﻿using DataBaseModels.ApfBaseEntities.Proxy;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using static DataBaseModels.ApfBaseEntities.EntityAttribute;
@@ -133,11 +132,9 @@ namespace DataBaseModels.ApfBaseEntities
     #region APFProxy
     public partial class APF
     {
-        [ProxyFor(nameof(Temperature))]
         public string TemperatureProxy =>
             PreFaultConditions?.Temperature?.Value;
 
-        [ProxyFor(nameof(InfluencingEquipment))]
         public string InfluencingEquipmentProxy =>
             PreFaultConditions?.InfluencingEquipment?.Name;
     }
@@ -520,6 +517,9 @@ namespace DataBaseModels.ApfBaseEntities
                 }
             }
         }
+
+        public string FrequencyFormalNameProxy => 
+            $"{PowerConsumptionFactor} * {PowerConsumptionName}";
     }
     #endregion FrequencyPowerFlowProxy
 
@@ -640,16 +640,16 @@ namespace DataBaseModels.ApfBaseEntities
 
         [ProxyFor(nameof(InfluencingEquipmentUid))]
         [ProxyFor(nameof(InfluencingEquipment))]
-        public string InfluencingEquipmentProxy
+        public Guid? InfluencingEquipmentProxy
         {
-            get => InfluencingEquipment?.Name;
+            get => InfluencingEquipmentUid;
             set
             {
                 using (var context = new ApfBaseContext(
                     DataBaseConnection.ConnectionString))
                 {
                     var temp = context.InfluencingEquipment.FirstOrDefault(
-                        t => t.Name == value);
+                        t => t.Uid == value);
 
                     InfluencingEquipment = temp;
                     InfluencingEquipmentUid = temp?.Uid;
@@ -917,6 +917,29 @@ namespace DataBaseModels.ApfBaseEntities
                     OnPropertyChanged(nameof(AOSN));
                     OnPropertyChanged(nameof(AosnId));
                     OnPropertyChanged(nameof(AOSNProxy));
+                }
+            }
+        }
+
+        [ProxyFor(nameof(FrequencyPowerFlowId))]
+        [ProxyFor(nameof(FrequencyPowerFlow))]
+        public int? FrequencyPowerFlowProxy
+        {
+            get => FrequencyPowerFlowId;
+            set
+            {
+                using (var context = new ApfBaseContext(
+                    DataBaseConnection.ConnectionString))
+                {
+                    var temp = context.FrequencyPowerFlow.FirstOrDefault(
+                        t => t.Id == value);
+
+                    FrequencyPowerFlow = temp;
+                    FrequencyPowerFlowId = temp?.Id;
+
+                    OnPropertyChanged(nameof(FrequencyPowerFlow));
+                    OnPropertyChanged(nameof(FrequencyPowerFlowId));
+                    OnPropertyChanged(nameof(FrequencyPowerFlowProxy));
                 }
             }
         }

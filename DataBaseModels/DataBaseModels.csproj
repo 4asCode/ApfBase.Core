@@ -111,6 +111,7 @@
     <Compile Include="ApfBaseEntities\Entities\EntityMap\IDefinition.cs" />
     <Compile Include="ApfBaseEntities\Entities\EntityMap\IMap.cs" />
     <Compile Include="ApfBaseEntities\Entities\FrequencyPowerFlow.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Interfaces\IEquipment.cs" />
     <Compile Include="ApfBaseEntities\Entities\ManagementTasks.cs" />
     <Compile Include="ApfBaseEntities\EntityAttribute.cs" />
     <Compile Include="ApfBaseEntities\Entities\AggregatedEquipment.cs" />
@@ -166,13 +167,13 @@
     <Compile Include="ApfBaseEntities\FrequencyPowerFlow.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApfBaseEntities\IEmergencyResponse.cs" />
-    <Compile Include="ApfBaseEntities\IEntity.cs" />
-    <Compile Include="ApfBaseEntities\IAPFContextParticipant.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Interfaces\IEmergencyResponse.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Interfaces\IEntity.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Interfaces\IAPFContextParticipant.cs" />
     <Compile Include="ApfBaseEntities\InfluencingEquipment.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApfBaseEntities\IUidProvider.cs" />
+    <Compile Include="ApfBaseEntities\Entities\Interfaces\IUidProvider.cs" />
     <Compile Include="ApfBaseEntities\Management.cs">
       <DependentUpon>ApfBaseModel.tt</DependentUpon>
     </Compile>

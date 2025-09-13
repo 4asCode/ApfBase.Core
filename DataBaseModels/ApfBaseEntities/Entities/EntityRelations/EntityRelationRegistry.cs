@@ -231,6 +231,13 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityRelations
                 RelatedEntityType = typeof(AOSN),
                 NavigationProperty = "AOSNProxy",
                 RelationKind = RelationKind.OneToMany
+            },
+            new EntityRelationMetadata
+            {
+                EntityType = typeof(PostFaultConditions),
+                RelatedEntityType = typeof(FrequencyPowerFlow),
+                NavigationProperty = "FrequencyPowerFlowProxy",
+                RelationKind = RelationKind.OneToMany
             }
             #endregion PostFaultConditionsRelations
         };

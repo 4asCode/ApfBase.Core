@@ -8,7 +8,7 @@ using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 namespace DataBaseModels.ApfBaseEntities
 {
     [ReferenceDataEntity]
-    public partial class Equipment : IEntity, IComparable<Equipment>
+    public partial class Equipment : IEntity, IEquipment, IComparable<Equipment>
     {
         public override string ToString()
         {

@@ -8,7 +8,7 @@ using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 namespace DataBaseModels.ApfBaseEntities
 {
     [ReferenceDataEntity]
-    public partial class InfluencingEquipment : IEntity, IUidProvider, IComparable<InfluencingEquipment>
+    public partial class InfluencingEquipment : IEntity, IEquipment, IUidProvider, IComparable<InfluencingEquipment>
     {
         public override string ToString()
         {

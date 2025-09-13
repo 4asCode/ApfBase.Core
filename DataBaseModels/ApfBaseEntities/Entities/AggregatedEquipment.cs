@@ -4,7 +4,7 @@ using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 namespace DataBaseModels.ApfBaseEntities
 {
     [ReferenceDataEntity]
-    public partial class AggregatedEquipment : IEntity, IComparable<AggregatedEquipment>
+    public partial class AggregatedEquipment : IEntity, IEquipment, IComparable<AggregatedEquipment>
     {
         public AggregatedEquipment(string name)
         {
@@ -16,12 +16,8 @@ namespace DataBaseModels.ApfBaseEntities
             return Name?.ToString();
         }
 
-        public int CompareTo(AggregatedEquipment other)
-        {
-            if (ReferenceEquals(other, null)) return 1;
-
-            return Id < other.Id ? -1 : (Id > other.Id ? 1 : 0);
-        }
+        public int CompareTo(AggregatedEquipment agEq)
+            => string.Compare(Name, agEq.Name);
 
         public override bool Equals(object other)
         {

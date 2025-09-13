@@ -178,12 +178,11 @@
         </EntityType>
         <EntityType Name="EquipmentVsInfluencingEquipment">
           <Key>
-            <PropertyRef Name="EquipmentId" />
-            <PropertyRef Name="InfluencingEquipmentUid" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EquipmentId" Type="int" Nullable="false" />
           <Property Name="InfluencingEquipmentUid" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Equipments" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="FrequencyPowerFlow">
           <Key>
@@ -491,7 +490,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Equipment_AggregatedEquipment_fk">
-          <End Role="AggregatedEquipment" Type="Self.AggregatedEquipment" Multiplicity="0..1" />
+          <End Role="AggregatedEquipment" Type="Self.AggregatedEquipment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AggregatedEquipment">
@@ -502,7 +503,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Equipment_fk">
+        <Association Name="EquipmentVsInfluencingEquipment_Equipment_fk">
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -639,9 +640,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="PostFaultConditions_FrequencyPowerFlow_fk">
-          <End Role="FrequencyPowerFlow" Type="Self.FrequencyPowerFlow" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="FrequencyPowerFlow" Type="Self.FrequencyPowerFlow" Multiplicity="0..1" />
           <End Role="PostFaultConditions" Type="Self.PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FrequencyPowerFlow">
@@ -859,7 +858,7 @@
             <End Role="AggregatedEquipment" EntitySet="AggregatedEquipment" />
             <End Role="Equipment" EntitySet="Equipment" />
           </AssociationSet>
-          <AssociationSet Name="Equipment_fk" Association="Self.Equipment_fk">
+          <AssociationSet Name="EquipmentVsInfluencingEquipment_Equipment_fk" Association="Self.EquipmentVsInfluencingEquipment_Equipment_fk">
             <End Role="Equipment" EntitySet="Equipment" />
             <End Role="EquipmentVsInfluencingEquipment" EntitySet="EquipmentVsInfluencingEquipment" />
           </AssociationSet>
@@ -1093,7 +1092,7 @@
             <End Role="Disturbances" EntitySet="Disturbances" />
             <End Role="PostFaultConditions" EntitySet="PostFaultConditions" />
           </AssociationSet>
-          <AssociationSet Name="Equipment_fk" Association="ApfBaseModel.Equipment_fk">
+          <AssociationSet Name="EquipmentVsInfluencingEquipment_Equipment_fk" Association="ApfBaseModel.EquipmentVsInfluencingEquipment_Equipment_fk">
             <End Role="Equipment" EntitySet="Equipment" />
             <End Role="EquipmentVsInfluencingEquipment" EntitySet="EquipmentVsInfluencingEquipment" />
           </AssociationSet>
@@ -1338,17 +1337,16 @@
           <Property Name="AggregatedEquipmentId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AggregatedEquipment" Relationship="ApfBaseModel.Equipment_AggregatedEquipment_fk" FromRole="Equipment" ToRole="AggregatedEquipment" />
-          <NavigationProperty Name="EquipmentVsInfluencingEquipment" Relationship="ApfBaseModel.Equipment_fk" FromRole="Equipment" ToRole="EquipmentVsInfluencingEquipment" />
+          <NavigationProperty Name="EquipmentVsInfluencingEquipment" Relationship="ApfBaseModel.EquipmentVsInfluencingEquipment_Equipment_fk" FromRole="Equipment" ToRole="EquipmentVsInfluencingEquipment" />
         </EntityType>
         <EntityType Name="EquipmentVsInfluencingEquipment">
           <Key>
-            <PropertyRef Name="EquipmentId" />
-            <PropertyRef Name="InfluencingEquipmentUid" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EquipmentId" Type="Int32" Nullable="false" />
           <Property Name="InfluencingEquipmentUid" Type="Guid" Nullable="false" />
-          <Property Name="Equipments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Equipment" Relationship="ApfBaseModel.Equipment_fk" FromRole="EquipmentVsInfluencingEquipment" ToRole="Equipment" />
+          <NavigationProperty Name="Equipment" Relationship="ApfBaseModel.EquipmentVsInfluencingEquipment_Equipment_fk" FromRole="EquipmentVsInfluencingEquipment" ToRole="Equipment" />
           <NavigationProperty Name="InfluencingEquipment" Relationship="ApfBaseModel.EquipmentVsInfluencingEquipment_InfluencingEquipment_fk" FromRole="EquipmentVsInfluencingEquipment" ToRole="InfluencingEquipment" />
         </EntityType>
         <EntityType Name="FrequencyPowerFlow">
@@ -1484,7 +1482,9 @@
           <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_Temperature_fk" FromRole="Temperature" ToRole="PreFaultConditions" />
         </EntityType>
         <Association Name="Equipment_AggregatedEquipment_fk">
-          <End Type="ApfBaseModel.AggregatedEquipment" Role="AggregatedEquipment" Multiplicity="0..1" />
+          <End Type="ApfBaseModel.AggregatedEquipment" Role="AggregatedEquipment" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="ApfBaseModel.Equipment" Role="Equipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AggregatedEquipment">
@@ -1857,7 +1857,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Equipment_fk">
+        <Association Name="EquipmentVsInfluencingEquipment_Equipment_fk">
           <End Type="ApfBaseModel.Equipment" Role="Equipment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1886,9 +1886,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="PostFaultConditions_FrequencyPowerFlow_fk">
-          <End Type="ApfBaseModel.FrequencyPowerFlow" Role="FrequencyPowerFlow" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="ApfBaseModel.FrequencyPowerFlow" Role="FrequencyPowerFlow" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FrequencyPowerFlow">
@@ -2157,9 +2155,9 @@
           <EntitySetMapping Name="EquipmentVsInfluencingEquipment">
             <EntityTypeMapping TypeName="ApfBaseModel.EquipmentVsInfluencingEquipment">
               <MappingFragment StoreEntitySet="EquipmentVsInfluencingEquipment">
-                <ScalarProperty Name="Equipments" ColumnName="Equipments" />
                 <ScalarProperty Name="InfluencingEquipmentUid" ColumnName="InfluencingEquipmentUid" />
                 <ScalarProperty Name="EquipmentId" ColumnName="EquipmentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

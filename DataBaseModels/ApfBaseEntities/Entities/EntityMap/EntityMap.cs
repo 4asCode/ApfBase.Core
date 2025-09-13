@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using static DataBaseModels.ApfBaseEntities.EntityAttribute;
-using DataBaseModels.ApfBaseEntities;
-using System.IO;
 
 namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
 {
@@ -17,7 +12,8 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
             = new Dictionary<Type, 
                 (string Caption, string Category, bool ReadOnly)>
             {
-                { 
+                #region EntityMap
+                {
                     typeof(Temperature), 
                     ("Температура", "Справочники", false) 
                 },
@@ -61,6 +57,10 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                     typeof(Conditions), 
                     ("Переменные", "Дополнительные", false) 
                 },
+                {
+                    typeof(FrequencyPowerFlow),
+                    ("Частотный критерий", "Дополнительные", true)
+                },
                 { 
                     typeof(AOPO), 
                     ("АОПО", "Автоматика", false) 
@@ -85,6 +85,7 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                     typeof(ManagementTasks), 
                     ("Задачи", "Администрирование", true) 
                 }
+                #endregion EntityMap
             };
 
         public EntityDefinition[] Map { get; }
