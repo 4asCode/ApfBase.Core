@@ -28,7 +28,9 @@ namespace ApfBuilder.Context
                 }
                 catch
                 {
-                    throw;
+                    throw new Exception(
+                        "Ошибка при формировании формул ДП!"
+                        );
                 }
             }
         }
@@ -52,7 +54,9 @@ namespace ApfBuilder.Context
                     }
                     catch
                     {
-                        throw;
+                        throw new Exception(
+                            "Ошибка при формировании формул ДП!"
+                            );
                     }
                 }
             );

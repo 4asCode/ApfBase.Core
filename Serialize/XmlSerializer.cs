@@ -21,7 +21,9 @@ namespace Serialize
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception(
+                    "Ошибка при сериализации данных!"
+                    );
             }
         }
 
@@ -45,7 +47,9 @@ namespace Serialize
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception(
+                    "Ошибка при десериализации данных!"
+                    );
             }
 
             return settingList;

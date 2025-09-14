@@ -25,7 +25,9 @@ namespace Stream
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception(
+                    "Ошибка при чтении данных!"
+                    );
             }
 
             return files;
@@ -45,7 +47,9 @@ namespace Stream
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception(
+                    "Ошибка при чтении данных!"
+                    );
             }
         }
     }

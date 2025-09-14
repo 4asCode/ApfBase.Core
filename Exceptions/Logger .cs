@@ -22,7 +22,7 @@ namespace Exceptions
             }
             catch (Exception e)
             {
-                Log.Error(e, "Произошла ошибка при логировании");
+                Log.Error(e, "Ошибка при логировании");
             }
             finally
             {

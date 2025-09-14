@@ -60,7 +60,9 @@ namespace DataBaseModels.ApfBaseEntities
             }
             catch (EntityCommandExecutionException)
             {
-                throw;
+                throw new Exception(
+                    "Ошибка при запросе данных!"
+                    );
             }
         }
     }

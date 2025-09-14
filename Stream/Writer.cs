@@ -27,7 +27,9 @@ namespace Stream
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception(
+                    "Ошибка при записи данных!"
+                    );
             }
         }
     }
