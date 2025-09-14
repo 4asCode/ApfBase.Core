@@ -19,9 +19,9 @@ namespace Serialize
                     }
                 );
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -38,9 +38,9 @@ namespace Serialize
                     }
                 );
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
         }
     }

@@ -23,9 +23,9 @@ namespace Stream
                     )
                 );
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
 
             return files;
@@ -43,9 +43,9 @@ namespace Stream
                     return str;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
         }
     }

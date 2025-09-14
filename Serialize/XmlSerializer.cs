@@ -19,9 +19,9 @@ namespace Serialize
                     serializer.Serialize(fs, settingList);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -43,9 +43,9 @@ namespace Serialize
                             serializer.Deserialize(fs);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
 
             return settingList;

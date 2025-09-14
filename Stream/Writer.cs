@@ -25,9 +25,9 @@ namespace Stream
                     writer.Flush();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
         }
     }

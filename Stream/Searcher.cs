@@ -33,6 +33,10 @@ namespace Stream
             {
                 return new List<string>();
             }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
