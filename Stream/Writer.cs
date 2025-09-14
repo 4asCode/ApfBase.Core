@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Stream
 {
@@ -14,10 +10,16 @@ namespace Stream
         {
             try
             {
+                var dir = Path.GetDirectoryName(path);
+                if (!string.IsNullOrEmpty(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
                 using (FileStream fs =
                     new FileStream(path, FileMode.Create))
                 {
-                    var writer = new StreamWriter(fs, Encoding.Default);
+                    var writer = new StreamWriter(fs, Encoding.UTF8);
 
                     writer.WriteLine(text);
                     writer.Flush();

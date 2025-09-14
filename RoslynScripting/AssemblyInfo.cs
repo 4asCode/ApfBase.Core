@@ -45,7 +45,9 @@ namespace RoslynScripting
                         if (type.IsClass &&
                             !string.IsNullOrEmpty(type.Name))
                         {
-                            classNames.Add(type.Name);
+                            string name = TickOf(type.Name);
+
+                            classNames.Add(name);
                         }
                     }
                 }
@@ -57,7 +59,9 @@ namespace RoslynScripting
                             type.IsClass &&
                             !string.IsNullOrEmpty(type.Name))
                         {
-                            classNames.Add(type.Name);
+                            string name = TickOf(type.Name);
+
+                            classNames.Add(name);
                         }
                     }
                 }
@@ -168,5 +172,8 @@ namespace RoslynScripting
             }
             return propertyList;
         }
+
+        private string TickOf(string typeName) =>
+            typeName?.Split('`')[0] ?? string.Empty;
     }
 }
