@@ -11,6 +11,8 @@ namespace ApfBuilder.Context
 {
     public static class APFContextExtensions
     {
+        private static readonly object _saveLock = new object();
+
         public static void ExecuteBuild(
             this IList<IAPFContext> context)
         {
@@ -70,7 +72,10 @@ namespace ApfBuilder.Context
 
         public static void Save(this IList<IAPFContext> apfContext)
         {
-            apfContext.SqlTransactionMerge();
+            lock (_saveLock)
+            {
+                apfContext.SqlTransactionMerge();
+            }
         }
 
         private static void SqlTransactionMerge(

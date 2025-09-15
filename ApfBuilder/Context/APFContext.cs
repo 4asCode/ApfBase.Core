@@ -99,9 +99,11 @@ namespace ApfBuilder.Context
                     .Where(filter)
                     .Include(b => b.BranchGroupVsBranchGroupScheme
                                    .BranchGroup)
+                    .Include(p => p.ConditionsCurrent)
+                    .Include(p => p.ConditionsStatic)
+                    .Include(p => p.ConditionsVoltage)
                     .Include(p => p.PostFaultConditions
                         .Select(c => c.Conditions))
-                    .Include(x => x.APF)
                     .Include(x => x.BoundingElements)
                     .Include(p => p.PostFaultConditions
                         .Select(pf => pf.AOPO))
