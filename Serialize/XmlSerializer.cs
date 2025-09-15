@@ -19,11 +19,9 @@ namespace Serialize
                     serializer.Serialize(fs, settingList);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(
-                    "Ошибка при сериализации данных!"
-                    );
+                throw new Exception(ex.Message);
             }
         }
 
@@ -45,11 +43,9 @@ namespace Serialize
                             serializer.Deserialize(fs);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(
-                    "Ошибка при десериализации данных!"
-                    );
+                throw new Exception(ex.Message);
             }
 
             return settingList;

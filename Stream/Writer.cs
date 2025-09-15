@@ -25,11 +25,9 @@ namespace Stream
                     writer.Flush();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(
-                    "Ошибка при записи данных!"
-                    );
+                throw new Exception(ex.Message);
             }
         }
     }

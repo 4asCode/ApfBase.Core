@@ -1,15 +1,10 @@
 ﻿using ApfBuilder.Services;
-using ApfBuilder.Services.Analysis;
 using DataBaseModels.ApfBaseEntities;
-using MoreLinq.Extensions;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApfBuilder.Context
@@ -26,11 +21,11 @@ namespace ApfBuilder.Context
                     participant.PowerFlows = Builder.Build(participant);
                     participant.APFHandler();
                 }
-                catch
+                catch (Exception ex)
                 {
-                    throw new Exception(
-                        "Ошибка при формировании формул ДП!"
-                        );
+                    throw new Exception
+                        ($"Ошибка при формировании формул ДП! " +
+                        $"[{participant?.ToString()}]", ex);
                 }
             }
         }
@@ -39,27 +34,38 @@ namespace ApfBuilder.Context
             this IList<IAPFContext> context,
             int maxDegreeOfParallelism = 4)
         {
-            var options = new ParallelOptions
+            var opts = new ParallelOptions
             {
-                MaxDegreeOfParallelism = maxDegreeOfParallelism
+                MaxDegreeOfParallelism = maxDegreeOfParallelism > 0
+                    ? maxDegreeOfParallelism
+                    : Environment.ProcessorCount
             };
 
+            var errors = new ConcurrentBag<Exception>();
+
             Parallel.ForEach(
-                context, options, participant =>
+                context, opts, participant =>
                 {
                     try
                     {
                         participant.PowerFlows = Builder.Build(participant);
                         participant.APFHandler();
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        throw new Exception(
-                            "Ошибка при формировании формул ДП!"
+                        errors.Add(new Exception(
+                            $"APF build failed for " +
+                            $"[{participant?.ToString()}]", ex)
                             );
                     }
                 }
             );
+
+            if (!errors.IsEmpty)
+            {
+                throw new AggregateException(
+                    "Ошибки при формировании формул ДП", errors);
+            }
         }
 
         public static void Save(this IList<IAPFContext> apfContext)

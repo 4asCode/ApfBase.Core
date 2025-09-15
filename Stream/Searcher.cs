@@ -33,11 +33,9 @@ namespace Stream
             {
                 return new List<string>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(
-                    "Ошибка поиска пути!"
-                    );
+                throw new Exception(ex.Message);
             }
         }
     }

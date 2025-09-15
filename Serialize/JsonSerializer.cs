@@ -19,11 +19,9 @@ namespace Serialize
                     }
                 );
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(
-                    "Ошибка при сериализации данных!"
-                    );
+                throw new Exception(ex.Message);
             }
         }
 
@@ -40,11 +38,9 @@ namespace Serialize
                     }
                 );
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(
-                    "Ошибка при десериализации данных!"
-                    );
+                throw new Exception(ex.Message);
             }
         }
     }

@@ -23,11 +23,9 @@ namespace Stream
                     )
                 );
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(
-                    "Ошибка при чтении данных!"
-                    );
+                throw new Exception(ex.Message);
             }
 
             return files;
@@ -45,11 +43,9 @@ namespace Stream
                     return str;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception(
-                    "Ошибка при чтении данных!"
-                    );
+                throw new Exception(ex.Message);
             }
         }
     }
