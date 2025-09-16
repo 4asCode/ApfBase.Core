@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "D:\chuguevskii-als\Desktop\ApfBase 459\DataBaseModels\ApfBaseEntities\ApfBaseModel.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\CSharp\ApfBase\DataBaseModels\ApfBaseEntities\ApfBaseModel.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

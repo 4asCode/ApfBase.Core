@@ -24,6 +24,7 @@ namespace DataBaseModels.ApfBaseEntities
         public System.Guid BranchGroupUid { get; set; }
         public System.Guid BranchGroupSchemeUid { get; set; }
         public bool IsActive { get; set; }
+        public string Note { get; set; }
     
         public virtual BranchGroup BranchGroup { get; set; }
         public virtual BranchGroupScheme BranchGroupScheme { get; set; }

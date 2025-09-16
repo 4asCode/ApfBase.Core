@@ -128,7 +128,6 @@
           <Property Name="Number" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="RoundValue" Type="int" />
-          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BranchGroupScheme">
           <Key>
@@ -146,6 +145,7 @@
           <Property Name="BranchGroupUid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="BranchGroupSchemeUid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Conditions">
           <Key>
@@ -490,9 +490,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Equipment_AggregatedEquipment_fk">
-          <End Role="AggregatedEquipment" Type="Self.AggregatedEquipment" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="AggregatedEquipment" Type="Self.AggregatedEquipment" Multiplicity="0..1" />
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AggregatedEquipment">
@@ -504,9 +502,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="EquipmentVsInfluencingEquipment_Equipment_fk">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
           <End Role="EquipmentVsInfluencingEquipment" Type="Self.EquipmentVsInfluencingEquipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Equipment">
@@ -1268,7 +1264,6 @@
           <Property Name="Number" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="RoundValue" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AnnexVsBranchGroup" Relationship="ApfBaseModel.AnnexVsBranchGroup_BranchGroup_fk" FromRole="BranchGroup" ToRole="AnnexVsBranchGroup" />
           <NavigationProperty Name="AOPO" Relationship="ApfBaseModel.AOPO_BranchGroup_fk" FromRole="BranchGroup" ToRole="AOPO" />
           <NavigationProperty Name="AOSN" Relationship="ApfBaseModel.AOSN_BranchGroup_fk" FromRole="BranchGroup" ToRole="AOSN" />
@@ -1296,6 +1291,7 @@
           <Property Name="BranchGroupUid" Type="Guid" Nullable="false" />
           <Property Name="BranchGroupSchemeUid" Type="Guid" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.BranchGroupVsBranchGroupScheme_BranchGroup_fk" FromRole="BranchGroupVsBranchGroupScheme" ToRole="BranchGroup" />
           <NavigationProperty Name="BranchGroupScheme" Relationship="ApfBaseModel.BranchGroupVsBranchGroupScheme_BranchGroupScheme_fk" FromRole="BranchGroupVsBranchGroupScheme" ToRole="BranchGroupScheme" />
           <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_BranchGroupVsBranchGroupScheme_fk" FromRole="BranchGroupVsBranchGroupScheme" ToRole="PreFaultConditions" />
@@ -1482,9 +1478,7 @@
           <NavigationProperty Name="PreFaultConditions" Relationship="ApfBaseModel.PreFaultConditions_Temperature_fk" FromRole="Temperature" ToRole="PreFaultConditions" />
         </EntityType>
         <Association Name="Equipment_AggregatedEquipment_fk">
-          <End Type="ApfBaseModel.AggregatedEquipment" Role="AggregatedEquipment" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="ApfBaseModel.AggregatedEquipment" Role="AggregatedEquipment" Multiplicity="0..1" />
           <End Type="ApfBaseModel.Equipment" Role="Equipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AggregatedEquipment">
@@ -1858,9 +1852,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="EquipmentVsInfluencingEquipment_Equipment_fk">
-          <End Type="ApfBaseModel.Equipment" Role="Equipment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="ApfBaseModel.Equipment" Role="Equipment" Multiplicity="1" />
           <End Type="ApfBaseModel.EquipmentVsInfluencingEquipment" Role="EquipmentVsInfluencingEquipment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Equipment">
@@ -2093,7 +2085,6 @@
           <EntitySetMapping Name="BranchGroup">
             <EntityTypeMapping TypeName="ApfBaseModel.BranchGroup">
               <MappingFragment StoreEntitySet="BranchGroup">
-                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="RoundValue" ColumnName="RoundValue" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
@@ -2113,6 +2104,7 @@
           <EntitySetMapping Name="BranchGroupVsBranchGroupScheme">
             <EntityTypeMapping TypeName="ApfBaseModel.BranchGroupVsBranchGroupScheme">
               <MappingFragment StoreEntitySet="BranchGroupVsBranchGroupScheme">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="BranchGroupSchemeUid" ColumnName="BranchGroupSchemeUid" />
                 <ScalarProperty Name="BranchGroupUid" ColumnName="BranchGroupUid" />

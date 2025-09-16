@@ -917,15 +917,6 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "Note",
-                                        FieldName = "Примечание",
-                                        DataType = typeof(string),
-                                        Index = 3,
-                                        Visible = true,
-                                        IsReadOnly = false
-                                    },
-                                    new FieldDefinition()
-                                    {
                                         Name = "RoundValue",
                                         FieldName = "Коэффициент округления",
                                         DataType = typeof(int?),
