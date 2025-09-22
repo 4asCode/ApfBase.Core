@@ -189,7 +189,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ConditionId" Type="int" />
           <Property Name="PowerConsumptionFactor" Type="float" />
           <Property Name="PowerConsumptionName" Type="nvarchar" MaxLength="100" />
           <Property Name="MinValue" Type="float" />
@@ -527,18 +526,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FrequencyPowerFlow_Conditions_fk">
-          <End Role="Conditions" Type="Self.Conditions" Multiplicity="0..1" />
-          <End Role="FrequencyPowerFlow" Type="Self.FrequencyPowerFlow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conditions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FrequencyPowerFlow">
-              <PropertyRef Name="ConditionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Management_ManagementTasks_fk">
           <End Role="ManagementTasks" Type="Self.ManagementTasks" Multiplicity="0..1" />
           <End Role="Management" Type="Self.Management" Multiplicity="*" />
@@ -862,10 +849,6 @@
             <End Role="InfluencingEquipment" EntitySet="InfluencingEquipment" />
             <End Role="EquipmentVsInfluencingEquipment" EntitySet="EquipmentVsInfluencingEquipment" />
           </AssociationSet>
-          <AssociationSet Name="FrequencyPowerFlow_Conditions_fk" Association="Self.FrequencyPowerFlow_Conditions_fk">
-            <End Role="Conditions" EntitySet="Conditions" />
-            <End Role="FrequencyPowerFlow" EntitySet="FrequencyPowerFlow" />
-          </AssociationSet>
           <AssociationSet Name="Management_ManagementTasks_fk" Association="Self.Management_ManagementTasks_fk">
             <End Role="ManagementTasks" EntitySet="ManagementTasks" />
             <End Role="Management" EntitySet="Management" />
@@ -1063,10 +1046,6 @@
           <AssociationSet Name="PreFaultConditions_BranchGroupVsBranchGroupScheme_fk" Association="ApfBaseModel.PreFaultConditions_BranchGroupVsBranchGroupScheme_fk">
             <End Role="BranchGroupVsBranchGroupScheme" EntitySet="BranchGroupVsBranchGroupScheme" />
             <End Role="PreFaultConditions" EntitySet="PreFaultConditions" />
-          </AssociationSet>
-          <AssociationSet Name="FrequencyPowerFlow_Conditions_fk" Association="ApfBaseModel.FrequencyPowerFlow_Conditions_fk">
-            <End Role="Conditions" EntitySet="Conditions" />
-            <End Role="FrequencyPowerFlow" EntitySet="FrequencyPowerFlow" />
           </AssociationSet>
           <AssociationSet Name="PostFaultConditions_Conditions_fk" Association="ApfBaseModel.PostFaultConditions_Conditions_fk">
             <End Role="Conditions" EntitySet="Conditions" />
@@ -1307,7 +1286,6 @@
           <Property Name="MinValue" Type="Double" />
           <Property Name="MaxValue" Type="Double" />
           <NavigationProperty Name="BranchGroup" Relationship="ApfBaseModel.Conditions_BranchGroup_fk" FromRole="Conditions" ToRole="BranchGroup" />
-          <NavigationProperty Name="FrequencyPowerFlow" Relationship="ApfBaseModel.FrequencyPowerFlow_Conditions_fk" FromRole="Conditions" ToRole="FrequencyPowerFlow" />
           <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_Conditions_fk" FromRole="Conditions" ToRole="PostFaultConditions" />
           <NavigationProperty Name="PreFaultConditionsCurrent" Relationship="ApfBaseModel.PreFaultConditions_CurrentConditions_fk" FromRole="Conditions" ToRole="PreFaultConditions" />
           <NavigationProperty Name="PreFaultConditionsStatic" Relationship="ApfBaseModel.PreFaultConditions_StaticConditions_fk" FromRole="Conditions" ToRole="PreFaultConditions" />
@@ -1350,12 +1328,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ConditionId" Type="Int32" />
           <Property Name="PowerConsumptionFactor" Type="Double" />
           <Property Name="PowerConsumptionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MinValue" Type="Double" />
           <Property Name="MaxValue" Type="Double" />
-          <NavigationProperty Name="Conditions" Relationship="ApfBaseModel.FrequencyPowerFlow_Conditions_fk" FromRole="FrequencyPowerFlow" ToRole="Conditions" />
           <NavigationProperty Name="PostFaultConditions" Relationship="ApfBaseModel.PostFaultConditions_FrequencyPowerFlow_fk" FromRole="FrequencyPowerFlow" ToRole="PostFaultConditions" />
         </EntityType>
         <EntityType Name="InfluencingEquipment">
@@ -1779,18 +1755,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FrequencyPowerFlow_Conditions_fk">
-          <End Type="ApfBaseModel.Conditions" Role="Conditions" Multiplicity="0..1" />
-          <End Type="ApfBaseModel.FrequencyPowerFlow" Role="FrequencyPowerFlow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conditions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FrequencyPowerFlow">
-              <PropertyRef Name="ConditionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="PostFaultConditions_Conditions_fk">
           <End Type="ApfBaseModel.Conditions" Role="Conditions" Multiplicity="0..1" />
           <End Type="ApfBaseModel.PostFaultConditions" Role="PostFaultConditions" Multiplicity="*" />
@@ -2160,7 +2124,6 @@
                 <ScalarProperty Name="MinValue" ColumnName="MinValue" />
                 <ScalarProperty Name="PowerConsumptionName" ColumnName="PowerConsumptionName" />
                 <ScalarProperty Name="PowerConsumptionFactor" ColumnName="PowerConsumptionFactor" />
-                <ScalarProperty Name="ConditionId" ColumnName="ConditionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

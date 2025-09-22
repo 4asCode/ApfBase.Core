@@ -1126,14 +1126,6 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "FrequencyPowerFlow",
-                                        FieldName = "FrequencyPowerFlow",
-                                        DataType = typeof(ICollection<FrequencyPowerFlow>),
-                                        Visible = false,
-                                        IsReadOnly = true
-                                    },
-                                    new FieldDefinition()
-                                    {
                                         Name = "PostFaultConditions",
                                         FieldName = "PostFaultConditions",
                                         DataType = typeof(ICollection<PostFaultConditions>),
@@ -1375,14 +1367,6 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "ConditionId",
-                                        FieldName = "ConditionId",
-                                        DataType = typeof(int?),
-                                        Visible = false,
-                                        IsReadOnly = true
-                                    },
-                                    new FieldDefinition()
-                                    {
                                         Name = "PowerConsumptionFactor",
                                         FieldName = "Коэффициент потребления",
                                         DataType = typeof(double?),
@@ -1419,26 +1403,9 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityMap
                                     },
                                     new FieldDefinition()
                                     {
-                                        Name = "Conditions",
-                                        FieldName = "Conditions",
-                                        DataType = typeof(Conditions),
-                                        Visible = false,
-                                        IsReadOnly = true
-                                    },
-                                    new FieldDefinition()
-                                    {
                                         Name = "PostFaultConditions",
                                         FieldName = "PostFaultConditions",
                                         DataType = typeof(ICollection<PostFaultConditions>),
-                                        Visible = false,
-                                        IsReadOnly = true
-                                    },
-                                    new FieldDefinition()
-                                    {
-                                        Name = "ConditionsProxy",
-                                        FieldName = "Переменные",
-                                        DataType = typeof(int?),
-                                        Index = 5,
                                         Visible = false,
                                         IsReadOnly = true
                                     },

@@ -495,29 +495,6 @@ namespace DataBaseModels.ApfBaseEntities
                 this, new PropertyChangedEventArgs(propertyName)
                 );
 
-        [ProxyFor(nameof(ConditionId))]
-        [ProxyFor(nameof(Conditions))]
-        public int? ConditionsProxy
-        {
-            get => ConditionId;
-            set
-            {
-                using (var context = new ApfBaseContext(
-                    DataBaseConnection.ConnectionString))
-                {
-                    var temp = context.Conditions.FirstOrDefault(
-                        t => t.Id == value);
-
-                    Conditions = temp;
-                    ConditionId = temp?.Id;
-
-                    OnPropertyChanged(nameof(Conditions));
-                    OnPropertyChanged(nameof(ConditionId));
-                    OnPropertyChanged(nameof(ConditionsProxy));
-                }
-            }
-        }
-
         public string FrequencyFormalNameProxy => 
             $"{PowerConsumptionFactor} * {PowerConsumptionName}";
     }

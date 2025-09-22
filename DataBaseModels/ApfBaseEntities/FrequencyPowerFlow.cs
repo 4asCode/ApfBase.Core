@@ -21,13 +21,11 @@ namespace DataBaseModels.ApfBaseEntities
         }
     
         public int Id { get; set; }
-        public Nullable<int> ConditionId { get; set; }
         public Nullable<double> PowerConsumptionFactor { get; set; }
         public string PowerConsumptionName { get; set; }
         public Nullable<double> MinValue { get; set; }
         public Nullable<double> MaxValue { get; set; }
     
-        public virtual Conditions Conditions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostFaultConditions> PostFaultConditions { get; set; }
     }

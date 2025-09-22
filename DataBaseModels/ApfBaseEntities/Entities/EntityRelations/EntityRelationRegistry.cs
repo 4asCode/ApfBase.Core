@@ -118,13 +118,6 @@ namespace DataBaseModels.ApfBaseEntities.Entities.EntityRelations
             },
             new EntityRelationMetadata
             {
-                EntityType = typeof(FrequencyPowerFlow),
-                RelatedEntityType = typeof(Conditions),
-                NavigationProperty = "ConditionsProxy",
-                RelationKind = RelationKind.OneToMany
-            },
-            new EntityRelationMetadata
-            {
                 EntityType = typeof(Management),
                 RelatedEntityType = typeof(ManagementTasks),
                 NavigationProperty = "ManagementTasksProxy",
