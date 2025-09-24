@@ -21,7 +21,7 @@ namespace DataBaseModels.ApfBaseEntities
     public class EntityProvider
     {
         public static EntityMetadata<T> GetMetadataEntity<T>(
-            T _, bool isLazyLoadingEnabled = false)
+            T _, bool isLazyLoadingEnabled = true)
             where T : class, IEntity
         {
             var context = new ApfBaseContext(
