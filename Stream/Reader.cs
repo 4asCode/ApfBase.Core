@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exceptions.Stream;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,7 +25,9 @@ namespace Stream
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ReaderException(
+                    $"Ошибка поиска пути: {directory}", ex
+                    );
             }
 
             return files;
@@ -44,7 +47,9 @@ namespace Stream
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ReaderException(
+                    $"Ошибка при чтении файла: {path}", ex
+                    );
             }
         }
     }

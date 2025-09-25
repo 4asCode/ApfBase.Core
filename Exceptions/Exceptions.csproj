@@ -73,13 +73,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApfBuilder\APFContextException.cs" />
-    <Compile Include="Base\ComplexException.cs" />
+    <Compile Include="Base\GlobalExceptionHandler.cs" />
     <Compile Include="ApfBuilder\CriterionException.cs" />
-    <Compile Include="Base\Logger .cs" />
+    <Compile Include="Base\ExceptionLogger .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stream\ReaderException.cs" />
+    <Compile Include="Stream\WriterException.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Stream\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

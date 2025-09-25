@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exceptions.Stream;
+using System;
 using System.IO;
 using System.Text;
 
@@ -27,7 +28,9 @@ namespace Stream
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ReaderException(
+                    $"Ошибка при записи данных в файл: {path}", ex
+                    );
             }
         }
     }
