@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Exceptions.Base
 {
-    public class ComplexException : Exception
+    public class GlobalExceptionHandler : Exception
     {
         public static string ThreadException(
             object sender, ThreadExceptionEventArgs e)
