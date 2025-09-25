@@ -3,9 +3,9 @@ using System;
 
 namespace Exceptions.Base
 {
-    public class Logger
+    public class ExceptionLogger
     {
-        public Logger(Exception ex, string message)
+        public ExceptionLogger(Exception ex, string message)
         {
             Log.Logger = new LoggerConfiguration()
                .WriteTo.File("log//log-.txt",
