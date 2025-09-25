@@ -1,20 +1,16 @@
-﻿using ApfBuilder.Criteria;
+﻿using ApfBuilder.Criteria.Core.Interfaces;
 using ApfBuilder.PowerFlow;
 using ApfBuilder.Services;
+using ApfBuilder.Services.Analysis;
 using DataBaseModels.ApfBaseEntities;
+using Serialize;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using ApfBuilder.Criteria.Core.Interfaces;
-using System.Threading;
 using System.Threading.Tasks;
-using ApfBuilder.Services.Analysis;
-using Serialize;
-using ApfBuilder.Services.Analysis.AppliedCriteria;
 
 namespace ApfBuilder.Context
 {
@@ -32,9 +28,9 @@ namespace ApfBuilder.Context
 
         public IPowerFlow[] PowerFlows { get; set; }
 
-        private APFContext(IAPFContextParticipant entity)
+        private APFContext(IAPFContextParticipant participant)
         {
-            if (entity is PreFaultConditions preF)
+            if (participant is PreFaultConditions preF)
             {
                 _preF = preF;
                 _apf = new APF
@@ -49,7 +45,7 @@ namespace ApfBuilder.Context
                     _apf.Save();
                 }
             }
-            else if (entity is PostFaultConditions postF)
+            else if (participant is PostFaultConditions postF)
             {
                 var context = new ApfBaseContext(
                     DataBaseConnection.ConnectionString);
