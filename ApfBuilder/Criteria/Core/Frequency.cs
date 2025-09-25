@@ -1,7 +1,7 @@
 ﻿using ApfBuilder.Criteria.Core.Interfaces;
 using ApfBuilder.Services;
 using DataBaseModels.ApfBaseEntities;
-using Exceptions;
+using Exceptions.ApfBuilder;
 using System;
 using System.Collections.Generic;
 using static ApfBuilder.Criteria.CriterionAttribute;

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace Exceptions
+namespace Exceptions.Base
 {
     public class ComplexException : Exception
     {

@@ -72,11 +72,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APFContextException.cs" />
-    <Compile Include="ComplexException.cs" />
-    <Compile Include="CriterionException.cs" />
-    <Compile Include="Logger .cs" />
+    <Compile Include="ApfBuilder\APFContextException.cs" />
+    <Compile Include="Base\ComplexException.cs" />
+    <Compile Include="ApfBuilder\CriterionException.cs" />
+    <Compile Include="Base\Logger .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Stream\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
