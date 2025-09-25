@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApfBuilder.Criteria.Core.Interfaces;
 using static ApfBuilder.Criteria.CriterionAttribute;
+using Exceptions;
 
 namespace ApfBuilder.Criteria.Core
 {
@@ -42,18 +43,26 @@ namespace ApfBuilder.Criteria.Core
                   postF.Conditions
             )
         {
-            Name = "8% P";
-            Condition = postF.Conditions;
-            Disturbance = postF.Disturbances;
-            EmergencyResponse = EmergencyResponseHandler.
-                ProcessHandler(base.RoundValue, this.Type, postF.APNU);
-
-            MinValueER = MinValue;
-            MaxValueER = MaxValue;
-            foreach (var e in EmergencyResponse)
+            try
             {
-                MinValueER += e.MinValue;
-                MaxValueER += e.MaxValue;
+                Name = "8% P";
+                Condition = postF.Conditions;
+                Disturbance = postF.Disturbances;
+                EmergencyResponse = EmergencyResponseHandler.
+                    ProcessHandler(base.RoundValue, this.Type, postF.APNU);
+
+                MinValueER = MinValue;
+                MaxValueER = MaxValue;
+                foreach (var e in EmergencyResponse)
+                {
+                    MinValueER += e.MinValue;
+                    MaxValueER += e.MaxValue;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new CriterionException(
+                    $"Ошибка создания критерия '{Type}'", ex);
             }
         }
     }

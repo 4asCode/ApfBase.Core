@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApfBuilder.Criteria.Core.Interfaces;
 using static ApfBuilder.Criteria.CriterionAttribute;
+using Exceptions;
 
 namespace ApfBuilder.Criteria.Core
 {
@@ -58,10 +59,18 @@ namespace ApfBuilder.Criteria.Core
                   preF.ConditionsCurrent
             )
         {
-            Name = name;
-            Postfix = "*";
-            Bounding = preF.BoundingElements;
-            Condition = preF.ConditionsCurrent;
+            try
+            {
+                Name = name;
+                Postfix = "*";
+                Bounding = preF.BoundingElements;
+                Condition = preF.ConditionsCurrent;
+            }
+            catch (Exception ex)
+            {
+                throw new CriterionException(
+                    $"Ошибка создания критерия '{Type}'", ex);
+            }
         }
     }
 }

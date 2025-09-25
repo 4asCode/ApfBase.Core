@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApfBuilder.Criteria.Core.Interfaces;
 using static ApfBuilder.Criteria.CriterionAttribute;
+using Exceptions;
 
 namespace ApfBuilder.Criteria.Core
 {
@@ -33,9 +34,17 @@ namespace ApfBuilder.Criteria.Core
                   preF.ConditionsVoltage
             )
         {
-            Name = "15% U";
-            Postfix = "*";
-            Condition = preF.ConditionsVoltage;
+            try
+            {
+                Name = "15% U";
+                Postfix = "*";
+                Condition = preF.ConditionsVoltage;
+            }
+            catch (Exception ex)
+            {
+                throw new CriterionException(
+                    $"Ошибка создания критерия '{Type}'", ex);
+            }
         }
     }
 }

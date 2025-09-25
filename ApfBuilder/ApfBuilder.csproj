@@ -137,6 +137,10 @@
       <Project>{9f34b7d8-5b1b-405b-ad8b-4643cf78baea}</Project>
       <Name>DataBaseModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
+      <Project>{65b8a26a-4bd6-4ac0-84a7-5b36b7fed229}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Extensions\Extensions.csproj">
       <Project>{b328ad2f-7acd-463e-94fd-a00fef5eb8de}</Project>
       <Name>Extensions</Name>

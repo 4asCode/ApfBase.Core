@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApfBuilder.Criteria.Core.Interfaces;
 using static ApfBuilder.Criteria.CriterionAttribute;
+using Exceptions;
 
 namespace ApfBuilder.Criteria.Core
 {
@@ -31,8 +32,16 @@ namespace ApfBuilder.Criteria.Core
                   preF.ConditionsStatic
             )
         {
-            Name = "20% P, исходная схема";
-            Condition = preF.ConditionsStatic;
+            try
+            {
+                Name = "20% P, исходная схема";
+                Condition = preF.ConditionsStatic;
+            }
+            catch (Exception ex)
+            {
+                throw new CriterionException(
+                    $"Ошибка создания критерия '{Type}'", ex);
+            }
         }
     }
 }

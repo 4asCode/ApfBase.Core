@@ -1,5 +1,6 @@
 ﻿using ApfBuilder.Services;
 using DataBaseModels.ApfBaseEntities;
+using Exceptions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace ApfBuilder.Context
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception
+                    throw new APFContextException
                         ($"Ошибка при формировании формул ДП! " +
                         $"[{participant?.ToString()}]", ex);
                 }
@@ -43,8 +44,6 @@ namespace ApfBuilder.Context
                     : Environment.ProcessorCount
             };
 
-            var errors = new ConcurrentBag<Exception>();
-
             Parallel.ForEach(
                 context, opts, participant =>
                 {
@@ -55,19 +54,12 @@ namespace ApfBuilder.Context
                     }
                     catch (Exception ex)
                     {
-                        errors.Add(new Exception(
-                            $"APF build failed for " +
-                            $"[{participant?.ToString()}]", ex)
-                            );
+                        throw new APFContextException
+                            ($"Ошибка при формировании формул ДП! " +
+                            $"[{participant?.ToString()}]", ex);
                     }
                 }
             );
-
-            if (!errors.IsEmpty)
-            {
-                throw new AggregateException(
-                    "Ошибки при формировании формул ДП", errors);
-            }
         }
 
         public static void Save(this IList<IAPFContext> apfContext)

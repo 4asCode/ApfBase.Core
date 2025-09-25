@@ -1,6 +1,8 @@
 ﻿using ApfBuilder.Criteria.Core.Interfaces;
 using ApfBuilder.Services;
 using DataBaseModels.ApfBaseEntities;
+using Exceptions;
+using System;
 using System.Collections.Generic;
 using static ApfBuilder.Criteria.CriterionAttribute;
 
@@ -30,35 +32,43 @@ namespace ApfBuilder.Criteria.Core
 
         private Frequency(PostFaultConditions postF) : base()
         {
-            Condition = postF.Conditions;
-            FrequencyPowerFlow = postF.FrequencyPowerFlow;
-            Disturbance = postF.Disturbances;
-            EmergencyResponse = EmergencyResponseHandler.
-                ProcessHandler(base.RoundValue, this.Type, postF.APNU);
-
-            MinValueER = MinValue;
-            MaxValueER = MaxValue;
-            foreach (var e in EmergencyResponse)
+            try
             {
-                MinValueER += e.MinValue;
-                MaxValueER += e.MaxValue;
+                Condition = postF.Conditions;
+                FrequencyPowerFlow = postF.FrequencyPowerFlow;
+                Disturbance = postF.Disturbances;
+                EmergencyResponse = EmergencyResponseHandler.
+                    ProcessHandler(base.RoundValue, this.Type, postF.APNU);
+
+                MinValueER = MinValue;
+                MaxValueER = MaxValue;
+                foreach (var e in EmergencyResponse)
+                {
+                    MinValueER += e.MinValue;
+                    MaxValueER += e.MaxValue;
+                }
+
+                Name = FrequencyPowerFlow?.PowerConsumptionName;
+                Value = FrequencyPowerFlow?.PowerConsumptionFactor;
+                MinValue = Value * FrequencyPowerFlow?.MinValue;
+                MaxValue = Value * FrequencyPowerFlow?.MaxValue;
+
+                FullValue =
+                (
+                    $"{FrequencyPowerFlow?.FrequencyFormalNameProxy}" +
+                    (postF?.PreFaultConditions?.IrOscExpressions != null ?
+                    " - ΔPнк" : ""),
+                    $"{FrequencyPowerFlow?.PowerConsumptionFactor * 100}" +
+                    $"% {Name}" +
+                    (postF?.PreFaultConditions?.IrOscExpressions != null ?
+                    " - ΔPнк" : "")
+                );
             }
-
-            Name = FrequencyPowerFlow?.PowerConsumptionName;
-            Value = FrequencyPowerFlow?.PowerConsumptionFactor;
-            MinValue = Value * FrequencyPowerFlow?.MinValue;
-            MaxValue = Value * FrequencyPowerFlow?.MaxValue;
-
-            FullValue =
-            (
-                $"{FrequencyPowerFlow?.FrequencyFormalNameProxy}" +
-                (postF?.PreFaultConditions?.IrOscExpressions != null ? 
-                " - ΔPнк" : ""),
-                $"{FrequencyPowerFlow?.PowerConsumptionFactor * 100}" +
-                $"% {Name}" +
-                (postF?.PreFaultConditions?.IrOscExpressions != null ?
-                " - ΔPнк" : "")
-            );
+            catch (Exception ex)
+            {
+                throw new CriterionException(
+                    $"Ошибка создания критерия '{Type}'", ex);
+            }
         }
     }
 }
