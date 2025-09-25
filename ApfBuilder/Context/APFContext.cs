@@ -79,7 +79,7 @@ namespace ApfBuilder.Context
                 new APFContext(partContext);
 
         public static IList<IAPFContext> ContextInitialize(
-            IEnumerable<IAPFContextParticipant> partContextCollection) => 
+            IEnumerable<IAPFContextParticipant> partContextCollection) =>
             partContextCollection.Select(
                 partContext =>
                 {
@@ -102,8 +102,6 @@ namespace ApfBuilder.Context
                     .Include(p => p.ConditionsCurrent)
                     .Include(p => p.ConditionsStatic)
                     .Include(p => p.ConditionsVoltage)
-                    .Include(p => p.PostFaultConditions
-                        .Select(c => c.Conditions))
                     .Include(x => x.BoundingElements)
                     .Include(p => p.PostFaultConditions
                         .Select(pf => pf.AOPO))
@@ -114,11 +112,13 @@ namespace ApfBuilder.Context
                     .Include(p => p.PostFaultConditions
                         .Select(pf => pf.AOSN))
                     .Include(p => p.PostFaultConditions
+                        .Select(c => c.Conditions))
+                    .Include(p => p.PostFaultConditions
                         .Select(pf => pf.BoundingElements))
                     .Include(p => p.PostFaultConditions
                         .Select(pf => pf.Disturbances))
                     .Include(p => p.PostFaultConditions
-                        .Select(pf => pf.Conditions))
+                        .Select(pf => pf.FrequencyPowerFlow))
                     .AsNoTracking()
                     .ToList();
 
