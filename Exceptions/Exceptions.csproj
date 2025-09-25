@@ -72,7 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomException.cs" />
+    <Compile Include="APFContextException.cs" />
+    <Compile Include="ComplexException.cs" />
+    <Compile Include="CriterionException.cs" />
     <Compile Include="Logger .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

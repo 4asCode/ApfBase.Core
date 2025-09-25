@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Exceptions
 {
-    public class CustomException : Exception
+    public class ComplexException : Exception
     {
         public static string ThreadException(
             object sender, ThreadExceptionEventArgs e)
