@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Exceptions.DataBaseModels;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static DataBaseModels.ApfBaseEntities.EntityAttribute;
 
 namespace DataBaseModels.ApfBaseEntities
@@ -30,18 +27,28 @@ namespace DataBaseModels.ApfBaseEntities
 
         public void Remove()
         {
-            using (var context = new ApfBaseContext(
-                DataBaseConnection.ConnectionString))
+            try
             {
-                var dbSet = context.Set<APNU>();
-
-                var removeEntity = dbSet.Find(Id);
-
-                if (removeEntity != null)
+                using (var context = new ApfBaseContext(
+                    DataBaseConnection.ConnectionString))
                 {
-                    dbSet.Remove(removeEntity);
-                    context.SaveChanges();
+                    var dbSet = context.Set<APNU>();
+
+                    var removeEntity = dbSet.Find(Id);
+
+                    if (removeEntity != null)
+                    {
+                        dbSet.Remove(removeEntity);
+                        context.SaveChanges();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityQueryException(
+                    $"Ошибка при удалении сущности " +
+                    $"{this.GetType().FullName}", ex
+                    );
             }
         }
     }

@@ -5,16 +5,6 @@
 
     public static class LinkSyncService
     {
-        /// <summary>
-        /// Универсальная синхронизация M:N-таблицы с IsActive.
-        /// </summary>
-        /// <typeparam name="TKey">Тип ключа в связке (например, Guid или int)</typeparam>
-        /// <param name="ctx">EF-контекст</param>
-        /// <param name="tableName">Имя таблицы (например, "AnnexVsBranchGroup")</param>
-        /// <param name="leftColumn">Имя колонки "слева" (например, "BranchGroupUid")</param>
-        /// <param name="rightColumn">Имя колонки "справа" (например, "AnnexId")</param>
-        /// <param name="leftValue">Значение левой стороны (Uid текущего объекта)</param>
-        /// <param name="desiredKeys">Множество желаемых правых ключей</param>
         public static void SyncLinks<TKey>(
             ApfBaseContext ctx,
             string tableName,
@@ -76,9 +66,6 @@
             }
         }
 
-        /// <summary>
-        /// Универсальное получение активных ключей.
-        /// </summary>
         public static IList<TKey> GetActiveLinks<TKey>(
             ApfBaseContext ctx,
             string tableName,

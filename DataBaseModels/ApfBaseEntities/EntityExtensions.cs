@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exceptions.DataBaseModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,47 +15,15 @@ namespace DataBaseModels.ApfBaseEntities
         public static async Task SaveAsync(
             this IEntity entity)
         {
-            using (var context = new ApfBaseContext(
-                DataBaseConnection.ConnectionString))
+            try
             {
-                _tasks.Add(
-                    Task.Run(() =>
-                    {
-                        lock (_locker)
-                        {
-                            if (entity is IUidProvider entityProvider)
-                            {
-                                entityProvider.GenerateUid();
-                            }
-
-                            context.SingleMerge(entity);
-
-                            context.SaveChanges();
-                        }
-                    })
-                );
-
-                await Complited.Invoke(_tasks);
-
-                if (_tasks.All(t => t.IsCompleted))
+                using (var context = new ApfBaseContext(
+                    DataBaseConnection.ConnectionString))
                 {
-                    _tasks.Clear();
-                }
-            }
-        }
-
-        public static async Task SaveAsync(
-            this IEnumerable<IEntity> entities)
-        {
-            using (var context = new ApfBaseContext(
-                DataBaseConnection.ConnectionString))
-            {
-                _tasks.Add(
-                    Task.Run(() =>
-                    {
-                        lock (_locker)
+                    _tasks.Add(
+                        Task.Run(() =>
                         {
-                            foreach (var entity in entities)
+                            lock (_locker)
                             {
                                 if (entity is IUidProvider entityProvider)
                                 {
@@ -62,44 +31,80 @@ namespace DataBaseModels.ApfBaseEntities
                                 }
 
                                 context.SingleMerge(entity);
+
+                                context.SaveChanges();
                             }
+                        })
+                    );
 
-                            context.SaveChanges();
-                        }
-                    })
-                );
+                    await Complited.Invoke(_tasks);
 
-                await Complited.Invoke(_tasks);
-
-                if (_tasks.All(t => t.IsCompleted))
-                {
-                    _tasks.Clear();
+                    if (_tasks.All(t => t.IsCompleted))
+                    {
+                        _tasks.Clear();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityQueryException(
+                    $"Ошибка при сохранении сущности " +
+                    $"{entity.GetType().FullName}", ex
+                    );
+            }
+        }
+
+        public static async Task SaveAsync(
+            this IEnumerable<IEntity> entities)
+        {
+            try
+            {
+                using (var context = new ApfBaseContext(
+                    DataBaseConnection.ConnectionString))
+                {
+                    _tasks.Add(
+                        Task.Run(() =>
+                        {
+                            lock (_locker)
+                            {
+                                foreach (var entity in entities)
+                                {
+                                    if (entity is IUidProvider entityProvider)
+                                    {
+                                        entityProvider.GenerateUid();
+                                    }
+
+                                    context.SingleMerge(entity);
+                                }
+
+                                context.SaveChanges();
+                            }
+                        })
+                    );
+
+                    await Complited.Invoke(_tasks);
+
+                    if (_tasks.All(t => t.IsCompleted))
+                    {
+                        _tasks.Clear();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityQueryException(
+                    $"Ошибка при сохранении сущностей " +
+                    $"{entities.GetType().FullName}", ex
+                    );
             }
         }
 
         public static void Save(this IEntity entity)
         {
-            using (var context = new ApfBaseContext(
-                DataBaseConnection.ConnectionString))
+            try
             {
-                if (entity is IUidProvider entityProvider)
-                {
-                    entityProvider.GenerateUid();
-                }
-
-                context.SingleMerge(entity);
-
-                context.SaveChanges();
-            }
-        }
-
-        public static void Save(this IEnumerable<IEntity> entities)
-        {
-            using (var context = new ApfBaseContext(
-                DataBaseConnection.ConnectionString))
-            {
-                foreach (var entity in entities)
+                using (var context = new ApfBaseContext(
+                    DataBaseConnection.ConnectionString))
                 {
                     if (entity is IUidProvider entityProvider)
                     {
@@ -107,9 +112,45 @@ namespace DataBaseModels.ApfBaseEntities
                     }
 
                     context.SingleMerge(entity);
-                }
 
-                context.SaveChanges();
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityQueryException(
+                    $"Ошибка при сохранении сущности " +
+                    $"{entity.GetType().FullName}", ex
+                    );
+            }
+        }
+
+        public static void Save(this IEnumerable<IEntity> entities)
+        {
+            try
+            {
+                using (var context = new ApfBaseContext(
+                    DataBaseConnection.ConnectionString))
+                {
+                    foreach (var entity in entities)
+                    {
+                        if (entity is IUidProvider entityProvider)
+                        {
+                            entityProvider.GenerateUid();
+                        }
+
+                        context.SingleMerge(entity);
+                    }
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityQueryException(
+                    $"Ошибка при сохранении сущностей " +
+                    $"{entities.GetType().FullName}", ex
+                    );
             }
         }
 

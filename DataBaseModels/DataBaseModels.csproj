@@ -237,6 +237,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
+      <Project>{65b8a26a-4bd6-4ac0-84a7-5b36b7fed229}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Serialize\Serialize.csproj">
       <Project>{2393a73c-e1fa-4940-91d5-049d78d4d6e2}</Project>
       <Name>Serialize</Name>

@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Data.Entity.Core;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Migrations;
-using System.Data.Entity.Validation;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Exceptions.DataBaseModels;
 
 namespace DataBaseModels.ApfBaseEntities
 {
@@ -24,18 +14,28 @@ namespace DataBaseModels.ApfBaseEntities
             T _, bool isLazyLoadingEnabled = true)
             where T : class, IEntity
         {
-            var context = new ApfBaseContext(
-                DataBaseConnection.ConnectionString);
-            context.Configuration.LazyLoadingEnabled =
-                isLazyLoadingEnabled;
-
-            var data = GetEntity<T>(context);
-
-            return new EntityMetadata<T>
+            try
             {
-                Entities = data,
-                Context = context
-            };
+                var context = new ApfBaseContext(
+                    DataBaseConnection.ConnectionString);
+                context.Configuration.LazyLoadingEnabled =
+                    isLazyLoadingEnabled;
+
+                var data = GetEntity<T>(context);
+
+                return new EntityMetadata<T>
+                {
+                    Entities = data,
+                    Context = context
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new EntityQueryException(
+                    $"Ошибка при запросе сущности " +
+                    $"{typeof(T).FullName}", ex
+                    );
+            }
         }
 
         public static IList<TEntity> GetEntity<TEntity>(
@@ -60,11 +60,14 @@ namespace DataBaseModels.ApfBaseEntities
             }
             catch (EntityCommandExecutionException ex)
             {
-                throw new EntityCommandExecutionException(ex.Message);
+                throw new EntityCommandExecutionException(ex.Message, ex);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new EntityQueryException(
+                    $"Ошибка при запросе сущности " +
+                    $"{typeof(TEntity).FullName}", ex
+                    );
             }
         }
     }
