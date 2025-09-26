@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Exceptions.Serialize;
+using System;
 using System.Collections.Generic;
 using System.IO;
+
 
 namespace Serialize
 {
@@ -21,7 +23,10 @@ namespace Serialize
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new SerializerException(
+                    $"Ошибка при сериализации данных в файл: " +
+                    $"{fileName}", ex
+                    );
             }
         }
 
@@ -45,7 +50,10 @@ namespace Serialize
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new SerializerException(
+                    $"Ошибка при десериализации данных из файла: " +
+                    $"{fileName}", ex
+                    );
             }
 
             return settingList;

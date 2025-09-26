@@ -1,6 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using Exceptions.Serialize;
 using Newtonsoft.Json;
+using System;
 
 namespace Serialize
 {
@@ -21,7 +21,9 @@ namespace Serialize
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new SerializerException(
+                    $"Ошибка при сериализации данных", ex
+                    );
             }
         }
 
@@ -40,7 +42,9 @@ namespace Serialize
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new SerializerException(
+                    $"Ошибка при десериализации данных", ex
+                    );
             }
         }
     }
