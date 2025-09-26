@@ -15,32 +15,13 @@ namespace ApfBuilder.Context
         private static readonly object _saveLock = new object();
 
         public static void ExecuteBuild(
-            this IList<IAPFContext> context)
-        {
-            foreach (var participant in context)
-            {
-                try
-                {
-                    participant.PowerFlows = Builder.Build(participant);
-                    participant.APFHandler();
-                }
-                catch (Exception ex)
-                {
-                    throw new APFContextException
-                        ($"Ошибка при формировании формул ДП! " +
-                        $"[{participant?.GetType().FullName}]", ex);
-                }
-            }
-        }
-
-        public static void ExecuteBuildParallel(
             this IList<IAPFContext> context,
-            int maxDegreeOfParallelism = 4)
+            int maxThreads = 4)
         {
             var opts = new ParallelOptions
             {
-                MaxDegreeOfParallelism = maxDegreeOfParallelism > 0
-                    ? maxDegreeOfParallelism
+                MaxDegreeOfParallelism = maxThreads > 0
+                    ? maxThreads
                     : Environment.ProcessorCount
             };
 

@@ -70,28 +70,41 @@ namespace ApfBuilder.Context
             }
         }
 
+        private APFContext(PreFaultConditions preF, APF apf)
+        {
+            _preF = preF;
+            _apf = apf;
+        }
+
+        private static IList<IAPFContext> GetContextCollections(
+            IEnumerable<PreFaultConditions> preFaultCollections, 
+                int maxThreads = 4) => 
+                    preFaultCollections
+                    .AsParallel()
+                    .WithDegreeOfParallelism(maxThreads)
+                    .Select(x => (IAPFContext)
+                        new APFContext(x, new APF
+                            {
+                                BranchGroupVsBranchGroupSchemeId = 
+                                    x.BranchGroupVsBranchGroupSchemeId,
+                                PreFaultConditionsId = x.Id,
+                            }
+                        )
+                    )
+                    .ToList();
+
         public static IAPFContext ContextInitialize(
             IAPFContextParticipant partContext) => 
                 new APFContext(partContext);
 
         public static IList<IAPFContext> ContextInitialize(
-            IEnumerable<IAPFContextParticipant> partContextCollection) =>
-            partContextCollection.Select(
-                partContext =>
-                {
-                    var context = new APFContext(partContext);
-
-                    return (IAPFContext)context;
-                }
-            ).ToList();
-
-        public static IList<IAPFContext> InitializeParallelBuildContext(
-            Expression<Func<PreFaultConditions, bool>> filter)
+            Expression<Func<PreFaultConditions, bool>> filter, 
+            int maxThreads = 4)
         {
             using (var dbContext = new ApfBaseContext(
                 DataBaseConnection.ConnectionString))
             {
-                var listPreF = dbContext.PreFaultConditions
+                var preFs = dbContext.PreFaultConditions
                     .Where(filter)
                     .Include(b => b.BranchGroupVsBranchGroupScheme
                                    .BranchGroup)
@@ -118,9 +131,11 @@ namespace ApfBuilder.Context
                     .AsNoTracking()
                     .ToList();
 
-                listPreF.Cast<IAPFContextParticipant>().ToList();
+                maxThreads = maxThreads > 0
+                    ? maxThreads
+                    : Environment.ProcessorCount;
 
-                return ContextInitialize(listPreF);
+                return GetContextCollections(preFs, maxThreads);
             }
         }
 
