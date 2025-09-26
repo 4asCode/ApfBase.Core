@@ -20,9 +20,10 @@ namespace ApfBuilder.Context
         {
             var opts = new ParallelOptions
             {
-                MaxDegreeOfParallelism = maxThreads > 0
-                    ? maxThreads
-                    : Environment.ProcessorCount
+                MaxDegreeOfParallelism = maxThreads <= 0 ||
+                    maxThreads < Environment.ProcessorCount
+                    ? Environment.ProcessorCount
+                    : maxThreads
             };
 
             Parallel.ForEach(

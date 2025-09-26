@@ -78,7 +78,7 @@ namespace ApfBuilder.Context
 
         private static IList<IAPFContext> GetContextCollections(
             IEnumerable<PreFaultConditions> preFaultCollections, 
-                int maxThreads = 4) => 
+                int maxThreads) => 
                     preFaultCollections
                     .AsParallel()
                     .WithDegreeOfParallelism(maxThreads)
@@ -131,9 +131,10 @@ namespace ApfBuilder.Context
                     .AsNoTracking()
                     .ToList();
 
-                maxThreads = maxThreads > 0
-                    ? maxThreads
-                    : Environment.ProcessorCount;
+                maxThreads = maxThreads <= 0 || 
+                    maxThreads < Environment.ProcessorCount
+                    ? Environment.ProcessorCount
+                    : maxThreads;
 
                 return GetContextCollections(preFs, maxThreads);
             }
