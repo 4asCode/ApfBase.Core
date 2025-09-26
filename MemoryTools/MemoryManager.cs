@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Exceptions.MemoryTools;
+using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MemoryTools
 {
@@ -11,13 +8,22 @@ namespace MemoryTools
     {
         public static void CompactMemory()
         {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
+            try
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
 
-            var process = Process.GetCurrentProcess();
-            process.MinWorkingSet = process.MinWorkingSet;
-            process.MaxWorkingSet = process.MaxWorkingSet;
+                var process = Process.GetCurrentProcess();
+                process.MinWorkingSet = process.MinWorkingSet;
+                process.MaxWorkingSet = process.MaxWorkingSet;
+            }
+            catch (Exception ex)
+            {
+                throw new MemoryException(
+                    "Ошибка при принудительной сборке мусора", ex
+                    );
+            }
         }
     }
 }
