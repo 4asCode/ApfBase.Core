@@ -39,11 +39,6 @@ namespace ApfBuilder.Context
                         _preF.BranchGroupVsBranchGroupSchemeId,
                     PreFaultConditionsId = _preF.Id,
                 };
-
-                if (_preF?.APF == null)
-                {
-                    _apf.Save();
-                }
             }
             else if (participant is PostFaultConditions postF)
             {
@@ -62,11 +57,6 @@ namespace ApfBuilder.Context
                         _preF.BranchGroupVsBranchGroupSchemeId,
                     PreFaultConditionsId = _preF.Id,
                 };
-
-                if (_preF?.APF == null)
-                {
-                    _apf.Save();
-                }
             }
         }
 
