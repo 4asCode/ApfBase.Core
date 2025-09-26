@@ -3,11 +3,11 @@ using ApfBuilder.PowerFlow;
 using ApfBuilder.Services;
 using ApfBuilder.Services.Analysis;
 using DataBaseModels.ApfBaseEntities;
+using Exceptions.ApfBuilder;
 using Serialize;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -126,18 +126,36 @@ namespace ApfBuilder.Context
 
         public void ExecuteBuild()
         {
-            PowerFlows = Builder.Build(this);
-            APFHandler();
+            try
+            {
+                PowerFlows = Builder.Build(this);
+                APFHandler();
+            }
+            catch (Exception ex)
+            {
+                throw new APFContextException
+                    ($"Ошибка при формировании формул ДП! " +
+                    $"[{this?.GetType().FullName}]", ex);
+            }
         }
 
         public Task ExecuteBuildAsync() => Task.Run(
             () =>
             {
-                lock (_locker)
+                try
                 {
-                    PowerFlows = Builder.Build(this);
-                    APFHandler();
-                    Save();
+                    lock (_locker)
+                    {
+                        PowerFlows = Builder.Build(this);
+                        APFHandler();
+                        Save();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new APFContextException
+                        ($"Ошибка при формировании формул ДП! " +
+                        $"[{this?.GetType().FullName}]", ex);
                 }
             }
         );

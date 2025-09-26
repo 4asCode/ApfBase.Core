@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApfBuilder.Criteria.Core;
+﻿using ApfBuilder.Criteria.Core;
 using DataBaseModels.ApfBaseEntities;
-using static ApfBuilder.Criteria.CriterionAttribute;
 using Extensions;
+using System.Collections.Generic;
 
 namespace ApfBuilder.Services
 {
@@ -56,14 +51,16 @@ namespace ApfBuilder.Services
                         if (type == CriterionType.Static)
                         {
                             apnu.Value = GetValueOrDescription(roundParam,
-                                apnu.StaticsCoefficient, apnu.ControlValuePowerFlow
+                                apnu.StaticsCoefficient, 
+                                apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
                         }
                         if (type == CriterionType.Dynamic)
                         {
                             apnu.Value = GetValueOrDescription(roundParam,
-                                apnu.DynamicsCoefficient, apnu.ControlValuePowerFlow
+                                apnu.DynamicsCoefficient, 
+                                apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
                         }
@@ -72,13 +69,15 @@ namespace ApfBuilder.Services
                             )
                         {
                             apnu.Value = GetValueOrDescription(roundParam,
-                                apnu.CurrentCoefficient, apnu.ControlValuePowerFlow
+                                apnu.CurrentCoefficient, 
+                                apnu.ControlValuePowerFlow
                                 );
                             apnu.MaxValue = apnu.Value;
                         }
 
                         apnu.Description = GetValueOrDescription(roundParam,
-                                apnu.StaticsCoefficient, apnu.FormalName
+                                apnu.StaticsCoefficient, 
+                                apnu.FormalName
                                 );
 
                         yield return apnu;

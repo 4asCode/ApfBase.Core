@@ -1,12 +1,6 @@
-﻿using ApfBuilder.Criteria;
-using ApfBuilder.PowerFlow;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ApfBuilder.Criteria.Core.Interfaces;
 using MoreLinq;
-using System.Text;
-using ApfBuilder.Criteria.Core.Interfaces;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace ApfBuilder.PowerFlow
 {

@@ -1,17 +1,9 @@
-﻿using ApfBuilder.Criteria;
-using DataBaseModels.ApfBaseEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApfBuilder.Context;
-using ApfBuilder.Services;
-using static ApfBuilder.Criteria.CriterionAttribute;
-using System.Runtime.Remoting.Contexts;
-using Extensions;
+﻿using ApfBuilder.Context;
 using ApfBuilder.Criteria.Core;
 using ApfBuilder.Criteria.Core.Interfaces;
+using ApfBuilder.Services;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ApfBuilder.Criteria
 {

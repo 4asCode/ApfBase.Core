@@ -1,6 +1,7 @@
 ﻿using ApfBuilder.Services;
 using DataBaseModels.ApfBaseEntities;
 using Exceptions.ApfBuilder;
+using Exceptions.DataBaseModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,7 +28,7 @@ namespace ApfBuilder.Context
                 {
                     throw new APFContextException
                         ($"Ошибка при формировании формул ДП! " +
-                        $"[{participant?.ToString()}]", ex);
+                        $"[{participant?.GetType().FullName}]", ex);
                 }
             }
         }
@@ -55,7 +56,7 @@ namespace ApfBuilder.Context
                     {
                         throw new APFContextException
                             ($"Ошибка при формировании формул ДП! " +
-                            $"[{participant?.ToString()}]", ex);
+                            $"[{participant?.GetType().FullName}]", ex);
                     }
                 }
             );
@@ -63,9 +64,18 @@ namespace ApfBuilder.Context
 
         public static void Save(this IList<IAPFContext> apfContext)
         {
-            lock (_saveLock)
+            try
             {
-                apfContext.SqlTransactionMerge();
+                lock (_saveLock)
+                {
+                    apfContext.SqlTransactionMerge();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityQueryException(
+                    "Ошибка SqlTransactionMerge", ex
+                    );
             }
         }
 

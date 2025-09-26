@@ -1,13 +1,10 @@
-﻿using ApfBuilder.Criteria;
-using ApfBuilder.Context;
-using System;
+﻿using ApfBuilder.Context;
+using ApfBuilder.Criteria;
+using ApfBuilder.Criteria.Core.Interfaces;
+using ApfBuilder.PowerFlow;
+using ApfBuilder.PowerFlow.Factory;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApfBuilder.PowerFlow;
-using ApfBuilder.Criteria.Core.Interfaces;
-using ApfBuilder.PowerFlow.Factory;
 
 namespace ApfBuilder.Services
 {

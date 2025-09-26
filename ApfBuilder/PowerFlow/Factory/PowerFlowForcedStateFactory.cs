@@ -1,11 +1,5 @@
-﻿using ApfBuilder.Criteria;
-using System;
+﻿using ApfBuilder.Criteria.Core.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApfBuilder.Criteria.Core.Interfaces;
-using static ApfBuilder.Criteria.CriterionAttribute;
 
 namespace ApfBuilder.PowerFlow.Factory
 {

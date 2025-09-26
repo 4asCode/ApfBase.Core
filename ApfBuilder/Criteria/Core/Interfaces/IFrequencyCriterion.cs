@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataBaseModels.ApfBaseEntities;
+﻿using DataBaseModels.ApfBaseEntities;
 
 namespace ApfBuilder.Criteria.Core.Interfaces
 {

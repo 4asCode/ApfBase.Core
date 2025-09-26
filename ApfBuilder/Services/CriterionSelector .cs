@@ -1,12 +1,7 @@
-﻿using System;
+﻿using ApfBuilder.Criteria;
+using ApfBuilder.Criteria.Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApfBuilder.Criteria;
-using ApfBuilder.Context;
-using ApfBuilder.Criteria.Core.Interfaces;
-using static Z.EntityFramework.Extensions.BatchUpdate;
 
 namespace ApfBuilder.Services
 {
