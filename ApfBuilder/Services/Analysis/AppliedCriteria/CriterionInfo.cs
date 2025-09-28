@@ -5,7 +5,7 @@ namespace ApfBuilder.Services.Analysis.AppliedCriteria
 {
     public class CriterionInfo
     {
-        public PowerFlowKind PowerFlowKind { get; set; }
+        public PowerFlowKind Kind { get; set; }
 
         public CriterionType CriterionType { get; set; }
 
@@ -14,7 +14,7 @@ namespace ApfBuilder.Services.Analysis.AppliedCriteria
         public CriterionInfo(PowerFlowKind kind, 
             CriterionType type, double value)
         {
-            PowerFlowKind = kind;
+            Kind = kind;
             CriterionType = type;
             Value = value;
         }
