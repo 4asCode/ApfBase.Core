@@ -37,15 +37,21 @@ namespace ApfBuilder.Criteria
             return minCriterion;
         }
 
-        public static void Sort(this ICriterion[] criteria)
+        public static void Sort(this ICriterion[] criteria, 
+            Func<ICriterion, double?> key)
         {
+            if (criteria == null || key == null) return;
+
             ICriterion temp;
-            for (int i = 0; i < criteria.Count(); i++)
+            int n = criteria.Length;
+            for (int i = 0; i < n - 1; i++)
             {
-                for (int j = i + 1; j < criteria.Count(); j++)
+                for (int j = i + 1; j < n; j++)
                 {
-                    if (criteria[i].Value >
-                        criteria[j].Value)
+                    var a = key(criteria[i]);
+                    var b = key(criteria[j]);
+
+                    if ((a ?? double.MaxValue) > (b ?? double.MaxValue))
                     {
                         temp = criteria[i];
                         criteria[i] = criteria[j];

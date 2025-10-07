@@ -47,10 +47,14 @@ namespace ApfBuilder.Criteria.Core
 
                 MinValueER = MinValue;
                 MaxValueER = MaxValue;
+                ComplexMaxValue = MaxValue;
+                ComplexMinValue = MinValue;
                 foreach (var e in EmergencyResponse)
                 {
                     MinValueER += e.MinValue;
                     MaxValueER += e.MaxValue;
+                    ComplexMaxValue += e.MaxValue;
+                    ComplexMinValue += e.MinValue;
                 }
 
                 FullValue =

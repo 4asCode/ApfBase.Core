@@ -14,6 +14,10 @@ namespace ApfBuilder.Criteria.Core
 
         public double? MaxValue { get; protected set; }
 
+        public double? ComplexMaxValue { get; protected set; }
+
+        public double? ComplexMinValue { get; protected set; }
+
         public int? RoundValue { get; }
 
         public abstract CriterionType Type { get; }
@@ -33,6 +37,10 @@ namespace ApfBuilder.Criteria.Core
             MinValue = Value;
 
             MaxValue = Value;
+
+            ComplexMaxValue = MaxValue;
+
+            ComplexMinValue = MinValue;
         }
 
         protected CriterionBase(
@@ -49,6 +57,10 @@ namespace ApfBuilder.Criteria.Core
             MaxValue = conditions?.MaxValue == null
                 ? Value
                 : Value + conditions.MaxValue.Round(roundParam);
+
+            ComplexMaxValue = MaxValue;
+
+            ComplexMinValue = MinValue;
         }
     }
 }

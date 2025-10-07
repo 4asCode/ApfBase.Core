@@ -10,6 +10,10 @@
 
         double? MaxValue { get; }
 
+        double? ComplexMaxValue { get; }
+
+        double? ComplexMinValue { get; }
+
         int? RoundValue { get; }
 
         CriterionType Type { get; }

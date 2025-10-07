@@ -18,7 +18,7 @@ namespace ApfBuilder.PowerFlow
         protected PowerFlowBase(IEnumerable<ICriterion> criteria)
         {
             Criteria = criteria.ToArray();
-            Criteria.Sort();
+            Criteria.Sort(x => x.ComplexMinValue);
         }
     }
 }
