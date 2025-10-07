@@ -22,9 +22,6 @@ namespace ApfBuilder.Criteria.Core
         [EnumMember(Value = "Frequency")]
         Frequency,
 
-        [EnumMember(Value = "FrequencyAlternate")]
-        FrequencyAlternate,
-
         [EnumMember(Value = "CurrentAOPO")]
         CurrentAOPO,
 

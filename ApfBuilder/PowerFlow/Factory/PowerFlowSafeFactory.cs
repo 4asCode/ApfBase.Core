@@ -93,14 +93,6 @@ namespace ApfBuilder.PowerFlow.Factory
                     yield return criterion;
                 }
             }
-
-            foreach (var criterion in criteria)
-            {
-                if (criterion.Type == CriterionType.FrequencyAlternate)
-                {
-                    yield return criterion;
-                }
-            }
         }
     }
 }
