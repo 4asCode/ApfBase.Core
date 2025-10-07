@@ -40,6 +40,11 @@ namespace ApfBuilder.Criteria.Core
                 EmergencyResponse = EmergencyResponseHandler.
                     ProcessHandler(base.RoundValue, this.Type, postF.APNU);
 
+                Name = FrequencyPowerFlow?.PowerConsumptionName;
+                Value = FrequencyPowerFlow?.PowerConsumptionFactor;
+                MinValue = Value * FrequencyPowerFlow?.MinValue;
+                MaxValue = Value * FrequencyPowerFlow?.MaxValue;
+
                 MinValueER = MinValue;
                 MaxValueER = MaxValue;
                 foreach (var e in EmergencyResponse)
@@ -47,11 +52,6 @@ namespace ApfBuilder.Criteria.Core
                     MinValueER += e.MinValue;
                     MaxValueER += e.MaxValue;
                 }
-
-                Name = FrequencyPowerFlow?.PowerConsumptionName;
-                Value = FrequencyPowerFlow?.PowerConsumptionFactor;
-                MinValue = Value * FrequencyPowerFlow?.MinValue;
-                MaxValue = Value * FrequencyPowerFlow?.MaxValue;
 
                 FullValue =
                 (
