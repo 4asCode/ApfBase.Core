@@ -121,10 +121,9 @@ namespace ApfBuilder.Context
                     .AsNoTracking()
                     .ToList();
 
-                maxThreads = maxThreads <= 0 || 
-                    maxThreads < Environment.ProcessorCount
-                    ? Environment.ProcessorCount
-                    : maxThreads;
+                maxThreads = maxThreads > 0
+                    ? Math.Min(maxThreads, Environment.ProcessorCount)
+                    : Environment.ProcessorCount;
 
                 return GetContextCollections(preFs, maxThreads);
             }
